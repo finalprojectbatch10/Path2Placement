@@ -1,0 +1,55 @@
+.dashboard {
+  padding: 30px 40px;
+}
+
+.dashboard h1 {
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  font-size: 16px;
+  color: #666;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* Leaderboard */
+.leaderboard {
+  margin-top: 40px;
+}
+
+.leaderboard table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 14px;
+  text-align: left;
+}
+
+.leaderboard th {
+  background: #f0f2f7;
+}

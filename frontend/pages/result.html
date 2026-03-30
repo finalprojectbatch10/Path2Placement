@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Assessment Result</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-900 text-white">
+
+<!-- Header -->
+
+<header class="bg-black px-6 py-4 border-b border-gray-700">
+
+<h1 class="text-xl font-semibold">
+Assessment Result
+</h1>
+
+</header>
+
+
+<!-- Main Result Area -->
+
+<div class="max-w-4xl mx-auto mt-10">
+
+<h2 class="text-2xl font-bold mb-6 text-center">
+Your Performance Report
+</h2>
+
+<div id="report" class="grid grid-cols-2 gap-6"></div>
+
+
+<!-- Total Score -->
+
+<div id="totalScore"
+class="mt-8 text-center text-xl font-bold text-yellow-400">
+</div>
+
+
+<!-- Button -->
+
+<div class="text-center mt-8">
+
+<button onclick="goHome()"
+class="bg-blue-500 px-6 py-3 rounded hover:bg-blue-600">
+
+Go to Dashboard
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const userData = JSON.parse(localStorage.getItem("user"))
+const user = userData?.name
+
+console.log("Fetching result for:", user)  // ✅ ADD HERE
+
+if(!user){
+  alert("User not found. Please login again.")
+  window.location.href = "login.html"
+}
+
+fetch(`http://127.0.0.1:5000/final-report/${user}`)
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("report").innerHTML=`
+
+<div class="bg-gray-800 p-6 rounded shadow">
+<h3 class="text-lg font-semibold mb-2">Aptitude</h3>
+<p class="text-2xl text-green-400">${data.aptitude}</p>
+</div>
+
+<div class="bg-gray-800 p-6 rounded shadow">
+<h3 class="text-lg font-semibold mb-2">Technical</h3>
+<p class="text-2xl text-green-400">${data.technical}</p>
+</div>
+
+<div class="bg-gray-800 p-6 rounded shadow">
+<h3 class="text-lg font-semibold mb-2">HR Interview</h3>
+<p class="text-2xl text-green-400">${data.hr}</p>
+</div>
+
+<div class="bg-gray-800 p-6 rounded shadow">
+<h3 class="text-lg font-semibold mb-2">JAM</h3>
+<p class="text-2xl text-green-400">${data.jam}</p>
+</div>
+
+`
+
+document.getElementById("totalScore").innerHTML =
+`Total Score : ${data.total}`
+
+})
+
+function goHome(){
+window.location.href="dashboard.html"
+}
+
+</script>
+
+</body>
+</html>

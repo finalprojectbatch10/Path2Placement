@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Logical Topic | Path2Placement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Login Protection -->
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .tab-btn.active {
+      background-color: #a3e635;
+      color: black;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white min-h-screen px-10 py-10">
+
+<!-- BACK -->
+<a href="logical.html" class="text-gray-400 hover:text-lime-400">
+  ← Back to Logical Reasoning
+</a>
+
+<!-- TITLE -->
+<h1 id="topicTitle" class="text-3xl font-bold mt-6 mb-4"></h1>
+
+<!-- TABS -->
+<div class="flex gap-4 mb-6">
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('concepts')">Concepts</button>
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('formulas')">Rules</button>
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('practice')">Practice</button>
+</div>
+
+<!-- CONTENT -->
+<div id="contentBox" class="bg-gray-900 border border-gray-800 rounded-xl p-6"></div>
+
+<script>
+/* ================= LOGICAL TOPIC DATA ================= */
+const topics = {
+
+seating_arrangements: {
+  title: "Seating Arrangements",
+
+  concepts: `<h3 class="text-lg font-bold mb-3">Seating Arrangements</h3>
+<p class="mb-3">Seating Arrangement problems are a key part of <b>Logical Reasoning</b> in placement exams. They test your <b>analytical and reasoning ability</b> using constraints-based positioning.</p>
+<h4 class="font-semibold mt-4 mb-2">1. Linear Arrangement</h4>
+<ul class="list-disc ml-6 space-y-1 text-gray-300">
+  <li>People/items are seated in a straight line.</li>
+  <li>Positions can face front or backward.</li>
+  <li>Key questions: Who is at the ends, who is in the middle, relative positions (left/right).</li>
+</ul>
+<h4 class="font-semibold mt-4 mb-2">2. Circular Arrangement</h4>
+<ul class="list-disc ml-6 space-y-1 text-gray-300">
+  <li>People/items sit around a circle.</li>
+  <li>Can face inside or outside.</li>
+  <li>Clockwise and anticlockwise positions are important.</li>
+  <li>Neighbors and opposite positions are commonly asked.</li>
+</ul>
+<h4 class="font-semibold mt-4 mb-2">3. Rectangular/Square Arrangement</h4>
+<ul class="list-disc ml-6 space-y-1 text-gray-300">
+  <li>People/items sit at corners or sides of a rectangle/square.</li>
+  <li>Can face inside or outside.</li>
+  <li>Often combined with circular arrangements in complex problems.</li>
+</ul>
+<h4 class="font-semibold mt-4 mb-2">4. Complex Arrangements</h4>
+<ul class="list-disc ml-6 space-y-1 text-gray-300">
+  <li>Combines multiple shapes, rows & columns, multiple floors, and mixed constraints.</li>
+  <li>Step-by-step reasoning and diagram drawing is usually required.</li>
+</ul>`,
+
+  formulas: [
+    "Linear Arrangement: Total arrangements of n people in a line = n!",
+    "If k people are fixed, remaining arrangements = (n−k)!",
+    "Circular Arrangement: Total arrangements of n people around a circle = (n−1)!",
+    "If people face inside/outside, same formula applies for circle.",
+    "Rectangular Arrangement: Corners = 4! ways, sides = factorials for each side",
+    "Complex Arrangements: Fix certain people first, place others based on constraints, often draw diagram"
+  ],
+
+  practice: [
+    // Easy (1–7)
+    { q: "5 people A, B, C, D, E sit in a row. A is in the middle and B is left of C. Who sits at the ends?", options: ["D and E", "A and B", "B and C", "C and D"], answer: 0, explanation: "With A in the middle and B left of C, the remaining D and E occupy the ends." },
+    { q: "6 people sit in a line. How many ways can they be arranged?", options: ["120", "360", "720", "7200"], answer: 2, explanation: "Total arrangements = 6! = 720." },
+    { q: "4 people sit in a row. C must be at one end. Number of arrangements?", options: ["6", "8", "12", "24"], answer: 2, explanation: "C can be at 2 ends × arrangements of remaining 3 = 2 × 3! = 12." },
+    { q: "3 people sit in a row. A must sit in the middle. Number of arrangements?", options: ["1", "2", "3", "6"], answer: 1, explanation: "A fixed in middle → remaining 2 swap → 2! = 2." },
+    { q: "7 people sit in a line. B and C must sit together. Number of arrangements?", options: ["720", "1440", "840", "1000"], answer: 1, explanation: "Treat BC as 1 unit → 6! × 2! = 720 × 2 = 1440." },
+    { q: "A sits to the left of B in a line of 5 people. Who can sit in the middle?", options: ["Any of remaining 3", "A or B", "Only C", "Cannot determine"], answer: 0, explanation: "Remaining 3 people can occupy middle." },
+    { q: "5 people sit in a row facing front. Who is 2nd from left?", options: ["Depends on arrangement", "A", "B", "C"], answer: 0, explanation: "Cannot determine without more info." },
+
+    // Medium (8–14)
+    { q: "6 people sit around a round table. Number of arrangements?", options: ["120", "24", "720", "36"], answer: 0, explanation: "Circular arrangement = (6−1)! = 120." },
+    { q: "5 people sit around a table. A must sit opposite B. Arrangements?", options: ["6", "24", "12", "8"], answer: 2, explanation: "Fix A → B opposite → remaining 3! = 6." },
+    { q: "8 people around a circle. X and Y must be together. Number of arrangements?", options: ["720", "1440", "1008", "1680"], answer: 1, explanation: "Treat XY as 1 unit → (7−1)! × 2 = 720 × 2 = 1440." },
+    { q: "4 people sit around a circle facing inward. Number of arrangements?", options: ["6", "24", "12", "8"], answer: 0, explanation: "(4−1)! = 6." },
+    { q: "A sits opposite B, C sits left of D, 6 people around table. Who is right of A?", options: ["Depends on arrangement", "B", "C", "D"], answer: 0, explanation: "Requires full diagram → cannot determine." },
+    { q: "7 people sit in a circle. A and B cannot sit together. Number of arrangements?", options: ["708", "720", "690", "700"], answer: 0, explanation: "Stepwise diagram needed to calculate not-together arrangements." },
+    { q: "5 people sit around a circular table. Everyone faces outside. Arrangements?", options: ["24", "120", "60", "36"], answer: 0, explanation: "Facing inside/outside does not change formula → (5−1)! = 24." },
+
+    // Hard (15–20)
+    { q: "4 people sit at corners of a rectangle. Number of arrangements?", options: ["12", "24", "16", "8"], answer: 1, explanation: "4! = 24." },
+    { q: "8 people sit at 4 corners and 4 sides of a rectangle. Arrangements?", options: ["384", "576", "720", "1024"], answer: 1, explanation: "Corners 4! × sides 4! = 24 × 24 = 576." },
+    { q: "10 people sit in 2 rows of 5. Number of ways?", options: ["14,400", "12,000", "10,000", "24,000"], answer: 0, explanation: "Row 1: 5! × Row 2: 5! = 120 × 120 = 14,400." },
+    { q: "6 people sit in a row. A left of B, C right of D, E between B and F. Number of arrangements?", options: ["Depends on constraints", "720", "360", "120"], answer: 0, explanation: "Stepwise placement required → solve with diagram." },
+    { q: "12 people sit around 3 circular tables (4 each). Arrangements?", options: ["13,824", "11,520", "12,960", "14,400"], answer: 0, explanation: "Each table: (4−1)!³ × 12!/(4!³) → calculate stepwise." },
+    { q: "8 people sit in 2 rows of 4. Some facing front, some back. Arrangements?", options: ["384", "576", "720", "1024"], answer: 1, explanation: "4! for front × 4! for back = 24 × 24 = 576." }
+  ]
+},
+orderAndRanking: {
+  title: "Order & Ranking",
+  concepts: `
+  <h3 class="text-lg font-bold mb-3">Introduction to Order & Ranking</h3>
+  <p class="mb-3">
+    Order & Ranking problems are a key part of <b>Logical Reasoning</b>.
+    These questions test the ability to <b>compare values</b>, determine
+    <b>positions</b>, and analyze <b>relative ranks</b>.
+  </p>
+
+  <h4 class="font-semibold mt-4 mb-2">Key Concepts</h4>
+  <ul class="list-disc ml-6 space-y-2 text-gray-300">
+    <li><b>Direct Ranking:</b> Rank 1 may indicate highest or lowest.</li>
+    <li><b>Reverse Ranking:</b> Ranking counted from bottom or end.</li>
+    <li><b>Comparative Statements:</b> Taller, older, heavier, faster, etc.</li>
+    <li><b>Positions from Both Ends:</b> Rank from left and right.</li>
+    <li><b>Tie Cases:</b> Same rank causes skipping of the next rank.</li>
+  </ul>
+
+  <p class="mt-3 text-lime-400">
+    Tip: Use a simple number line or vertical diagram to avoid mistakes.
+  </p>
+  `,
+  formulas: [
+    "Rank from opposite end = Total people − Rank from one end + 1",
+    "Number of people between rank x and rank y = |x − y| − 1",
+    "If two people share same rank, next rank is skipped",
+    "Total people = Rank from left + Rank from right − 1"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–5) */
+
+    {
+      q: "5 students A, B, C, D, E are ranked by height. C is tallest and A is 2nd tallest. Who is the shortest?",
+      options: ["B", "D", "E", "Cannot be determined"],
+      answer: 3,
+      explanation: "Only tallest and 2nd tallest are known. Shortest cannot be uniquely determined."
+    },
+    {
+      q: "8 people stand in a row. B is 3rd from the left and F is 2nd from the right. How many people are between them?",
+      options: ["2", "3", "4", "5"],
+      answer: 1,
+      explanation: "F is 7th from left. People between = 7 − 3 − 1 = 3."
+    },
+    {
+      q: "In an exam of 6 students, A is 1st and B is 4th. How many students scored between A and B?",
+      options: ["1", "2", "3", "4"],
+      answer: 1,
+      explanation: "Between ranks = 4 − 1 − 1 = 2."
+    },
+    {
+      q: "In a row of 10 people, C is 4th from the right. What is C’s rank from the left?",
+      options: ["6", "7", "8", "5"],
+      answer: 1,
+      explanation: "Rank from left = 10 − 4 + 1 = 7."
+    },
+    {
+      q: "If two students are ranked 2nd in a class, what will be the next rank?",
+      options: ["3rd", "4th", "5th", "1st"],
+      answer: 1,
+      explanation: "If two share 2nd rank, the next rank is skipped → 4th."
+    },
+
+    /* 🟡 MEDIUM LEVEL (6–12) */
+
+    {
+      q: "Heights of five people are arranged as: C > B > E > A > D. Who is the 3rd tallest?",
+      options: ["B", "E", "A", "D"],
+      answer: 1,
+      explanation: "Order tallest to shortest: C, B, E, A, D → 3rd tallest is E."
+    },
+    {
+      q: "A is taller than B but shorter than C. Who is the tallest?",
+      options: ["A", "B", "C", "Cannot determine"],
+      answer: 2,
+      explanation: "C is taller than both A and B."
+    },
+    {
+      q: "In a line of 8 students, ranks from left are 2, 5, and 7. How many students are between rank 2 and rank 5?",
+      options: ["1", "2", "3", "4"],
+      answer: 1,
+      explanation: "Between = 5 − 2 − 1 = 2."
+    },
+    {
+      q: "F is taller than G and H but shorter than E. Who is the shortest?",
+      options: ["F", "E", "G", "Cannot determine"],
+      answer: 3,
+      explanation: "No comparison between G and H, so shortest cannot be fixed."
+    },
+    {
+      q: "In a row of 10 people, A is 4th from the front and B is 3rd from the back. How many are between A and B?",
+      options: ["2", "3", "4", "5"],
+      answer: 1,
+      explanation: "B is 8th from front. Between = 8 − 4 − 1 = 3."
+    },
+    {
+      q: "In a class of 7 students, D is 2nd from top and E is 3rd from bottom. How many students are between them?",
+      options: ["1", "2", "3", "4"],
+      answer: 1,
+      explanation: "E is 5th from top. Between = 5 − 2 − 1 = 2."
+    },
+    {
+      q: "10 students are ranked in two subjects. A is 3rd in Maths and 5th in Science. Who is better overall?",
+      options: ["A", "Cannot be determined", "Math topper", "Science topper"],
+      answer: 1,
+      explanation: "No rule given to compare overall performance."
+    },
+
+    /* 🔴 HARD LEVEL (13–20) */
+
+    {
+      q: "In a class of 12 students, A is 3rd tallest and B is 5th shortest. How many students are taller than both A and B?",
+      options: ["1", "2", "3", "4"],
+      answer: 1,
+      explanation: "A has 2 taller than him. B has 7 taller. Taller than both = 2."
+    },
+    {
+      q: "In a class of 15 students, C is 7th from the top and D is 6th from the bottom. How many are between C and D?",
+      options: ["1", "2", "3", "4"],
+      answer: 1,
+      explanation: "D is 10th from top. Between = 10 − 7 − 1 = 2."
+    },
+    {
+      q: "8 players are ranked A > B > C > D > E > F > G > H. If A and C swap positions, who becomes 3rd tallest?",
+      options: ["A", "B", "C", "D"],
+      answer: 2,
+      explanation: "After swap: C > B > A > D... → 3rd tallest is A."
+    },
+    {
+      q: "In a group of 20 students, P is 6th from left and Q is 9th from right. How many are between them?",
+      options: ["4", "5", "6", "7"],
+      answer: 1,
+      explanation: "Q from left = 20 − 9 + 1 = 12 → Between = 12 − 6 − 1 = 5."
+    },
+    {
+      q: "In a competition, two participants tie for 2nd place. What will be the rank of the next participant?",
+      options: ["3rd", "4th", "5th", "6th"],
+      answer: 1,
+      explanation: "Ranks skipped after tie → next rank is 4th."
+    },
+    {
+      q: "A is taller than B and C but shorter than D and E. Who is the 3rd tallest?",
+      options: ["A", "B", "D", "Cannot be determined"],
+      answer: 3,
+      explanation: "Exact order of D and E not known → 3rd tallest cannot be fixed."
+    },
+    {
+      q: "In Math & Science ranks: A = (1,3), B = (2,2), C = (3,1). Who is overall topper?",
+      options: ["A", "B", "C", "Cannot determine"],
+      answer: 1,
+      explanation: "Sum of ranks: A=4, B=4, C=4 → tie, but B has balanced ranks."
+    },
+    {
+      q: "Ranks from front are 1, 2, 5, and 7 in a row of 8 people. How many are between rank 2 and rank 7?",
+      options: ["3", "4", "5", "6"],
+      answer: 1,
+      explanation: "Between = 7 − 2 − 1 = 4."
+    }
+  ]
+},
+bloodRelations: {
+  title: "Blood Relations",
+  concepts: `
+  <h3 class="text-lg font-bold mb-3">Introduction to Blood Relations</h3>
+  <p class="mb-3">
+    Blood Relation problems test your ability to understand <b>family relationships</b>
+    using logical reasoning. These questions are very common in <b>placement exams</b>
+    and require clarity of <b>generations, gender,</b> and <b>family hierarchy</b>.
+  </p>
+
+  <h4 class="font-semibold mt-4 mb-2">Key Concepts</h4>
+  <ul class="list-disc ml-6 space-y-2 text-gray-300">
+    <li><b>Basic Relations:</b> Father, Mother, Son, Daughter, Brother, Sister</li>
+    <li><b>Extended Relations:</b> Uncle, Aunt, Cousin, Nephew, Niece</li>
+    <li><b>Indirect Relations:</b> In-laws, maternal/paternal sides</li>
+    <li><b>Family Tree Method:</b> Draw a simple diagram to avoid confusion</li>
+    <li><b>Gender Indicators:</b> Son/Male, Daughter/Female, Brother/Male, Sister/Female</li>
+  </ul>
+
+  <p class="mt-3 text-lime-400">
+    Tip: Always solve blood relation questions by drawing a family tree step by step.
+  </p>
+  `,
+  formulas: [
+    "Father/Mother → Child = Direct relationship",
+    "Grandparent → Grandchild = Skip one generation",
+    "Siblings share at least one common parent",
+    "Cousin = Child of parent's sibling",
+    "Nephew/Niece = Child of brother or sister",
+    "If A is father of B, B is son/daughter of A",
+    "Grandparent to grandchild = ±2 generations"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–5) */
+
+    {
+      q: "A is the father of B. B is the mother of C. How is A related to C?",
+      options: ["Father", "Grandfather", "Uncle", "Brother"],
+      answer: 1,
+      explanation: "A → father of B, B → mother of C → A is grandfather of C."
+    },
+    {
+      q: "X is the brother of Y. Y is the mother of Z. How is X related to Z?",
+      options: ["Father", "Uncle", "Brother", "Grandfather"],
+      answer: 1,
+      explanation: "X is brother of Z’s mother → maternal uncle."
+    },
+    {
+      q: "A is the daughter of B. B is the mother of C. How is C related to A?",
+      options: ["Brother", "Sister", "Mother", "Cannot be determined"],
+      answer: 3,
+      explanation: "Gender of C is not given, so C can be brother or sister."
+    },
+    {
+      q: "M is the son of N. N is the father of O. How is M related to O?",
+      options: ["Brother", "Sister", "Son", "Nephew"],
+      answer: 0,
+      explanation: "Both M and O are children of N → siblings → brother."
+    },
+    {
+      q: "P is the father of Q. Q is the father of R. R is the brother of S. How is P related to S?",
+      options: ["Father", "Uncle", "Grandfather", "Great-grandfather"],
+      answer: 2,
+      explanation: "P → father of Q → grandfather of R and S."
+    },
+
+    /* 🟡 MEDIUM LEVEL (6–12) */
+
+    {
+      q: "A is the father of B. C is the daughter of B. D is the son of C. How is A related to D?",
+      options: ["Grandfather", "Great-grandfather", "Uncle", "Father"],
+      answer: 1,
+      explanation: "A → B → C → D → A is great-grandfather of D."
+    },
+    {
+      q: "X is the mother of Y. Y is the sister of Z. How is X related to Z?",
+      options: ["Mother", "Aunt", "Grandmother", "Sister"],
+      answer: 0,
+      explanation: "X is mother of Y, Y and Z are siblings → X is mother of Z."
+    },
+    {
+      q: "A is the brother of B. B is the father of C. C is the father of D. How is A related to D?",
+      options: ["Uncle", "Grandfather", "Great-uncle", "Brother"],
+      answer: 2,
+      explanation: "A is uncle of C and great-uncle of D."
+    },
+    {
+      q: "M is the son of N. P is the father of N. Q is the daughter of P. How is M related to Q?",
+      options: ["Brother", "Nephew", "Cousin", "Son"],
+      answer: 1,
+      explanation: "Q is sibling of N, M is N’s son → nephew."
+    },
+    {
+      q: "X is the sister of Y. Y is the mother of Z. W is the brother of Z. How is X related to W?",
+      options: ["Aunt", "Mother", "Sister", "Cousin"],
+      answer: 0,
+      explanation: "X is sister of Z’s mother → maternal aunt."
+    },
+    {
+      q: "A is the father of B. C is the mother of B. D is the son of C. How is A related to D?",
+      options: ["Father", "Uncle", "Brother", "Grandfather"],
+      answer: 0,
+      explanation: "A and C are parents of B, D is son of C → A is father."
+    },
+    {
+      q: "P is the mother of Q. Q is married to R. S is the son of R. How is P related to S?",
+      options: ["Mother", "Aunt", "Grandmother", "Mother-in-law"],
+      answer: 2,
+      explanation: "P is mother of Q, Q married to R → S is grandchild."
+    },
+
+    /* 🔴 HARD LEVEL (13–20) */
+
+    {
+      q: "A is the father of B. C is the brother of B. D is the son of C. How is A related to D?",
+      options: ["Father", "Uncle", "Grandfather", "Great-grandfather"],
+      answer: 2,
+      explanation: "C is sibling of B, D is C’s son → A is grandfather of D."
+    },
+    {
+      q: "X is the daughter of Y. Z is the father of Y. W is the brother of X. How is Z related to W?",
+      options: ["Father", "Uncle", "Grandfather", "Brother"],
+      answer: 2,
+      explanation: "Z is father of Y, Y is parent of W → Z is grandfather."
+    },
+    {
+      q: "M is the mother of N. O is the daughter of N. P is the father of O. How is M related to P?",
+      options: ["Mother", "Mother-in-law", "Aunt", "Grandmother"],
+      answer: 1,
+      explanation: "P married N, M is N’s mother → mother-in-law."
+    },
+    {
+      q: "A is the son of B. C is the daughter of B. D is the son of C. E is the daughter of D. How is A related to E?",
+      options: ["Father", "Grandfather", "Uncle", "Great-uncle"],
+      answer: 3,
+      explanation: "A is uncle of D and great-uncle of E."
+    },
+    {
+      q: "P is the father of Q. R is the mother of Q. S is the father of R. T is the daughter of S. How is T related to P?",
+      options: ["Sister", "Wife", "Mother", "Mother-in-law"],
+      answer: 3,
+      explanation: "T is sister of R, R married P → T is P’s mother-in-law."
+    },
+    {
+      q: "X is the brother of Y. Y is the father of Z. W is the sister of Z. How is X related to W?",
+      options: ["Brother", "Father", "Uncle", "Cousin"],
+      answer: 2,
+      explanation: "X is brother of Z’s father → uncle."
+    },
+    {
+      q: "A is the mother of B. B is married to C. D is the son of C. How is A related to D?",
+      options: ["Mother", "Aunt", "Grandmother", "Mother-in-law"],
+      answer: 2,
+      explanation: "A is mother of B, B married to C → D is grandchild."
+    },
+    {
+      q: "M is the father of N. O is the brother of N. P is the son of O. How is M related to P?",
+      options: ["Father", "Uncle", "Grandfather", "Great-grandfather"],
+      answer: 2,
+      explanation: "O is son of M, P is son of O → M is grandfather."
+    }
+  ]
+},
+syllogism: {
+  title: "Syllogism",
+  concepts: `
+  <h3 class="text-lg font-bold mb-3">Introduction to Syllogism</h3>
+  <p class="mb-3">
+    Syllogism problems test your <b>deductive reasoning ability</b> using
+    given <b>statements</b> and checking which <b>conclusions definitely follow</b>.
+    These are very common in <b>placement exams</b>.
+  </p>
+
+  <h4 class="font-semibold mt-4 mb-2">Key Concepts</h4>
+  <ul class="list-disc ml-6 space-y-2 text-gray-300">
+    <li><b>Statements:</b> Facts or conditions given (All, Some, No)</li>
+    <li><b>Conclusions:</b> Results derived logically from statements</li>
+    <li><b>Types of Statements:</b>
+      <ul class="list-disc ml-6 mt-1">
+        <li>All A are B → Universal Affirmative</li>
+        <li>No A is B → Universal Negative</li>
+        <li>Some A are B → Particular Affirmative</li>
+        <li>Some A are not B → Particular Negative</li>
+      </ul>
+    </li>
+    <li><b>Venn Diagram Method:</b> Draw circles to visualize relations</li>
+    <li><b>Definitely Follows:</b> Must be true in all cases</li>
+  </ul>
+
+  <p class="mt-3 text-lime-400">
+    Tip: Never assume extra information. Conclusions must be 100% true.
+  </p>
+  `,
+  formulas: [
+    "All A are B + All B are C → All A are C",
+    "Some A are B + All B are C → Some A are C",
+    "No A is B → A and B do not overlap",
+    "From 'Some', no definite conclusion unless linked by 'All'",
+    "From 'No', particular conclusions are not guaranteed",
+    "Always check each conclusion independently"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–5) */
+
+    {
+      q: "Statements: All cats are animals. Some animals are dogs. Conclusions: I. Some cats are dogs. II. Some dogs are animals.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 1,
+      explanation: "Some animals are dogs → dogs overlap animals. No link between cats and dogs."
+    },
+    {
+      q: "Statements: No A is B. All C are B. Conclusions: I. No C is A. II. Some A are not C.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "C is fully inside B, and B does not overlap A → No C is A."
+    },
+    {
+      q: "Statements: All pens are pencils. All pencils are erasers. Conclusions: I. All pens are erasers. II. Some erasers are pens.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 2,
+      explanation: "Pens ⊂ Pencils ⊂ Erasers → both conclusions follow."
+    },
+    {
+      q: "Statements: Some books are novels. Some novels are magazines. Conclusions: I. Some books are magazines. II. Some magazines are novels.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 1,
+      explanation: "Some novels are magazines directly supports conclusion II."
+    },
+    {
+      q: "Statements: All dogs are animals. No animals are plants. Conclusions: I. No dogs are plants. II. Some plants are not dogs.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Dogs ⊂ Animals, Animals ∩ Plants = Ø → No dogs are plants."
+    },
+
+    /* 🟡 MEDIUM LEVEL (6–12) */
+
+    {
+      q: "Statements: All A are B. No B is C. Conclusions: I. No A is C. II. Some C are B.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "A ⊂ B and B ∩ C = Ø → A ∩ C = Ø."
+    },
+    {
+      q: "Statements: Some X are Y. All Y are Z. Conclusions: I. Some X are Z. II. All X are Z.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Some X overlap Y, and Y ⊂ Z → some X overlap Z."
+    },
+    {
+      q: "Statements: All M are N. Some N are O. Conclusions: I. Some M are O. II. Some O are M.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 3,
+      explanation: "No definite overlap between M and O."
+    },
+    {
+      q: "Statements: No P is Q. Some R are Q. Conclusions: I. Some R are not P. II. No R is P.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "R overlaps Q, Q does not overlap P → those R are not P."
+    },
+    {
+      q: "Statements: All A are B. All B are C. Some C are D. Conclusions: I. Some B are D. II. Some A are D.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 3,
+      explanation: "Some C are D does not guarantee overlap with B or A."
+    },
+    {
+      q: "Statements: Some students are intelligent. All intelligent are hardworking. Conclusions: I. Some students are hardworking. II. All hardworking are students.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Some students ∩ intelligent ⊂ hardworking → conclusion I follows."
+    },
+    {
+      q: "Statements: No X is Y. All Z are Y. Conclusions: I. No Z is X. II. Some Z are not X.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Z ⊂ Y and Y ∩ X = Ø → Z ∩ X = Ø."
+    },
+
+    /* 🔴 HARD LEVEL (13–20) */
+
+    {
+      q: "Statements: All A are B. Some C are not B. Conclusions: I. Some C are not A. II. Some B are not C.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 1,
+      explanation: "Some C lie outside B → those C cannot be A."
+    },
+    {
+      q: "Statements: Some P are Q. No Q is R. Conclusions: I. Some P are not R. II. No P is R.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Some P overlap Q and Q ∩ R = Ø → those P are not R."
+    },
+    {
+      q: "Statements: All X are Y. No Y is Z. Some Z are W. Conclusions: I. No X is Z. II. Some W are not X.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "X ⊂ Y and Y ∩ Z = Ø → X ∩ Z = Ø."
+    },
+    {
+      q: "Statements: Some A are B. Some B are C. Conclusions: I. Some A are C. II. Some C are A.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 3,
+      explanation: "No definite link between A and C."
+    },
+    {
+      q: "Statements: All M are N. All O are P. No N is P. Conclusions: I. Some M are O. II. No M is P.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 1,
+      explanation: "M ⊂ N and N ∩ P = Ø → M ∩ P = Ø."
+    },
+    {
+      q: "Statements: Some X are Y. All Y are Z. No Z is W. Conclusions: I. Some X are not W. II. No X is W.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Some X overlap Y ⊂ Z and Z ∩ W = Ø → those X are not W."
+    },
+    {
+      q: "Statements: All students are disciplined. Some disciplined are intelligent. Conclusions: I. Some students are intelligent. II. All intelligent are students.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "Some disciplined may belong to students → conclusion I possible and definite."
+    },
+    {
+      q: "Statements: No A is B. Some C are A. Conclusions: I. Some C are not B. II. No C is B.",
+      options: ["Only I follows", "Only II follows", "Both follow", "Neither follows"],
+      answer: 0,
+      explanation: "C overlaps A, and A ∩ B = Ø → those C are not B."
+    }
+  ]
+},
+codingDecoding: {
+  title: "Coding–Decoding",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Coding–Decoding</h3>
+    <p class="mb-3">
+      Coding–Decoding tests your ability to identify <b>patterns</b> and
+      <b>logical relationships</b> between <b>letters, numbers, words,</b> or
+      <b>symbols</b>. These questions are frequently asked in <b>placement exams</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Letter Coding</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Alphabet positions (A=1, B=2, … Z=26)</li>
+      <li>Forward or backward shifting</li>
+      <li>Reverse alphabet coding (A↔Z, B↔Y)</li>
+      <li>Example: CAT → DBU (+1 shift)</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Number Coding</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Mathematical operations (+, −, ×, ÷)</li>
+      <li>Squares, cubes, digit manipulation</li>
+      <li>Example: 4 → 16 (4²)</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Word Coding</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Substitution of letters</li>
+      <li>Reversal of words</li>
+      <li>Alphabet value mapping</li>
+      <li>Example: CAT → 3120 (3-1-20)</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Alphanumeric Coding</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Combination of letters and numbers</li>
+      <li>Example: A1B2 → B2C3</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Symbol Coding</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Letters or numbers replaced with symbols</li>
+      <li>Example: A=@, B=#, C=$</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: Always check for same shift, alternate shift, reversal, or mathematical patterns first.
+    </p>
+  `,
+  formulas: [
+    "Alphabet positions: A=1, B=2, C=3, …, Z=26",
+    "Reverse alphabet: A=26, B=25, …, Z=1",
+    "Forward shift: A → B → C",
+    "Backward shift: C → B → A",
+    "Word value = Sum of alphabet positions",
+    "Look for same or alternate shift patterns",
+    "Check for squares, cubes, or n(n+1) in number coding"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–7) */
+
+    {
+      q: "If A=1, B=2, … Z=26, what is the value of CAT?",
+      options: ["21", "23", "24", "26"],
+      answer: 2,
+      explanation: "C=3, A=1, T=20 → 3+1+20 = 24."
+    },
+    {
+      q: "If DOG → EPH, how is CAT coded?",
+      options: ["DBU", "CBT", "DBT", "ECU"],
+      answer: 0,
+      explanation: "Each letter is shifted forward by +1."
+    },
+    {
+      q: "In a code, 5 → 25 and 6 → 36. What is the code for 8?",
+      options: ["56", "64", "72", "81"],
+      answer: 1,
+      explanation: "Square of the number → 8² = 64."
+    },
+    {
+      q: "If A=@, B=#, C=$, how is CAB coded?",
+      options: ["$#@", "$@#", "@#$", "#@$"],
+      answer: 1,
+      explanation: "C=$, A=@, B=# → $@#."
+    },
+    {
+      q: "If Z=1, Y=2, X=3, what is the value of AZ?",
+      options: ["25", "26", "27", "28"],
+      answer: 2,
+      explanation: "A=26, Z=1 → 26+1 = 27."
+    },
+    {
+      q: "If BOOK → CPPL, then PEN → ?",
+      options: ["QFO", "QEO", "PFN", "RGP"],
+      answer: 0,
+      explanation: "Each letter is shifted forward by +1."
+    },
+    {
+      q: "If 12 → L and 15 → O, then 20 → ?",
+      options: ["R", "S", "T", "U"],
+      answer: 2,
+      explanation: "Alphabet position mapping → 20 = T."
+    },
+
+    /* 🟡 MEDIUM LEVEL (8–14) */
+
+    {
+      q: "If FLOWER → GMPXFS, how is GARDEN coded?",
+      options: ["HBSEFO", "HBSDFO", "HBSEFN", "ICSEFO"],
+      answer: 0,
+      explanation: "Each letter is shifted forward by +1."
+    },
+    {
+      q: "In a code, 2 → 6, 3 → 12, 4 → 20. What is the code for 5?",
+      options: ["25", "30", "35", "40"],
+      answer: 1,
+      explanation: "Pattern n(n+1) → 5×6 = 30."
+    },
+    {
+      q: "If CAT = 3120 and DOG = 4157, what is RAT?",
+      options: ["18120", "18210", "17120", "19120"],
+      answer: 0,
+      explanation: "R=18, A=1, T=20 → 18120."
+    },
+    {
+      q: "If A1B2C3 → B2C3D4, how is D4E5 coded?",
+      options: ["E5F6", "D5E6", "E4F5", "F5G6"],
+      answer: 0,
+      explanation: "Each letter and number increases by +1."
+    },
+    {
+      q: "If SKY → LHB, how is SUN coded?",
+      options: ["HFM", "GEL", "IFN", "JGO"],
+      answer: 0,
+      explanation: "Reverse alphabet coding."
+    },
+    {
+      q: "If 7 → 343 and 5 → 125, what is the code for 6?",
+      options: ["216", "196", "256", "144"],
+      answer: 0,
+      explanation: "Cube of the number → 6³ = 216."
+    },
+    {
+      q: "If APPLE → ELPPA, how is MANGO coded?",
+      options: ["OGNAM", "OGMAN", "AMGNO", "GNOMA"],
+      answer: 0,
+      explanation: "Word reversal."
+    },
+
+    /* 🔴 HARD LEVEL (15–20) */
+
+    {
+      q: "If TEACH → VGCEJ, how is LEARN coded?",
+      options: ["NGCTP", "MFBSO", "OHDUQ", "NGDSP"],
+      answer: 0,
+      explanation: "Each letter is shifted forward by +2."
+    },
+    {
+      q: "In a code language, COMPUTER → RFUVQNPC. What is the code for LAPTOP?",
+      options: ["NBRVQR", "MBQUQP", "OBSVRQ", "NBQVQR"],
+      answer: 0,
+      explanation: "Consistent letter shifting pattern."
+    },
+    {
+      q: "If A=1 and Z=26 and the word is reversed before coding, what is the value of DOG?",
+      options: ["24", "26", "28", "30"],
+      answer: 1,
+      explanation: "DOG → GOD → 7+15+4 = 26."
+    },
+    {
+      q: "If 9 → 81, 8 → 64, 7 → 49, what is the code for 11?",
+      options: ["110", "121", "132", "144"],
+      answer: 1,
+      explanation: "Square of the number → 11² = 121."
+    },
+    {
+      q: "If CHAIR → EKCKT, how is TABLE coded?",
+      options: ["VCDNG", "UBDMF", "WEDOH", "TCBMF"],
+      answer: 0,
+      explanation: "Alternate shifting pattern."
+    },
+    {
+      q: "If MOBILE → NQDKNG, how is PHONE coded?",
+      options: ["RJPQG", "QIONF", "SJQPH", "RKPOF"],
+      answer: 0,
+      explanation: "Each letter is shifted forward by +1."
+    }
+  ]
+},
+directionSense: {
+  title: "Direction Sense / Directions",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Direction Sense / Directions</h3>
+    <p class="mb-3">
+      Direction Sense questions test your ability to <b>track movements</b>,
+      <b>understand directions</b>, and <b>calculate distance and direction</b>
+      after a series of turns. These questions are commonly asked in
+      <b>placement exams</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Basic Directions</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>North (N), South (S), East (E), West (W)</li>
+      <li>Inter-directions: North-East (NE), North-West (NW), South-East (SE), South-West (SW)</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Right & Left Turns</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Right turn = 90° clockwise</li>
+      <li>Left turn = 90° anticlockwise</li>
+      <li>U-turn = 180°</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Facing Direction</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Always note the starting direction</li>
+      <li>Left and right depend on the current facing direction</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Distance Tracking</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Distances are calculated using horizontal (E–W) and vertical (N–S) movement</li>
+      <li>Shortest distance is not the total path length</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: Always draw a rough direction diagram and mark movements step by step.
+    </p>
+  `,
+  formulas: [
+    "Opposite directions: North ↔ South, East ↔ West",
+    "Right turn mapping: North→East→South→West→North",
+    "Left turn mapping: North→West→South→East→North",
+    "Shortest distance = √((East–West)² + (North–South)²)",
+    "Final direction depends on net horizontal and vertical displacement"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–7) */
+
+    {
+      q: "Ravi walks 10 m North, then 5 m East. How far is he from the starting point?",
+      options: ["10 m", "5 m", "11.18 m", "15 m"],
+      answer: 2,
+      explanation: "Shortest distance = √(10² + 5²) = √125 ≈ 11.18 m."
+    },
+    {
+      q: "A person walks 15 m towards South. Which direction is he facing?",
+      options: ["North", "East", "South", "West"],
+      answer: 2,
+      explanation: "He is moving towards South."
+    },
+    {
+      q: "Ram walks 5 m East, then turns right and walks 3 m. Which direction is he moving now?",
+      options: ["North", "South", "East", "West"],
+      answer: 1,
+      explanation: "Facing East, right turn → South."
+    },
+    {
+      q: "A man is facing North and turns right. Which direction is he facing now?",
+      options: ["East", "West", "South", "North"],
+      answer: 0,
+      explanation: "Right turn from North → East."
+    },
+    {
+      q: "Neha walks 7 m towards West. What is the opposite direction?",
+      options: ["East", "North", "South", "West"],
+      answer: 0,
+      explanation: "Opposite of West is East."
+    },
+    {
+      q: "A boy walks 4 m North and then 4 m South. How far is he from the starting point?",
+      options: ["4 m", "8 m", "0 m", "2 m"],
+      answer: 2,
+      explanation: "He returns to the starting point."
+    },
+    {
+      q: "A person walks 10 m East and then 10 m West. What is his final position?",
+      options: ["10 m East", "10 m West", "Same position", "20 m East"],
+      answer: 2,
+      explanation: "East and West movements cancel each other."
+    },
+
+    /* 🟡 MEDIUM LEVEL (8–14) */
+
+    {
+      q: "A man walks 10 m North, then 5 m East, and then 10 m South. How far is he from the starting point?",
+      options: ["5 m", "10 m", "15 m", "0 m"],
+      answer: 0,
+      explanation: "Net movement = 5 m East."
+    },
+    {
+      q: "Ravi walks 20 m East, turns left and walks 10 m, turns left again and walks 20 m. How far is he from start?",
+      options: ["10 m South", "10 m North", "20 m", "0 m"],
+      answer: 0,
+      explanation: "Final position is 10 m South from start."
+    },
+    {
+      q: "A person moves 12 m North and then 5 m West. In which direction is he from the starting point?",
+      options: ["North-East", "North-West", "South-West", "South-East"],
+      answer: 1,
+      explanation: "Movement is towards North and West → North-West."
+    },
+    {
+      q: "A man walks 5 m South, turns right, walks 3 m, then turns right and walks 5 m. How far is he from the start?",
+      options: ["3 m East", "3 m West", "5 m", "0 m"],
+      answer: 1,
+      explanation: "Net displacement is 3 m West."
+    },
+    {
+      q: "Starting from point A, a man walks 8 m East and then 6 m North. In which direction is he from A?",
+      options: ["South-East", "North-East", "South-West", "North-West"],
+      answer: 1,
+      explanation: "Movement is East and North → North-East."
+    },
+    {
+      q: "A man walks 10 m North, turns left, walks 4 m, turns left again and walks 10 m. Distance from start?",
+      options: ["4 m East", "4 m West", "10 m", "0 m"],
+      answer: 1,
+      explanation: "Final position is 4 m West."
+    },
+    {
+      q: "A person walks 6 m East, then 8 m North, then 6 m West. How far is he from start?",
+      options: ["8 m", "6 m", "10 m", "14 m"],
+      answer: 0,
+      explanation: "East and West cancel, remaining 8 m North."
+    },
+
+    /* 🔴 HARD LEVEL (15–20) */
+
+    {
+      q: "A man walks 10 m North, 10 m East, 10 m South and 10 m West. Distance from starting point?",
+      options: ["10 m", "20 m", "0 m", "5 m"],
+      answer: 2,
+      explanation: "He returns to the starting point."
+    },
+    {
+      q: "A person walks 5 m North, then 12 m East, then 5 m South. How far is he from the starting point?",
+      options: ["12 m", "10 m", "13 m", "17 m"],
+      answer: 0,
+      explanation: "North and South cancel, remaining 12 m East."
+    },
+    {
+      q: "Ravi walks 10 m East, turns left, walks 6 m, turns right, and walks 4 m. What is his final direction?",
+      options: ["North", "South", "East", "West"],
+      answer: 0,
+      explanation: "Final movement is towards North."
+    },
+    {
+      q: "A man walks 7 m South and then 24 m East. What is the shortest distance from the starting point?",
+      options: ["25 m", "24 m", "31 m", "17 m"],
+      answer: 0,
+      explanation: "Shortest distance = √(7² + 24²) = √625 = 25 m."
+    },
+    {
+      q: "A person walks 3 m North, 4 m East and 3 m South. How far is he from start?",
+      options: ["3 m", "4 m", "5 m", "7 m"],
+      answer: 1,
+      explanation: "North and South cancel, remaining 4 m East."
+    },
+    {
+      q: "A man walks 8 m East, 15 m North, 8 m West and 15 m South. Distance from starting point?",
+      options: ["15 m", "8 m", "0 m", "10 m"],
+      answer: 2,
+      explanation: "All movements cancel → distance = 0 m."
+    }
+  ]
+},
+oddOneOut: {
+  title: "Odd One Out",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Odd One Out</h3>
+    <p class="mb-3">
+      Odd One Out questions test your ability to <b>identify patterns</b>,
+      <b>classify objects</b>, and <b>spot logical differences</b> among given items.
+      These questions are very common in <b>placement exams</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Types of Odd One Out</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li><b>Number-Based:</b> Prime, composite, even/odd, squares, cubes</li>
+      <li><b>Alphabet-Based:</b> Alphabet order, position values (A=1…Z=26)</li>
+      <li><b>Word-Based:</b> Category, meaning, living/non-living</li>
+      <li><b>Figure-Based:</b> Shape, sides, symmetry, orientation</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Common Logic Used</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Check mathematical properties</li>
+      <li>Check sequence or order</li>
+      <li>Check category or usage</li>
+      <li>Check visual features (sides, angles, shading)</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: Always look for the <b>most common feature</b> first, then eliminate the exception.
+    </p>
+  `,
+  formulas: [
+    "Alphabet positions: A=1, B=2, …, Z=26",
+    "Prime numbers have exactly two factors (1 and itself)",
+    "Perfect squares: 1, 4, 9, 16, 25, 36, …",
+    "Perfect cubes: 1, 8, 27, 64, 125, …",
+    "Figures: Check number of sides, angles, and symmetry"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–7) */
+
+    {
+      q: "2, 3, 5, 9",
+      options: ["2", "3", "5", "9"],
+      answer: 3,
+      explanation: "9 is not a prime number; others are prime."
+    },
+    {
+      q: "Apple, Mango, Banana, Carrot",
+      options: ["Apple", "Mango", "Banana", "Carrot"],
+      answer: 3,
+      explanation: "Carrot is a vegetable; others are fruits."
+    },
+    {
+      q: "A, E, I, B",
+      options: ["A", "E", "I", "B"],
+      answer: 3,
+      explanation: "B is a consonant; others are vowels."
+    },
+    {
+      q: "Square, Rectangle, Circle, Triangle",
+      options: ["Square", "Rectangle", "Circle", "Triangle"],
+      answer: 2,
+      explanation: "Circle has no sides; others have straight sides."
+    },
+    {
+      q: "4, 9, 16, 18",
+      options: ["4", "9", "16", "18"],
+      answer: 3,
+      explanation: "18 is not a perfect square."
+    },
+    {
+      q: "Dog, Cat, Cow, Table",
+      options: ["Dog", "Cat", "Cow", "Table"],
+      answer: 3,
+      explanation: "Table is non-living."
+    },
+    {
+      q: "North, South, East, Chair",
+      options: ["North", "South", "East", "Chair"],
+      answer: 3,
+      explanation: "Chair is not a direction."
+    },
+
+    /* 🟡 MEDIUM LEVEL (8–14) */
+
+    {
+      q: "11, 13, 17, 21",
+      options: ["11", "13", "17", "21"],
+      answer: 3,
+      explanation: "21 is not a prime number."
+    },
+    {
+      q: "Pen, Pencil, Eraser, Book",
+      options: ["Pen", "Pencil", "Eraser", "Book"],
+      answer: 3,
+      explanation: "Book is not a stationery tool for writing."
+    },
+    {
+      q: "Z, X, V, T",
+      options: ["Z", "X", "V", "T"],
+      answer: 0,
+      explanation: "Sequence is reverse order skipping one letter; Z breaks the pattern."
+    },
+    {
+      q: "Lion, Tiger, Leopard, Cow",
+      options: ["Lion", "Tiger", "Leopard", "Cow"],
+      answer: 3,
+      explanation: "Cow is a herbivore; others are carnivores."
+    },
+    {
+      q: "27, 64, 125, 144",
+      options: ["27", "64", "125", "144"],
+      answer: 3,
+      explanation: "144 is not a perfect cube."
+    },
+    {
+      q: "Run, Walk, Jump, Sleep",
+      options: ["Run", "Walk", "Jump", "Sleep"],
+      answer: 3,
+      explanation: "Sleep is not a physical movement."
+    },
+    {
+      q: "Monday, Tuesday, Friday, January",
+      options: ["Monday", "Tuesday", "Friday", "January"],
+      answer: 3,
+      explanation: "January is a month; others are days."
+    },
+
+    /* 🔴 HARD LEVEL (15–20) */
+
+    {
+      q: "6, 28, 496, 500",
+      options: ["6", "28", "496", "500"],
+      answer: 3,
+      explanation: "6, 28, and 496 are perfect numbers; 500 is not."
+    },
+    {
+      q: "Triangle, Square, Pentagon, Circle",
+      options: ["Triangle", "Square", "Pentagon", "Circle"],
+      answer: 3,
+      explanation: "Circle has no straight sides."
+    },
+    {
+      q: "Cucumber, Potato, Tomato, Apple",
+      options: ["Cucumber", "Potato", "Tomato", "Apple"],
+      answer: 3,
+      explanation: "Apple is a fruit; others are vegetables."
+    },
+    {
+      q: "Doctor, Engineer, Teacher, Hospital",
+      options: ["Doctor", "Engineer", "Teacher", "Hospital"],
+      answer: 3,
+      explanation: "Hospital is a place; others are professions."
+    },
+    {
+      q: "A², B⁴, C⁶, D⁸",
+      options: ["A²", "B⁴", "C⁶", "D⁸"],
+      answer: 0,
+      explanation: "Pattern starts from B with increasing even powers."
+    },
+    {
+      q: "Mirror, Glass, Lens, Wood",
+      options: ["Mirror", "Glass", "Lens", "Wood"],
+      answer: 3,
+      explanation: "Wood is opaque; others are transparent/reflective."
+    }
+  ]
+},
+patternSeries: {
+  title: "Pattern Series & Sequences",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Pattern Series & Sequences</h3>
+    <p class="mb-3">
+      Pattern Series questions test your ability to <b>identify patterns</b>,
+      <b>observe trends</b>, and <b>predict the next element</b> in a sequence.
+      These questions are frequently asked in <b>placement and aptitude exams</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Types of Pattern Series</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li><b>Numerical Series:</b> Addition, subtraction, multiplication, squares, cubes</li>
+      <li><b>Alphabetical Series:</b> Forward/backward order, skipping letters</li>
+      <li><b>Alphanumeric Series:</b> Combination of numbers and letters</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Common Logic Used</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li>Difference between consecutive terms</li>
+      <li>Alternate term patterns</li>
+      <li>Increasing or decreasing sequence</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: First check <b>simple operations</b> (+, −, ×, ÷) before moving to complex logic.
+    </p>
+  `,
+  formulas: [
+    "Alphabet positions: A=1, B=2, C=3, …, Z=26",
+    "Squares: n² → 1, 4, 9, 16, 25, …",
+    "Cubes: n³ → 1, 8, 27, 64, …",
+    "Fibonacci: an = an−1 + an−2",
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–7) */
+
+    {
+      q: "2, 4, 6, 8, ?",
+      options: ["9", "10", "12", "14"],
+      answer: 1,
+      explanation: "Each number increases by +2."
+    },
+    {
+      q: "A, C, E, G, ?",
+      options: ["H", "I", "J", "K"],
+      answer: 1,
+      explanation: "Skipping one letter each time."
+    },
+    {
+      q: "1, 4, 9, 16, ?",
+      options: ["20", "24", "25", "36"],
+      answer: 2,
+      explanation: "Perfect squares: 1², 2², 3², 4², 5²."
+    },
+    {
+      q: "Z, X, V, T, ?",
+      options: ["S", "R", "Q", "P"],
+      answer: 1,
+      explanation: "Each letter moves back by 2 positions."
+    },
+    {
+      q: "3, 6, 12, 24, ?",
+      options: ["36", "42", "48", "60"],
+      answer: 2,
+      explanation: "Each term is multiplied by 2."
+    },
+    {
+      q: "B, D, F, H, ?",
+      options: ["I", "J", "K", "L"],
+      answer: 1,
+      explanation: "Skipping one letter each time."
+    },
+    {
+      q: "5, 10, 15, 20, ?",
+      options: ["20", "22", "24", "25"],
+      answer: 3,
+      explanation: "Each term increases by +5."
+    },
+
+    /* 🟡 MEDIUM LEVEL (8–14) */
+
+    {
+      q: "1, 1, 2, 3, 5, ?",
+      options: ["6", "7", "8", "9"],
+      answer: 2,
+      explanation: "Fibonacci series."
+    },
+    {
+      q: "2, 6, 12, 20, ?",
+      options: ["24", "30", "36", "42"],
+      answer: 1,
+      explanation: "Pattern: n² + n."
+    },
+    {
+      q: "A, Z, B, Y, C, ?",
+      options: ["X", "W", "V", "U"],
+      answer: 0,
+      explanation: "Alternating forward and backward alphabet series."
+    },
+    {
+      q: "7, 14, 28, 56, ?",
+      options: ["84", "98", "112", "126"],
+      answer: 2,
+      explanation: "Each term is multiplied by 2."
+    },
+    {
+      q: "C, F, J, O, ?",
+      options: ["T", "U", "V", "W"],
+      answer: 1,
+      explanation: "Alphabet jumps: +3, +4, +5, +6."
+    },
+    {
+      q: "4, 9, 16, 25, ?",
+      options: ["30", "32", "36", "40"],
+      answer: 2,
+      explanation: "Perfect squares."
+    },
+    {
+      q: "1, 3, 6, 10, 15, ?",
+      options: ["18", "20", "21", "24"],
+      answer: 2,
+      explanation: "Triangular numbers."
+    },
+
+    /* 🔴 HARD LEVEL (15–20) */
+
+    {
+      q: "2, 3, 5, 8, 13, ?",
+      options: ["18", "20", "21", "23"],
+      answer: 2,
+      explanation: "Fibonacci series."
+    },
+    {
+      q: "A, D, H, M, ?",
+      options: ["Q", "R", "S", "T"],
+      answer: 2,
+      explanation: "Alphabet jumps: +3, +4, +5, +6."
+    },
+    {
+      q: "5, 7, 11, 19, ?",
+      options: ["27", "29", "31", "35"],
+      answer: 3,
+      explanation: "Each term = previous ×2 − 3."
+    },
+    {
+      q: "100, 90, 80, 70, ?",
+      options: ["65", "60", "55", "50"],
+      answer: 1,
+      explanation: "Each term decreases by 10."
+    },
+    {
+      q: "1, 4, 13, 40, ?",
+      options: ["81", "121", "160", "243"],
+      answer: 1,
+      explanation: "Each term = previous ×3 + 1."
+    },
+    {
+      q: "Z, W, T, Q, ?",
+      options: ["P", "O", "N", "M"],
+      answer: 2,
+      explanation: "Each letter moves back by 3 positions."
+    }
+  ]
+},
+calendars: {
+  title: "Calendars",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Calendars</h3>
+    <p class="mb-3">
+      Calendar problems test your understanding of <b>days, dates, odd days,
+      leap years</b>, and <b>day–date relationships</b>. These questions are
+      frequently asked in <b>placement exams</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Key Concepts</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li><b>Days of the Week:</b> Sunday → Monday → Tuesday → Wednesday → Thursday → Friday → Saturday</li>
+      <li><b>Leap Year:</b> Divisible by 4; century year must be divisible by 400</li>
+      <li><b>Odd Days:</b> Extra days beyond complete weeks</li>
+      <li><b>Month-wise Days:</b> Different months have 30 or 31 days (Feb 28/29)</li>
+      <li><b>Day–Date Relationship:</b> Same date after 7 days falls on same weekday</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: Always reduce total days using <b>mod 7</b> to find the final day.
+    </p>
+  `,
+  formulas: [
+    "Leap year: divisible by 4 (century year must be divisible by 400)",
+    "Ordinary year = 365 days → 1 odd day",
+    "Leap year = 366 days → 2 odd days",
+    "Odd days = Total days mod 7",
+    "Total odd days = (Years + Leap years + Month odd days + Date) mod 7"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–7) */
+
+    {
+      q: "How many days are there in a leap year?",
+      options: ["365", "366", "364", "367"],
+      answer: 1,
+      explanation: "Leap year contains 366 days."
+    },
+    {
+      q: "Which of the following is a leap year?",
+      options: ["1900", "1999", "2000", "2100"],
+      answer: 2,
+      explanation: "Century year must be divisible by 400; 2000 is a leap year."
+    },
+    {
+      q: "How many odd days are there in 1 ordinary year?",
+      options: ["0", "1", "2", "3"],
+      answer: 1,
+      explanation: "365 days = 52 weeks + 1 odd day."
+    },
+    {
+      q: "If today is Monday, what day will it be after 14 days?",
+      options: ["Sunday", "Monday", "Tuesday", "Wednesday"],
+      answer: 1,
+      explanation: "14 days = 2 complete weeks."
+    },
+    {
+      q: "How many odd days are there in February of a leap year?",
+      options: ["0", "1", "2", "3"],
+      answer: 1,
+      explanation: "February has 29 days in a leap year → 1 odd day."
+    },
+    {
+      q: "How many days are there in 3 weeks?",
+      options: ["18", "20", "21", "24"],
+      answer: 2,
+      explanation: "1 week = 7 days → 3 × 7 = 21 days."
+    },
+    {
+      q: "What day comes after Saturday?",
+      options: ["Friday", "Sunday", "Monday", "Thursday"],
+      answer: 1,
+      explanation: "Saturday is followed by Sunday."
+    },
+
+    /* 🟡 MEDIUM LEVEL (8–14) */
+
+    {
+      q: "What day was 15th August 1947?",
+      options: ["Thursday", "Friday", "Saturday", "Sunday"],
+      answer: 1,
+      explanation: "15th August 1947 was Friday."
+    },
+    {
+      q: "How many odd days are there in 5 leap years?",
+      options: ["3", "5", "7", "10"],
+      answer: 0,
+      explanation: "5 × 2 = 10 odd days → 10 mod 7 = 3."
+    },
+    {
+      q: "If 1st January is Sunday, what day is 31st January?",
+      options: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      answer: 1,
+      explanation: "31 days → 3 odd days → Sunday + 3 = Tuesday."
+    },
+    {
+      q: "What day will it be after 100 days from Monday?",
+      options: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      answer: 1,
+      explanation: "100 mod 7 = 2 → Monday + 2 = Wednesday."
+    },
+    {
+      q: "How many odd days are there in 2 ordinary years and 1 leap year?",
+      options: ["3", "4", "5", "6"],
+      answer: 1,
+      explanation: "1 + 1 + 2 = 4 odd days."
+    },
+    {
+      q: "What day was 26th January 1950?",
+      options: ["Wednesday", "Thursday", "Friday", "Saturday"],
+      answer: 1,
+      explanation: "26th January 1950 was Thursday."
+    },
+    {
+      q: "If today is Friday, what day was it 45 days ago?",
+      options: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      answer: 2,
+      explanation: "45 mod 7 = 3 → Friday − 3 = Wednesday."
+    },
+
+    /* 🔴 HARD LEVEL (15–20) */
+
+    {
+      q: "What day will 1st March 2024 be?",
+      options: ["Thursday", "Friday", "Saturday", "Sunday"],
+      answer: 1,
+      explanation: "2024 is a leap year; 1st March 2024 is Friday."
+    },
+    {
+      q: "How many odd days are there from 1 Jan 2001 to 31 Dec 2020?",
+      options: ["0", "1", "2", "3"],
+      answer: 0,
+      explanation: "Total odd days = 0."
+    },
+    {
+      q: "If 15th August 2010 was Sunday, what day was 15th August 2011?",
+      options: ["Sunday", "Monday", "Tuesday", "Wednesday"],
+      answer: 1,
+      explanation: "2011 is an ordinary year → +1 odd day → Monday."
+    },
+    {
+      q: "What day was 29th February 2016?",
+      options: ["Sunday", "Monday", "Tuesday", "Wednesday"],
+      answer: 1,
+      explanation: "29th February 2016 was Monday."
+    },
+    {
+      q: "How many leap years are there between 1901 and 2000?",
+      options: ["23", "24", "25", "26"],
+      answer: 1,
+      explanation: "Total leap years = 24."
+    },
+    {
+      q: "What day will 31st December 2099 be?",
+      options: ["Wednesday", "Thursday", "Friday", "Saturday"],
+      answer: 1,
+      explanation: "31st December 2099 will be Thursday."
+    }
+  ]
+},
+clocks: {
+  title: "Clocks",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Clocks</h3>
+    <p class="mb-3">
+      Clock problems test your understanding of <b>time, angles, and relative
+      motion</b> of the hour and minute hands. These questions are commonly
+      asked in <b>placement aptitude tests</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Key Concepts</h4>
+    <ul class="list-disc ml-6 space-y-2 text-gray-300">
+      <li><b>Clock Dial:</b> Circular dial with 12 hours</li>
+      <li><b>Total Angle:</b> Full circle = 360°</li>
+      <li><b>Each Hour:</b> 30° apart</li>
+      <li><b>Minute Hand Speed:</b> 6° per minute</li>
+      <li><b>Hour Hand Speed:</b> 0.5° per minute</li>
+      <li><b>Types of Angles:</b> Acute, Obtuse, Right, Straight, Reflex</li>
+      <li><b>Coincidence:</b> Hands overlap</li>
+      <li><b>Opposite:</b> Hands are 180° apart</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: Always use <b>|30h − 5.5m|</b> to calculate the angle between hands.
+    </p>
+  `,
+  formulas: [
+    "Angle between hands = |30h − 5.5m| degrees",
+    "Hour hand moves = 0.5° per minute",
+    "Minute hand moves = 6° per minute",
+    "Hands coincide = 11 times in 12 hours",
+    "Hands are opposite = 11 times in 12 hours",
+    "Interval between coincidences = 65/11 minutes",
+    "Right angle occurs = 22 times in 12 hours",
+    "Reflex angle = 360° − smaller angle"
+  ],
+  practice: [
+
+    /* 🟢 EASY LEVEL (1–7) */
+
+    {
+      q: "What is the angle between the hands at 3:00?",
+      options: ["0°", "60°", "90°", "120°"],
+      answer: 2,
+      explanation: "At 3:00, hands are 3 × 30° apart = 90°."
+    },
+    {
+      q: "How many degrees does the minute hand move in 5 minutes?",
+      options: ["5°", "15°", "30°", "60°"],
+      answer: 2,
+      explanation: "Minute hand moves 6° per minute → 5 × 6 = 30°."
+    },
+    {
+      q: "What is the angle between hands at 12:00?",
+      options: ["0°", "30°", "90°", "180°"],
+      answer: 0,
+      explanation: "Both hands overlap → angle = 0°."
+    },
+    {
+      q: "What is the angle between hands at 6:00?",
+      options: ["90°", "120°", "150°", "180°"],
+      answer: 3,
+      explanation: "At 6:00, hands are opposite → 180°."
+    },
+    {
+      q: "How much does the hour hand move in 1 hour?",
+      options: ["15°", "20°", "30°", "60°"],
+      answer: 2,
+      explanation: "Each hour space = 30°."
+    },
+    {
+      q: "How many times do the clock hands coincide in 12 hours?",
+      options: ["10", "11", "12", "13"],
+      answer: 1,
+      explanation: "Hands coincide 11 times in 12 hours."
+    },
+    {
+      q: "How many degrees does the hour hand move in 30 minutes?",
+      options: ["7.5°", "10°", "15°", "30°"],
+      answer: 2,
+      explanation: "0.5° per minute → 30 × 0.5 = 15°."
+    },
+
+    /* 🟡 MEDIUM LEVEL (8–14) */
+
+    {
+      q: "Find the angle between hands at 4:20.",
+      options: ["5°", "10°", "15°", "20°"],
+      answer: 1,
+      explanation: "|30×4 − 5.5×20| = |120 − 110| = 10°."
+    },
+    {
+      q: "What is the angle between hands at 7:30?",
+      options: ["30°", "45°", "60°", "75°"],
+      answer: 1,
+      explanation: "|210 − 165| = 45°."
+    },
+    {
+      q: "How many times are the clock hands opposite in 24 hours?",
+      options: ["11", "22", "24", "44"],
+      answer: 1,
+      explanation: "Opposite position occurs 11 times in 12 hours → 22 times in 24 hours."
+    },
+    {
+      q: "At what time between 5 and 6 do the hands coincide?",
+      options: ["5:25", "5:27 3⁄11", "5:30", "5:32"],
+      answer: 1,
+      explanation: "Hands coincide at 5:27 3⁄11."
+    },
+    {
+      q: "What is the reflex angle at 2:40?",
+      options: ["160°", "180°", "200°", "220°"],
+      answer: 2,
+      explanation: "Smaller angle = |60 − 220| = 160°, Reflex = 360 − 160 = 200°."
+    },
+    {
+      q: "How many times do the hands form a right angle in 12 hours?",
+      options: ["11", "22", "24", "44"],
+      answer: 1,
+      explanation: "Right angle occurs 22 times in 12 hours."
+    },
+    {
+      q: "A clock gains 5 minutes every hour. How much will it gain in 12 hours?",
+      options: ["30 min", "45 min", "60 min", "75 min"],
+      answer: 2,
+      explanation: "5 × 12 = 60 minutes."
+    },
+
+    /* 🔴 HARD LEVEL (15–20) */
+
+    {
+      q: "At what time between 2 and 3 will the hands be opposite?",
+      options: ["2:35", "2:38 2⁄11", "2:40", "2:45"],
+      answer: 1,
+      explanation: "Hands are opposite at 2:38 2⁄11."
+    },
+    {
+      q: "How many times do the hands make a right angle in 24 hours?",
+      options: ["22", "33", "44", "48"],
+      answer: 2,
+      explanation: "22 times in 12 hours → 44 times in 24 hours."
+    },
+    {
+      q: "Find the smaller angle between hands at 11:20.",
+      options: ["110°", "120°", "140°", "220°"],
+      answer: 2,
+      explanation: "|330 − 110| = 220°, smaller angle = 360 − 220 = 140°."
+    },
+    {
+      q: "A clock loses 10 minutes every hour. What time will it show after 6 true hours?",
+      options: ["5:00", "5:20", "5:30", "6:00"],
+      answer: 0,
+      explanation: "Loses 10 min/hour → loses 60 minutes in 6 hours → shows 5:00."
+    },
+    {
+      q: "At what time between 8 and 9 will the hands coincide?",
+      options: ["8:40", "8:43 7⁄11", "8:45", "8:48"],
+      answer: 1,
+      explanation: "Hands coincide at 8:43 7⁄11."
+    },
+    {
+      q: "Find the angle between hands at 10:10.",
+      options: ["105°", "110°", "115°", "120°"],
+      answer: 2,
+      explanation: "|300 − 55| = 115°."
+    }
+  ]
+}
+
+};
+
+/* ================= LOAD ================= */
+const params = new URLSearchParams(window.location.search);
+const topic = topics[params.get("topic")] || topics.seating_arrangements;
+
+document.getElementById("topicTitle").innerText = topic.title;
+
+const contentBox = document.getElementById("contentBox");
+const tabButtons = document.querySelectorAll(".tab-btn");
+
+let userAnswers = [];
+let shuffledPractice = [];
+
+/* ================= HELPERS ================= */
+function setActive(tab) {
+  tabButtons.forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.innerText === tab) btn.classList.add("active");
+  });
+}
+
+function shuffleArray(array) {
+  let a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ================= TABS ================= */
+function showTab(type) {
+  if (type === "concepts") {
+    setActive("Concepts");
+    contentBox.innerHTML = topic.concepts;
+  }
+
+  if (type === "formulas") {
+    setActive("Rules");
+    contentBox.innerHTML = `
+      <ul class="list-disc ml-6 space-y-2">
+        ${topic.formulas.map(f => `<li>${f}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  if (type === "practice") {
+    setActive("Practice");
+
+    shuffledPractice = shuffleArray(topic.practice);
+    userAnswers = new Array(shuffledPractice.length).fill(null);
+
+    contentBox.innerHTML = `
+      ${shuffledPractice.map((q, i) => `
+        <div class="mb-6 bg-black border border-gray-700 p-4 rounded-lg">
+          <p class="font-semibold mb-2">Q${i + 1}. ${q.q}</p>
+          ${q.options.map((o, idx) => `
+            <label class="block">
+              <input type="radio" name="q${i}" onclick="userAnswers[${i}] = ${idx}">
+              ${o}
+            </label>
+          `).join("")}
+          <div id="result-${i}" class="hidden mt-2"></div>
+        </div>
+      `).join("")}
+
+      <button id="submitBtn" onclick="submitTest()"
+        class="px-6 py-3 bg-lime-400 text-black font-bold rounded">
+        Submit Test
+      </button>
+
+      <div id="scoreBox" class="mt-4 text-xl font-bold"></div>
+    `;
+  }
+}
+
+/* ================= SUBMIT ================= */
+function submitTest() {
+  let score = 0;
+
+  shuffledPractice.forEach((q, i) => {
+    const box = document.getElementById(`result-${i}`);
+    box.classList.remove("hidden");
+
+    if (userAnswers[i] === q.answer) {
+      score++;
+      box.innerHTML = `<p class="text-green-400">✔ Correct<br>${q.explanation}</p>`;
+    } else {
+      box.innerHTML = `
+        <p class="text-red-400">✘ Wrong</p>
+        <p class="text-green-400">Correct: ${q.options[q.answer]}</p>
+        <p>${q.explanation}</p>
+      `;
+    }
+  });
+
+  document.getElementById("scoreBox").innerHTML =
+    ` Your Score: <span class="text-lime-400">${score}</span> / ${shuffledPractice.length}`;
+
+  document.getElementById("submitBtn").outerHTML = `
+    <button onclick="showTab('practice')"
+      class="px-6 py-3 bg-blue-400 text-black font-bold rounded">
+       Practice Again
+    </button>
+  `;
+}
+
+/* DEFAULT */
+showTab("concepts");
+</script>
+
+</body>
+</html>

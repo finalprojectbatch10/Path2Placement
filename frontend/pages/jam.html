@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JAM Practice</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="../js/jam-questions.js"></script>
+<script defer src="../js/jam.js"></script>
+
+</head>
+
+<body class="bg-gray-900 text-white">
+
+<header class="bg-black px-6 py-4 flex justify-between items-center border-b border-gray-700">
+
+<h1 class="text-lg font-semibold">
+JAM Practice
+</h1>
+
+<a href="dashboard.html" class="text-sm text-gray-300 hover:text-white">
+← Dashboard
+</a>
+
+</header>
+
+<div class="p-10">
+
+<!-- Question -->
+<div class="bg-gray-800 p-6 rounded-lg mb-6">
+
+<h2 class="text-xl font-semibold mb-2">Question</h2>
+
+<p id="jamQuestion" class="text-gray-300"></p>
+
+</div>
+
+<!-- Timer -->
+<div class="mb-4">
+⏱ Time Left: <span id="timer" class="font-bold">60</span> sec
+</div>
+
+<!-- Start Speaking -->
+<button onclick="startSpeaking()" class="bg-green-500 px-4 py-2 rounded">
+🎙 Start Speaking
+</button>
+
+<!-- Transcript -->
+<textarea
+id="transcript"
+rows="5"
+class="w-full p-4 bg-gray-800 rounded my-6"
+placeholder="Your speech text will appear here...">
+</textarea>
+
+<!-- Submit -->
+<button
+id="submitBtn"
+onclick="submitSpeech()"
+class="hidden bg-blue-500 px-4 py-2 rounded">
+Submit
+</button>
+
+<!-- Result -->
+<div
+id="result"
+class="hidden bg-gray-800 p-6 rounded-lg mt-6">
+</div>
+
+<!-- Practice Again -->
+<button
+id="practiceBtn"
+onclick="resetPractice()"
+class="hidden bg-lime-400 text-black px-6 py-2 rounded font-semibold mt-6">
+
+Practice Again
+
+</button>
+
+</div>
+
+</body>
+</html>

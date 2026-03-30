@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quantitative Aptitude | Path2Placement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Auth protection -->
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-black text-white min-h-screen">
+
+<!-- HEADER -->
+<header class="flex justify-between items-center px-10 py-5 border-b border-gray-800">
+  <h1 class="text-xl font-bold">Quantitative Aptitude</h1>
+  <a href="dashboard.html" class="text-gray-400 hover:text-lime-400">← Dashboard</a>
+</header>
+
+<!-- CONTENT -->
+<section class="px-10 py-10 space-y-10">
+
+  <!-- Arithmetic -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4"> Arithmetic </h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <button onclick="openTopic('percentages')" class="topic-btn">Percentages</button>
+      <button onclick="openTopic('profitLoss')" class="topic-btn">Profit & Loss</button>
+      <button onclick="openTopic('siCi')" class="topic-btn">Simple & Compound Interest</button>
+      <button onclick="openTopic('ratio')" class="topic-btn">Ratio & Proportion</button>
+      <button onclick="openTopic('averages')" class="topic-btn">Averages</button>
+      <button onclick="openTopic('timeWork')" class="topic-btn">Time & Work</button>
+      <button onclick="openTopic('timeSpeedDistance')" class="topic-btn">Time, Speed & Distance</button>
+      <button onclick="openTopic('pipesCisterns')" class="topic-btn">Pipes & Cisterns</button>
+      <button onclick="openTopic('mixtures_alligations')" class="topic-btn">Mixtures & Alligations</button>
+    </div>
+  </div>
+
+  <!-- Algebra -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4"> Algebra</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <button onclick="openTopic('linear_equations')" class="topic-btn">Linear Equations</button>
+      <button onclick="openTopic('quadratic_equations')" class="topic-btn">Quadratic Equations</button>
+      <button onclick="openTopic('inequalities')" class="topic-btn">Inequalities</button>
+      <button onclick="openTopic('algebraic_expressions')" class="topic-btn">Algebraic Expressions</button>
+    </div>
+  </div>
+
+  <!-- Geometry -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4"> Geometry & Mensuration</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <button onclick="openTopic('triangles')" class="topic-btn">Triangles</button>
+      <button onclick="openTopic('circles')" class="topic-btn">Circles</button>
+      <button onclick="openTopic('mensuration')" class="topic-btn">Mensuration</button>
+    </div>
+  </div>
+
+  <!-- Number System -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4"> Number System</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <button onclick="openTopic('hcf_lcm')" class="topic-btn">HCF & LCM</button>
+      <button onclick="openTopic('divisibility')" class="topic-btn">Divisibility</button>
+      <button onclick="openTopic('remainders')" class="topic-btn">Remainders</button>
+    </div>
+  </div>
+
+
+
+</section>
+
+<!-- STYLES -->
+<style>
+  .topic-btn {
+    background: #111;
+    border: 1px solid #333;
+    padding: 14px;
+    border-radius: 10px;
+    text-align: left;
+    transition: 0.3s;
+  }
+  .topic-btn:hover {
+    border-color: #a3e635;
+  }
+</style>
+
+<!-- SCRIPT -->
+<script>
+  function openTopic(topic) {
+    window.location.href = `quant-topic.html?topic=${topic}`;
+  }
+</script>
+
+</body>
+</html>

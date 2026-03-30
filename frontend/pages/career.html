@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Path2Placement | Career Guidance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:'Inter',sans-serif;}
+</style>
+
+</head>
+
+<body class="bg-black text-white min-h-screen">
+
+<header class="px-10 py-6 border-b border-gray-800">
+<h1 class="text-2xl font-bold">Career Guidance</h1>
+<p class="text-gray-400">Select a role to explore career roadmap</p>
+</header>
+
+
+<section class="px-10 py-10">
+
+<select id="roleSelect"
+class="bg-gray-900 border border-gray-700 p-3 rounded-lg w-80"
+onchange="showCareer()">
+
+<option value="">Select Role</option>
+
+<option>AI Engineer</option>
+<option>Android Developer</option>
+<option>Application Support Engineer</option>
+<option>Automation Tester</option>
+<option>Backend Developer</option>
+<option>Big Data Engineer</option>
+<option>Blockchain Developer</option>
+<option>Business Analyst</option>
+<option>Business Development Executive</option>
+<option>Cloud Architect</option>
+<option>Cloud Engineer</option>
+<option>Cloud Security Engineer</option>
+<option>Computer Vision Engineer</option>
+<option>Content Strategist</option>
+<option>Content Writer</option>
+<option>Cyber Security Analyst</option>
+<option>Data Analyst</option>
+<option>Data Engineer</option>
+<option>Data Scientist</option>
+<option>Database Administrator</option>
+<option>DevOps Engineer</option>
+<option>Digital Marketing Specialist</option>
+<option>Embedded Systems Engineer</option>
+<option>Frontend Developer</option>
+<option>Full Stack Developer</option>
+<option>Game Developer</option>
+<option>Graphic Designer</option>
+<option>HR Recruiter</option>
+<option>Information Security Analyst</option>
+<option>IT Consultant</option>
+<option>IT Project Manager</option>
+<option>IT Support Engineer</option>
+<option>Java Developer</option>
+<option>Machine Learning Engineer</option>
+<option>Marketing Manager</option>
+<option>Mobile App Developer</option>
+<option>Network Administrator</option>
+<option>Network Engineer</option>
+<option>NLP Engineer</option>
+<option>Operations Manager</option>
+<option>Penetration Tester</option>
+<option>Product Designer</option>
+<option>Product Manager</option>
+<option>Program Manager</option>
+<option>Project Manager</option>
+<option>Python Developer</option>
+<option>QA Tester</option>
+<option>Quality Assurance Engineer</option>
+<option>Research Analyst</option>
+<option>Robotics Engineer</option>
+<option>Sales Engineer</option>
+<option>Scrum Master</option>
+<option>SEO Specialist</option>
+<option>Site Reliability Engineer</option>
+<option>Social Media Manager</option>
+<option>Software Architect</option>
+<option>Software Developer</option>
+<option>Software Engineer</option>
+<option>Solutions Architect</option>
+<option>System Administrator</option>
+<option>Technical Content Writer</option>
+<option>Technical Support Engineer</option>
+<option>Test Engineer</option>
+<option>UI Designer</option>
+<option>UI UX Designer</option>
+<option>UX Researcher</option>
+<option>Video Editor</option>
+<option>Web Designer</option>
+<option>Web Developer</option>
+<option>Data Visualization Engineer</option>
+
+</select>
+
+</section>
+
+
+<section class="px-10 pb-16">
+<div id="careerResult" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+
+
+<script>
+
+function showCareer(){
+
+let role=document.getElementById("roleSelect").value
+
+let container=document.getElementById("careerResult")
+
+if(role===""){
+container.innerHTML=""
+return
+}
+
+let data=getCareerData(role)
+
+function list(arr){
+return arr.map(i=>`<li>${i}</li>`).join("")
+}
+
+container.innerHTML=`
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-2">Role</h3>
+<p class="text-lime-400">${role}</p>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-2">Salary Range</h3>
+<p class="text-lime-400">${data.salary}</p>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-3">Skills Needed</h3>
+<ul class="text-gray-300">${list(data.skills)}</ul>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-3">Frameworks</h3>
+<ul class="text-gray-300">${list(data.frameworks)}</ul>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-3">Tools & Technologies</h3>
+<ul class="text-gray-300">${list(data.tools)}</ul>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-3">Interview Topics</h3>
+<ul class="text-gray-300">${list(data.interview)}</ul>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+<h3 class="font-bold mb-3">Projects to Build</h3>
+<ul class="text-gray-300">${list(data.projects)}</ul>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6 md:col-span-2 lg:col-span-3">
+<h3 class="font-bold mb-3">Learning Roadmap</h3>
+<ol class="list-decimal ml-6 text-gray-300">${list(data.roadmap)}</ol>
+</div>
+
+`
+
+}
+
+
+
+function getCareerData(role){
+
+if(role.includes("Developer") || role.includes("Engineer") || role.includes("Architect")){
+
+return{
+
+salary:"₹6 LPA – ₹20 LPA",
+
+skills:["Programming","Problem solving","System design","Debugging"],
+
+frameworks:["React","Spring Boot","Django","Node.js"],
+
+tools:["Git","Docker","VS Code","Postman"],
+
+interview:["Data Structures","OOP","API design","Coding problems"],
+
+projects:["Full stack web app","API based project","Portfolio website"],
+
+roadmap:[
+"Learn programming language",
+"Practice DSA",
+"Learn frameworks",
+"Build projects",
+"Prepare coding interviews",
+"Apply for internships/jobs"
+]
+
+}
+
+}
+
+
+
+if(role.includes("Analyst") || role.includes("Scientist")){
+
+return{
+
+salary:"₹5 LPA – ₹18 LPA",
+
+skills:["Statistics","Python","SQL","Data analysis"],
+
+frameworks:["Pandas","NumPy","Scikit-learn"],
+
+tools:["Power BI","Tableau","Jupyter Notebook"],
+
+interview:["SQL queries","Statistics","Machine learning basics"],
+
+projects:["Data dashboard","Prediction model"],
+
+roadmap:[
+"Learn Excel",
+"Learn SQL",
+"Learn Python",
+"Learn data visualization",
+"Work on datasets"
+]
+
+}
+
+}
+
+
+
+if(role.includes("Designer")){
+
+return{
+
+salary:"₹4 LPA – ₹10 LPA",
+
+skills:["Design thinking","User research","Creativity"],
+
+frameworks:["Design systems"],
+
+tools:["Figma","Adobe XD","Sketch"],
+
+interview:["Portfolio review","Design thinking"],
+
+projects:["App UI design","Website redesign"],
+
+roadmap:[
+"Learn design basics",
+"Learn Figma",
+"Build portfolio",
+"Work on real projects"
+]
+
+}
+
+}
+
+
+
+return{
+
+salary:"₹4 LPA – ₹12 LPA",
+
+skills:["Communication","Problem solving","Domain knowledge"],
+
+frameworks:["Industry tools"],
+
+tools:["Excel","Analytics tools"],
+
+interview:["Role specific questions","Case studies"],
+
+projects:["Practical case studies"],
+
+roadmap:[
+"Learn fundamentals",
+"Gain practical knowledge",
+"Build portfolio",
+"Apply for roles"
+]
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

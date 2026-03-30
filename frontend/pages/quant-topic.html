@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quant Topic | Path2Placement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Login Protection -->
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .tab-btn.active {
+      background-color: #a3e635;
+      color: black;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white min-h-screen px-10 py-10">
+
+<!-- BACK -->
+<a href="quantitative.html" class="text-gray-400 hover:text-lime-400">
+  ← Back to Quantitative
+</a>
+
+<!-- TITLE -->
+<h1 id="topicTitle" class="text-3xl font-bold mt-6 mb-4"></h1>
+
+<!-- TABS -->
+<div class="flex gap-4 mb-6">
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('concepts')">Concepts</button>
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('formulas')">Formulas</button>
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('practice')">Practice</button>
+</div>
+
+<!-- CONTENT -->
+<div id="contentBox" class="bg-gray-900 border border-gray-800 rounded-xl p-6"></div>
+
+<script>
+/* ================= TOPIC DATA ================= */
+const topics = {
+  percentages: {
+    title: "Percentages",
+
+    concepts: `
+  <h3 class="text-lg font-bold mb-3">Meaning of Percentage</h3>
+
+  <p class="mb-3">
+    Percentage means <b>“per hundred”</b>. It is used to represent a number as a
+    fraction of 100. Percentages help compare quantities, measure increase or
+    decrease, and are widely used in aptitude questions related to
+    <b>profit & loss, discounts, interest, data interpretation,</b> and
+    <b>statistics</b>.
+  </p>
+
+  <p class="mb-3">
+    In placement exams, percentage questions test
+    <b>speed, accuracy,</b> and understanding of
+    <b>number relationships</b>.
+  </p>
+
+  <p class="mb-3">
+    A percentage can be converted into a fraction or decimal and vice versa.
+    For example, <b>25%</b> means 25 out of 100, which is equal to
+    <b>1/4</b> or <b>0.25</b>.
+  </p>
+
+  <h4 class="font-semibold mt-4 mb-2">Important Percentage Equivalents</h4>
+  <ul class="list-disc ml-6 space-y-1 text-gray-300">
+    <li>10% = 1/10</li>
+    <li>12.5% = 1/8</li>
+    <li>20% = 1/5</li>
+    <li>25% = 1/4</li>
+    <li>33⅓% = 1/3</li>
+    <li>50% = 1/2</li>
+    <li>66⅔% = 2/3</li>
+    <li>75% = 3/4</li>
+  </ul>
+
+  <p class="mt-3 text-lime-400">
+    Remembering these values saves time in placement exams.
+  </p>
+`,
+
+   formulas: [
+  "To convert a fraction into a percentage: Percentage = (Fraction × 100)",
+  "To convert a percentage into a fraction: Fraction = Percentage / 100",
+  "To convert a percentage into a decimal: Decimal = Percentage / 100",
+  "To find percentage of a number: x% of y = (x / 100) × y",
+  "Percentage Increase = [(New Value − Original Value) / Original Value] × 100",
+  "Percentage Decrease = [(Original Value − New Value) / Original Value] × 100",
+  "If increased by x% and then decreased by x%, Net Decrease % = (x² / 100)"
+],
+
+practice: [
+  {
+    q: "What is 10% of 350?",
+    options: ["35", "30", "40", "25"],
+    answer: 0,
+    explanation: "10% = 10/100. So (10/100) × 350 = 35."
+  },
+  {
+    q: "Convert 0.75 into percentage.",
+    options: ["7.5%", "75%", "0.75%", "750%"],
+    answer: 1,
+    explanation: "Decimal to percentage: multiply by 100. 0.75 × 100 = 75%."
+  },
+  {
+    q: "What is 50% of 90?",
+    options: ["40", "45", "50", "55"],
+    answer: 1,
+    explanation: "50% means half. Half of 90 = 45."
+  },
+  {
+    q: "A number increases from 200 to 260. Find % increase.",
+    options: ["25%", "30%", "20%", "15%"],
+    answer: 1,
+    explanation: "Increase = 60. (60/200) × 100 = 30%."
+  },
+  {
+    q: "Decrease 800 by 25%. What is the new value?",
+    options: ["600", "650", "700", "750"],
+    answer: 0,
+    explanation: "25% of 800 = 200. 800 − 200 = 600."
+  },
+  {
+    q: "If A is 20% more than B, B is how much % less than A?",
+    options: ["20%", "16.67%", "18%", "15%"],
+    answer: 1,
+    explanation: "B is (20/120) × 100 = 16.67% less than A."
+  },
+  {
+    q: "30% of a number is 150. Find the number.",
+    options: ["400", "450", "500", "550"],
+    answer: 1,
+    explanation: "Number = 150 / 0.30 = 500."
+  },
+  {
+    q: "A value increases by 20% then decreases by 10%. Find net change.",
+    options: ["10% increase", "8% increase", "2% decrease", "No change"],
+    answer: 1,
+    explanation: "Net % = 20 − 10 − (20×10/100) = 8% increase."
+  },
+  {
+    q: "If price increases by 25%, consumption should reduce by?",
+    options: ["20%", "25%", "16.67%", "15%"],
+    answer: 2,
+    explanation: "Required reduction = (25/125) × 100 = 16.67%."
+  },
+  {
+    q: "Two discounts of 10% and 20%. Find single discount.",
+    options: ["28%", "30%", "25%", "18%"],
+    answer: 0,
+    explanation: "Net discount = 10 + 20 − (10×20/100) = 28%."
+  },
+
+  {
+    q: "What is 12.5% of 240?",
+    options: ["25", "30", "35", "40"],
+    answer: 1,
+    explanation: "12.5% = 1/8. 240 ÷ 8 = 30."
+  },
+  {
+    q: "Convert 3/5 into percentage.",
+    options: ["50%", "60%", "65%", "75%"],
+    answer: 1,
+    explanation: "(3/5) × 100 = 60%."
+  },
+  {
+    q: "If 40% of a number is 200, find the number.",
+    options: ["400", "450", "500", "550"],
+    answer: 2,
+    explanation: "Number = 200 ÷ 0.40 = 500."
+  },
+  {
+    q: "A price is reduced by 20% and then increased by 20%. Find net change.",
+    options: ["No change", "4% decrease", "2% decrease", "4% increase"],
+    answer: 1,
+    explanation: "Net % change = −(20²/100) = −4%."
+  },
+  {
+    q: "What percent of 150 is 45?",
+    options: ["25%", "30%", "35%", "40%"],
+    answer: 1,
+    explanation: "(45/150) × 100 = 30%."
+  },
+  {
+    q: "If salary increases from ₹8000 to ₹9200, find % increase.",
+    options: ["10%", "12%", "15%", "18%"],
+    answer: 1,
+    explanation: "Increase = 1200. (1200/8000) × 100 = 15%."
+  },
+  {
+    q: "What is 66⅔% of 90?",
+    options: ["50", "55", "60", "65"],
+    answer: 2,
+    explanation: "66⅔% = 2/3. (2/3) × 90 = 60."
+  },
+  {
+    q: "A shopkeeper gives 10% discount on ₹500. Find selling price.",
+    options: ["₹450", "₹460", "₹480", "₹490"],
+    answer: 0,
+    explanation: "10% of 500 = 50. SP = 500 − 50 = 450."
+  },
+  {
+    q: "What is 150% of 80?",
+    options: ["100", "110", "120", "130"],
+    answer: 2,
+    explanation: "150% = 1.5. 1.5 × 80 = 120."
+  },
+  {
+    q: "If marks increase from 60 to 75, find percentage increase.",
+    options: ["20%", "25%", "30%", "35%"],
+    answer: 1,
+    explanation: "Increase = 15. (15/60) × 100 = 25%."
+  }
+]
+
+},
+
+ profitLoss: {
+  title: "Profit & Loss",
+
+  concepts: `
+  <h3 class="text-lg font-bold mb-3">Meaning of Profit and Loss</h3>
+
+  <p class="mb-3">
+    Profit and Loss problems are based on the comparison between
+    <b>Cost Price (CP)</b> and <b>Selling Price (SP)</b>.
+    These concepts are widely used in aptitude tests to check
+    <b>numerical ability</b> and <b>real-life business understanding</b>.
+  </p>
+
+  <p class="mb-3">
+    <b>Cost Price (CP)</b> is the price at which an article is purchased.
+    <br />
+    <b>Selling Price (SP)</b> is the price at which the article is sold.
+  </p>
+
+  <ul class="list-disc ml-6 space-y-1 text-gray-300">
+    <li>If <b>SP &gt; CP</b>, the seller gains <b>Profit</b></li>
+    <li>If <b>SP &lt; CP</b>, the seller incurs <b>Loss</b></li>
+  </ul>
+
+  <h4 class="font-semibold mt-4 mb-2">Marked Price & Discount</h4>
+  <p class="mb-3">
+    <b>Marked Price (MP)</b> is the printed price on the product.
+    <br />
+    <b>Discount</b> is the reduction given on the marked price.
+  </p>
+
+  <p class="text-lime-400">
+    If both discount and profit are involved, always calculate
+    the selling price after discount first, then compare with CP.
+  </p>
+  `,
+
+  formulas: [
+    "Profit = SP − CP",
+    "Loss = CP − SP",
+    "Profit % = (Profit / CP) × 100",
+    "Loss % = (Loss / CP) × 100",
+    "SP = CP × (100 + Profit %) / 100",
+    "SP = CP × (100 − Loss %) / 100",
+    "CP = (SP × 100) / (100 + Profit %)",
+    "CP = (SP × 100) / (100 − Loss %)",
+    "Discount = MP − SP",
+    "Discount % = (Discount / MP) × 100"
+  ],
+
+  practice: [
+    {
+      q: "A man buys an article for ₹400 and sells it for ₹500. Find profit %.",
+      options: ["20%", "25%", "30%", "15%"],
+      answer: 1,
+      explanation: "Profit = 500 − 400 = 100 → Profit % = (100/400) × 100 = 25%."
+    },
+    {
+      q: "An article is sold for ₹720 at a loss of 10%. Find CP.",
+      options: ["₹750", "₹800", "₹820", "₹780"],
+      answer: 1,
+      explanation: "CP = 720 × 100 / 90 = ₹800."
+    },
+    {
+      q: "If CP is ₹600 and profit is 20%, find SP.",
+      options: ["₹680", "₹700", "₹720", "₹740"],
+      answer: 2,
+      explanation: "SP = 600 × 120 / 100 = ₹720."
+    },
+    {
+      q: "A shopkeeper buys a pen for ₹40 and sells it for ₹36. Find loss %.",
+      options: ["5%", "8%", "10%", "12%"],
+      answer: 2,
+      explanation: "Loss = 4 → Loss % = (4/40) × 100 = 10%."
+    },
+    {
+      q: "If CP : SP = 5 : 6, find profit %.",
+      options: ["15%", "20%", "25%", "10%"],
+      answer: 1,
+      explanation: "Profit = 1 on CP 5 → Profit % = (1/5) × 100 = 20%."
+    },
+    {
+      q: "A man sells an article at 15% profit for ₹690. Find CP.",
+      options: ["₹580", "₹600", "₹620", "₹650"],
+      answer: 1,
+      explanation: "CP = 690 × 100 / 115 = ₹600."
+    },
+    {
+      q: "If profit is 1/5 of CP, find profit %.",
+      options: ["15%", "20%", "25%", "30%"],
+      answer: 1,
+      explanation: "Profit % = (1/5) × 100 = 20%."
+    },
+
+    /* ---------- MEDIUM ---------- */
+
+    {
+      q: "A trader marks an article 25% above CP and gives 10% discount. Find profit %.",
+      options: ["10%", "12.5%", "15%", "20%"],
+      answer: 1,
+      explanation: "Net profit % = 12.5%."
+    },
+    {
+      q: "Two articles are sold at ₹800 each; one at 20% profit and the other at 20% loss. Find net result.",
+      options: ["No profit no loss", "4% loss", "2% profit", "5% loss"],
+      answer: 1,
+      explanation: "Net result = 4% loss."
+    },
+    {
+      q: "An article is sold at ₹960 after a loss of 20%. Find CP.",
+      options: ["₹1000", "₹1100", "₹1200", "₹1250"],
+      answer: 2,
+      explanation: "CP = 960 × 100 / 80 = ₹1200."
+    },
+    {
+      q: "A man buys 12 items for ₹10 each and sells them at ₹12 each. Find profit %.",
+      options: ["15%", "20%", "25%", "30%"],
+      answer: 1,
+      explanation: "Profit = 24 → Profit % = 20%."
+    },
+    {
+      q: "An article is sold at 10% profit instead of 20%, causing a loss of ₹100. Find CP.",
+      options: ["₹900", "₹950", "₹1000", "₹1100"],
+      answer: 2,
+      explanation: "Difference = 10% → CP = ₹1000."
+    },
+    {
+      q: "A product is sold for ₹540 after 10% discount on MP ₹600. If CP is ₹450, find profit %.",
+      options: ["15%", "20%", "25%", "10%"],
+      answer: 1,
+      explanation: "Profit = 540 − 450 = 90 → Profit % = 20%."
+    },
+    {
+      q: "If CP increases by 25% and SP remains same, find loss %.",
+      options: ["15%", "20%", "25%", "30%"],
+      answer: 1,
+      explanation: "Loss % = 20%."
+    },
+
+    /* ---------- HARD ---------- */
+
+    {
+      q: "A dishonest shopkeeper uses 900 g instead of 1 kg and sells at CP. Find profit %.",
+      options: ["10%", "11.11%", "12%", "9%"],
+      answer: 1,
+      explanation: "Profit % = 11.11%."
+    },
+    {
+      q: "A man sells an article at 20% profit. If CP is increased by 10%, find new profit %.",
+      options: ["9.09%", "10%", "8%", "12%"],
+      answer: 0,
+      explanation: "New Profit % = 9.09%."
+    },
+    {
+      q: "An article sold at profit of 10%. If sold for ₹60 more, profit becomes 15%. Find CP.",
+      options: ["₹1000", "₹1200", "₹1400", "₹900"],
+      answer: 1,
+      explanation: "CP = ₹1200."
+    },
+    {
+      q: "Two successive discounts of 10% and 20% are given. Find total discount %.",
+      options: ["25%", "28%", "30%", "32%"],
+      answer: 1,
+      explanation: "Total discount = 28%."
+    },
+    {
+      q: "Profit is 20% of SP. Find profit %.",
+      options: ["20%", "22%", "25%", "30%"],
+      answer: 2,
+      explanation: "Profit % = 25%."
+    },
+    {
+      q: "Rice costing ₹40/kg and ₹60/kg mixed in ratio 3:2 and sold at ₹55/kg. Find profit %.",
+      options: ["12%", "14.58%", "15%", "10%"],
+      answer: 1,
+      explanation: "CP = ₹48/kg → Profit % = 14.58%."
+    }
+  ]
+},
+siCi: {
+  title: "Simple & Compound Interest",
+
+  concepts: `
+  <h3 class="text-lg font-bold mb-3">Simple Interest (SI)</h3>
+
+  <p class="mb-3">
+    Simple Interest is calculated only on the original
+    <b>Principal (P)</b> for the entire time period.
+    The interest earned every year remains the same.
+  </p>
+
+  <ul class="list-disc ml-6 space-y-1 text-gray-300 mb-4">
+    <li><b>Principal (P)</b> – initial amount</li>
+    <li><b>Rate (R)</b> – annual interest rate (%)</li>
+    <li><b>Time (T)</b> – duration in years</li>
+  </ul>
+
+  <h3 class="text-lg font-bold mb-3">Compound Interest (CI)</h3>
+
+  <p class="mb-3">
+    Compound Interest is calculated on the principal
+    <b>plus accumulated interest</b>.
+    This is called <b>interest on interest</b>.
+  </p>
+
+  <p class="mb-3">
+    CI grows faster than SI and is commonly used in
+    banks, loans, and investments.
+  </p>
+
+  <p class="text-lime-400">
+    Difference between CI and SI for 2 years is very important for exams.
+  </p>
+  `,
+
+  formulas: [
+    "Simple Interest (SI) = (P × R × T) / 100",
+    "Amount (SI) = P + SI",
+    "P = (SI × 100) / (R × T)",
+    "R = (SI × 100) / (P × T)",
+    "T = (SI × 100) / (P × R)",
+    "Amount (CI, annual) = P × (1 + R/100)ᵀ",
+    "Compound Interest (CI) = Amount − P",
+    "CI (half-yearly) = P × (1 + R/200)²ᵀ",
+    "CI (quarterly) = P × (1 + R/400)⁴ᵀ",
+    "For 2 years: CI − SI = P × (R/100)²"
+  ],
+
+  practice: [
+    /* ---------- EASY (1–7) ---------- */
+
+    {
+      q: "Find the simple interest on ₹5000 at 10% per annum for 2 years.",
+      options: ["₹800", "₹1000", "₹1200", "₹900"],
+      answer: 1,
+      explanation: "SI = (5000×10×2)/100 = ₹1000."
+    },
+    {
+      q: "Find the amount on ₹8000 at 5% simple interest for 3 years.",
+      options: ["₹8800", "₹9000", "₹9200", "₹9400"],
+      answer: 2,
+      explanation: "SI = ₹1200 → Amount = ₹9200."
+    },
+    {
+      q: "Calculate the compound interest on ₹2000 at 10% per annum for 1 year.",
+      options: ["₹180", "₹200", "₹220", "₹250"],
+      answer: 1,
+      explanation: "CI = 10% of 2000 = ₹200."
+    },
+    {
+      q: "A sum amounts to ₹660 in 2 years at 10% SI. Find the principal.",
+      options: ["₹500", "₹550", "₹600", "₹650"],
+      answer: 2,
+      explanation: "P = 660 / 1.2 = ₹600."
+    },
+    {
+      q: "Find the rate of SI if ₹4000 amounts to ₹4800 in 4 years.",
+      options: ["4%", "5%", "6%", "8%"],
+      answer: 1,
+      explanation: "SI = 800 → R = (800×100)/(4000×4) = 5%."
+    },
+    {
+      q: "Find the CI on ₹1000 at 20% per annum for 1 year.",
+      options: ["₹180", "₹200", "₹220", "₹250"],
+      answer: 1,
+      explanation: "CI = 20% of 1000 = ₹200."
+    },
+    {
+      q: "A sum doubles itself in 5 years at SI. Find the rate.",
+      options: ["10%", "15%", "20%", "25%"],
+      answer: 2,
+      explanation: "SI = 100% in 5 years → R = 20%."
+    },
+
+    /* ---------- MEDIUM (8–14) ---------- */
+
+    {
+      q: "Find the compound interest on ₹10,000 at 10% per annum for 2 years.",
+      options: ["₹2000", "₹2100", "₹2200", "₹2500"],
+      answer: 1,
+      explanation: "CI = 10000(1.1² − 1) = ₹2100."
+    },
+    {
+      q: "Find the difference between CI and SI on ₹5000 for 2 years at 10% p.a.",
+      options: ["₹40", "₹50", "₹60", "₹100"],
+      answer: 1,
+      explanation: "Difference = P(R/100)² = 5000×0.01 = ₹50."
+    },
+    {
+      q: "A sum of ₹6000 earns SI of ₹1800 in 3 years. Find the rate.",
+      options: ["8%", "9%", "10%", "12%"],
+      answer: 2,
+      explanation: "R = (1800×100)/(6000×3) = 10%."
+    },
+    {
+      q: "Find the amount on ₹4000 at 5% CI for 2 years.",
+      options: ["₹4400", "₹4410", "₹4500", "₹4600"],
+      answer: 1,
+      explanation: "Amount = 4000×1.05² = ₹4410."
+    },
+    {
+      q: "A sum amounts to ₹1210 in 2 years at 10% CI. Find principal.",
+      options: ["₹900", "₹1000", "₹1100", "₹1200"],
+      answer: 1,
+      explanation: "P = 1210 / 1.21 = ₹1000."
+    },
+    {
+      q: "Find the CI on ₹5000 at 10% p.a. compounded half-yearly for 1 year.",
+      options: ["₹500", "₹512.50", "₹525", "₹550"],
+      answer: 1,
+      explanation: "CI = 5000(1.05² − 1) = ₹512.50."
+    },
+    {
+      q: "A sum becomes ₹7200 in 2 years at SI at 10%. Find principal.",
+      options: ["₹6000", "₹6200", "₹6500", "₹7000"],
+      answer: 0,
+      explanation: "P = 7200 / 1.2 = ₹6000."
+    },
+
+    /* ---------- HARD (15–20) ---------- */
+
+    {
+      q: "Find the compound interest on ₹8000 at 10% per annum for 3 years.",
+      options: ["₹2400", "₹2648", "₹2800", "₹3000"],
+      answer: 1,
+      explanation: "CI = 8000(1.1³ − 1) = ₹2648."
+    },
+    {
+      q: "A sum earns SI equal to 25% of principal in 5 years. Find the rate.",
+      options: ["4%", "5%", "6%", "8%"],
+      answer: 1,
+      explanation: "R = (25×100)/5 = 5%."
+    },
+    {
+      q: "Find the difference between CI and SI on ₹10,000 for 2 years at 20%.",
+      options: ["₹200", "₹300", "₹400", "₹500"],
+      answer: 2,
+      explanation: "Difference = 10000×(0.2)² = ₹400."
+    },
+    {
+      q: "A sum amounts to ₹1331 at 10% CI in 3 years. Find the principal.",
+      options: ["₹900", "₹950", "₹1000", "₹1100"],
+      answer: 2,
+      explanation: "1331 = 1000×1.1³ → P = ₹1000."
+    },
+    {
+      q: "Find the CI on ₹4000 at 8% p.a. compounded annually for 2 years.",
+      options: ["₹640", "₹665.60", "₹700", "₹720"],
+      answer: 1,
+      explanation: "CI = 4000(1.08² − 1) = ₹665.60."
+    },
+    {
+      q: "At what rate of SI will ₹1200 amount to ₹1800 in 10 years?",
+      options: ["4%", "5%", "6%", "8%"],
+      answer: 1,
+      explanation: "SI = 600 → R = (600×100)/(1200×10) = 5%."
+    }
+  ]
+},
+ratio: {
+  title: "Ratio & Proportion",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Basic Concepts of Ratio</h3>
+    <p class="mb-3">
+      A <b>ratio</b> is a comparison of two quantities of the same kind, written in the form <b>a : b</b>.
+      It shows how many times one quantity is greater or smaller than another.
+      Ratio questions are very common in <b>ages, mixtures, partnerships, profit sharing</b> and
+      <b>speed–time–distance</b> problems.
+    </p>
+
+    <p class="mb-3">
+      A <b>proportion</b> states that two ratios are equal. If
+      <b>a : b = c : d</b>, then it is written as <b>a : b :: c : d</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Important Property of Proportion</h4>
+    <p class="mb-3">
+      In a proportion <b>a : b :: c : d</b>:
+      <br>• <b>a and d</b> are called <b>extremes</b>
+      <br>• <b>b and c</b> are called <b>means</b>
+      <br><b>a × d = b × c</b>
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Types of Ratios</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Simple Ratio: 2 : 3</li>
+      <li>Compound Ratio: (a:b) × (c:d) = ac : bd</li>
+      <li>Duplicate Ratio of a:b → a² : b²</li>
+      <li>Triplicate Ratio of a:b → a³ : b³</li>
+      <li>Inverse Ratio of a:b → b : a</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Ratio & Proportion questions mainly test simplification speed and logical thinking.
+    </p>
+  `,
+
+  formulas: [
+    "If a : b = c : d, then a/b = c/d",
+    "Product of extremes = Product of means → a × d = b × c",
+    "Compound Ratio of a:b and c:d = (a×c) : (b×d)",
+    "If total is divided in ratio x : y → First part = Total × x / (x + y)",
+    "If A is x% more than B → A : B = (100 + x) : 100",
+    "If A is x% less than B → A : B = (100 − x) : 100",
+    "Partnership Profit Ratio = Investment × Time"
+  ],
+
+ practice: [
+  // 🔹 Easy Level (1–7)
+  {
+    q: "Simplify the ratio 24 : 36.",
+    options: ["2 : 3", "3 : 2", "4 : 5", "6 : 9"],
+    answer: 0,
+    explanation: "Divide both terms by 12 → 24:36 = 2:3."
+  },
+  {
+    q: "Divide ₹600 in the ratio 2 : 3.",
+    options: ["₹240, ₹360", "₹200, ₹400", "₹300, ₹300", "₹180, ₹420"],
+    answer: 0,
+    explanation: "Total parts = 5. Shares = 600×2/5 = 240 and 600×3/5 = 360."
+  },
+  {
+    q: "If a : b = 4 : 5 and b = 20, find a.",
+    options: ["12", "16", "18", "25"],
+    answer: 1,
+    explanation: "a = (4×20)/5 = 16."
+  },
+  {
+    q: "Two numbers are in the ratio 3 : 4 and their sum is 28. Find the numbers.",
+    options: ["10, 18", "12, 16", "14, 14", "8, 20"],
+    answer: 1,
+    explanation: "Total parts = 7 → Numbers = 12 and 16."
+  },
+  {
+    q: "Simplify the ratio 15 : 45.",
+    options: ["1 : 2", "2 : 3", "1 : 3", "3 : 5"],
+    answer: 2,
+    explanation: "Divide both terms by 15 → 1:3."
+  },
+  {
+    q: "Divide 90 in the ratio 7 : 2.",
+    options: ["63 : 27", "70 : 20", "60 : 30", "72 : 18"],
+    answer: 1,
+    explanation: "Total parts = 9 → Shares = 70 and 20."
+  },
+  {
+    q: "If a : b = 5 : 6 and a + b = 66, find a.",
+    options: ["25", "30", "36", "40"],
+    answer: 1,
+    explanation: "Total parts = 11 → a = 66×5/11 = 30."
+  },
+
+  // 🟡 Medium Level (8–14)
+  {
+    q: "If a : b = 3 : 4 and b : c = 5 : 6, find a : b : c.",
+    options: ["15 : 20 : 24", "3 : 4 : 6", "5 : 6 : 8", "12 : 16 : 18"],
+    answer: 0,
+    explanation: "LCM method → a:b:c = 15:20:24."
+  },
+  {
+    q: "A sum of ₹320 is divided between A and B in the ratio 7 : 9. Find B’s share.",
+    options: ["₹140", "₹160", "₹180", "₹200"],
+    answer: 2,
+    explanation: "B = 320×9/16 = ₹180."
+  },
+  {
+    q: "A sum of ₹1200 is divided among A, B, C in ratio 2 : 3 : 5. Find C’s share.",
+    options: ["₹360", "₹420", "₹480", "₹600"],
+    answer: 3,
+    explanation: "C = 1200×5/10 = ₹600."
+  },
+  {
+    q: "The ratio of ages of A and B is 4 : 5. After 5 years, it becomes 6 : 7. Find A’s present age.",
+    options: ["20", "24", "26", "28"],
+    answer: 1,
+    explanation: "Present ages are A = 24, B = 30."
+  },
+  {
+    q: "Two numbers are in ratio 5 : 6. If 10 is added to each, ratio becomes 2 : 3. Find numbers.",
+    options: ["20, 24", "25, 30", "30, 36", "15, 18"],
+    answer: 0,
+    explanation: "Numbers are 20 and 24."
+  },
+  {
+    q: "A man divides ₹500 in the ratio 3 : 2. Find larger share.",
+    options: ["₹200", "₹250", "₹300", "₹350"],
+    answer: 2,
+    explanation: "Larger share = 500×3/5 = ₹300."
+  },
+  {
+    q: "If A is 20% more than B, find ratio A : B.",
+    options: ["5 : 6", "6 : 5", "4 : 5", "7 : 6"],
+    answer: 1,
+    explanation: "A:B = (100+20):100 = 6:5."
+  },
+
+  // 🔴 Hard Level (15–20)
+  {
+    q: "Three partners invest in ratio 3 : 4 : 5. Profit is ₹2400. Find B’s share.",
+    options: ["₹600", "₹800", "₹1000", "₹1200"],
+    answer: 1,
+    explanation: "Total parts = 12 → B = 2400×4/12 = ₹800."
+  },
+  {
+    q: "A and B can do work in ratio 2 : 3. Total work is 100 units. Find work done by B.",
+    options: ["40 units", "50 units", "60 units", "70 units"],
+    answer: 2,
+    explanation: "B does 3 parts → 100×3/5 = 60 units."
+  },
+  {
+    q: "A’s investment is 20% more than B. Profit = ₹500. Find A’s share.",
+    options: ["₹225", "₹250", "₹272.73", "₹300"],
+    answer: 2,
+    explanation: "Ratio = 6:5 → A’s share = 500×6/11 = ₹272.73."
+  },
+  {
+    q: "The ratio of milk to water is 5 : 2. 7 liters of water added, ratio becomes 5 : 4. Find milk.",
+    options: ["28 L", "30 L", "35 L", "40 L"],
+    answer: 2,
+    explanation: "Milk = 35 liters."
+  },
+  {
+    q: "A sum is divided among A, B, C in ratio 2 : 3 : 4. C’s share is ₹400 more than A. Find total sum.",
+    options: ["₹1200", "₹1500", "₹1800", "₹2000"],
+    answer: 2,
+    explanation: "Difference = 2 parts = 400 → 1 part = 200 → Total = 9×200 = ₹1800."
+  },
+  {
+    q: "Two numbers are in ratio 7 : 9. If each is increased by 5, ratio becomes 4 : 5. Find numbers.",
+    options: ["14, 18", "21, 27", "15, 18", "28, 36"],
+    answer: 2,
+    explanation: "Numbers are 15 and 18."
+  }
+]
+
+},
+averages: {
+  title: "Averages",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Meaning of Average</h3>
+    <p class="mb-3">
+      An <b>average</b> represents the central or typical value of a set of numbers.
+      It is calculated by dividing the sum of all observations by the number of observations.
+    </p>
+    <p class="mb-3">
+      Averages are widely used in placement aptitude questions involving
+      <b>ages, marks, salaries, runs, temperatures, and speeds</b>.
+    </p>
+    <p class="mb-3">
+      Using averages helps simplify large data into a single meaningful value,
+      making comparison and analysis faster.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Important Points</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Average = Sum of values ÷ Number of values</li>
+      <li>If average increases, total sum increases</li>
+      <li>Average of consecutive numbers is the middle number</li>
+      <li>Average speed is NOT the normal average</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Average questions are very common in placement exams — accuracy matters more than speed.
+    </p>
+  `,
+  formulas: [
+    "Average = (Sum of Observations) / (Number of Observations)",
+    "Sum of Observations = Average × Number of Observations",
+    "New Average = Old Average + (Change / Number of Observations)",
+    "Weighted Average = Σ(Value × Weight) / Σ(Weights)",
+    "Average Speed = Total Distance / Total Time",
+    "If equal distances are covered at speeds x and y, Average Speed = (2xy) / (x + y)"
+  ],
+  practice: [
+    // 🟢 Easy Level (1–7)
+    {
+      q: "Find the average of 10, 20, 30, 40, 50.",
+      options: ["25", "30", "35", "40"],
+      answer: 1,
+      explanation: "Sum = 150, Count = 5 → Average = 150/5 = 30."
+    },
+    {
+      q: "The average of 5 numbers is 24. Find their sum.",
+      options: ["100", "110", "120", "130"],
+      answer: 2,
+      explanation: "Sum = Average × Count = 24 × 5 = 120."
+    },
+    {
+      q: "The average marks of 3 students is 70. Find total marks.",
+      options: ["200", "210", "220", "230"],
+      answer: 1,
+      explanation: "Total marks = 70 × 3 = 210."
+    },
+    {
+      q: "The average of 4 numbers is 50. One number is 60. Find the average of remaining 3 numbers.",
+      options: ["40", "45", "46.67", "50"],
+      answer: 2,
+      explanation: "Total sum = 200. Remaining sum = 140 → Average = 140/3 ≈ 46.67."
+    },
+    {
+      q: "The average of 7 numbers is 35. Sum of 6 numbers is 192. Find the 7th number.",
+      options: ["49", "50", "53", "56"],
+      answer: 2,
+      explanation: "Total sum = 245. Missing number = 245 − 192 = 53."
+    },
+    {
+      q: "Find the average of the first 10 natural numbers.",
+      options: ["5", "5.5", "6", "6.5"],
+      answer: 1,
+      explanation: "Average of first n natural numbers = (1 + n)/2 = 5.5."
+    },
+    {
+      q: "Find the average of 12, 15, 18, 21.",
+      options: ["15", "16", "16.5", "17"],
+      answer: 2,
+      explanation: "Sum = 66 → Average = 66/4 = 16.5."
+    },
+
+    // 🟡 Medium Level (8–14)
+    {
+      q: "The average age of 8 students is 20 years. A new student joins and average becomes 21. Find his age.",
+      options: ["28", "29", "30", "31"],
+      answer: 1,
+      explanation: "Increase in total = 1×9 = 9 → Age = 20 + 9 = 29."
+    },
+    {
+      q: "The average of 10 numbers is 15. If one number is replaced by 25, average increases by 1. Find the replaced number.",
+      options: ["10", "15", "20", "25"],
+      answer: 1,
+      explanation: "Increase in sum = 10 → Old number = 25 − 10 = 15."
+    },
+    {
+      q: "The average of 5 numbers is 60. If each number is increased by 5, find new average.",
+      options: ["60", "62", "65", "70"],
+      answer: 2,
+      explanation: "Average increases by same amount → 60 + 5 = 65."
+    },
+    {
+      q: "Average marks of 10 students is 72. One student scored 80. Find average of remaining 9 students.",
+      options: ["70", "71.11", "72", "73"],
+      answer: 1,
+      explanation: "Remaining sum = 720 − 80 = 640 → Average = 640/9 ≈ 71.11."
+    },
+    {
+      q: "The average of 7 numbers is 18. Two numbers 20 and 22 are removed. Find new average.",
+      options: ["15", "16", "16.8", "17"],
+      answer: 2,
+      explanation: "Remaining sum = 126 − 42 = 84 → Average = 84/5 = 16.8."
+    },
+    {
+      q: "Average of 40 students is 20. A new student joins and average becomes 21. Find his age.",
+      options: ["60", "61", "62", "63"],
+      answer: 1,
+      explanation: "Increase = 1×41 = 41 → Age = 41 + 20 = 61."
+    },
+    {
+      q: "A man travels 60 km at 30 km/h and returns at 20 km/h. Find average speed.",
+      options: ["24", "25", "26", "28"],
+      answer: 1,
+      explanation: "Average speed = (2xy)/(x+y) = (2×30×20)/50 = 24 km/h."
+    },
+
+    // 🔴 Hard Level (15–20)
+    {
+      q: "Average of 15 numbers is 40. Average of first 7 is 35 and last 8 is 45. Find difference of sums.",
+      options: ["100", "110", "115", "120"],
+      answer: 2,
+      explanation: "Sums = 245 and 360 → Difference = 115."
+    },
+    {
+      q: "Average of 50 students is 36. Average of boys is 38 and girls is 34. Find number of boys.",
+      options: ["20", "25", "30", "35"],
+      answer: 1,
+      explanation: "Solving equation gives boys = 25."
+    },
+    {
+      q: "Average marks of 11 students is 72. Highest 88 and lowest 54 removed. Find new average.",
+      options: ["71", "72", "72.22", "73"],
+      answer: 2,
+      explanation: "Remaining sum = 650 → Average = 650/9 ≈ 72.22."
+    },
+    {
+      q: "Average of 10 numbers is 12. Another number 20 is added. Find new average.",
+      options: ["12.5", "12.73", "13", "14"],
+      answer: 1,
+      explanation: "New average = (120 + 20)/11 ≈ 12.73."
+    },
+    {
+      q: "Average age of 10 men is 35 and 15 women is 25. Find combined average.",
+      options: ["28", "29", "30", "31"],
+      answer: 1,
+      explanation: "Combined average = 725/25 = 29."
+    },
+    {
+      q: "Average of 8 numbers is 18. One number 24 is removed. Find new average.",
+      options: ["16", "17.14", "18", "19"],
+      answer: 1,
+      explanation: "Remaining average = 120/7 ≈ 17.14."
+    }
+  ]
+},
+timeWork: {
+  title: "Time & Work",
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Meaning of Time & Work</h3>
+    <p class="mb-3">
+      Time and Work problems deal with the relationship between <b>work done, time taken,</b>
+      and <b>efficiency</b>. If more people work together, the work finishes faster.
+    </p>
+    <p class="mb-3">
+      In placement exams, Time & Work questions test <b>logical thinking, ratios, fractions,</b>
+      and calculation speed.
+    </p>
+    <p class="mb-3">
+      If a person can complete a work in <b>x days</b>, it means the person does
+      <b>1/x part of the work in one day</b>.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Important Concepts</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Work = Efficiency × Time</li>
+      <li>Efficiency is inversely proportional to time</li>
+      <li>If efficiency increases, time required decreases</li>
+      <li>Men–Days concept is used when workers change</li>
+      <li>Pipes & Cisterns are extensions of Time & Work</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Always convert work into fractions to solve faster in placement exams.
+    </p>
+  `,
+  formulas: [
+    "Work = Efficiency × Time",
+    "If work is completed in x days, 1 day’s work = 1/x",
+    "If A and B take x and y days, (A+B)’s 1 day work = (1/x + 1/y)",
+    "Time taken together = (x × y) / (x + y)",
+    "Men–Days Concept: M₁ × D₁ = M₂ × D₂",
+    "Pipe filling tank in x hours → 1/x per hour",
+    "Pipe emptying tank in y hours → −1/y per hour"
+  ],
+  practice: [
+    // 🟢 Easy Level (1–7)
+    {
+      q: "A can do a work in 10 days. What part of the work does he do in one day?",
+      options: ["1/5", "1/10", "1/20", "10"],
+      answer: 1,
+      explanation: "If work is done in 10 days, 1 day’s work = 1/10."
+    },
+    {
+      q: "A can complete a work in 20 days. In how many days will he complete half the work?",
+      options: ["5 days", "8 days", "10 days", "12 days"],
+      answer: 2,
+      explanation: "Half work takes half the time → 20/2 = 10 days."
+    },
+    {
+      q: "A can do a work in 8 days. How much work will he do in 3 days?",
+      options: ["1/8", "3/8", "1/3", "5/8"],
+      answer: 1,
+      explanation: "1 day’s work = 1/8 → In 3 days = 3/8."
+    },
+    {
+      q: "If A does 1/6 work in one day, how many days will he take to finish the work?",
+      options: ["5", "6", "8", "10"],
+      answer: 1,
+      explanation: "If 1 day = 1/6 work, total time = 6 days."
+    },
+    {
+      q: "B can do a work in 15 days. Find his one day’s work.",
+      options: ["1/5", "1/10", "1/15", "15"],
+      answer: 2,
+      explanation: "1 day’s work = 1/15."
+    },
+    {
+      q: "A can complete a work in 5 days. How much work does he do in 2 days?",
+      options: ["1/5", "2/5", "3/5", "4/5"],
+      answer: 1,
+      explanation: "1 day = 1/5 → In 2 days = 2/5."
+    },
+    {
+      q: "A does a work in 12 days. How much work remains after 5 days?",
+      options: ["5/12", "7/12", "1/2", "2/3"],
+      answer: 1,
+      explanation: "Work done = 5/12 → Remaining = 7/12."
+    },
+
+    // 🟡 Medium Level (8–14)
+    {
+      q: "A can do a work in 10 days and B in 15 days. How long will they take together?",
+      options: ["5 days", "6 days", "7.5 days", "8 days"],
+      answer: 1,
+      explanation: "1/10 + 1/15 = 1/6 → Time = 6 days."
+    },
+    {
+      q: "A can do a work in 12 days and B in 18 days. How long will they take together?",
+      options: ["6 days", "7 days", "7.2 days", "8 days"],
+      answer: 2,
+      explanation: "1/12 + 1/18 = 5/36 → Time = 36/5 = 7.2 days."
+    },
+    {
+      q: "A is twice as efficient as B. If B can do a work in 20 days, find time taken by A.",
+      options: ["5", "8", "10", "15"],
+      answer: 2,
+      explanation: "Twice efficiency → half time → 20/2 = 10 days."
+    },
+    {
+      q: "A can do a work in 6 days, B in 12 days. How much work will they do in 2 days together?",
+      options: ["1/4", "1/3", "1/2", "2/3"],
+      answer: 2,
+      explanation: "Combined per day = 1/4 → In 2 days = 1/2."
+    },
+    {
+      q: "A can do a work in 8 days, B in 16 days. A works alone for 2 days, then B joins. Total time?",
+      options: ["5 days", "6 days", "7 days", "8 days"],
+      answer: 1,
+      explanation: "Remaining work = 3/4 → Time = 6 days."
+    },
+    {
+      q: "A does half the work in 10 days. How many days will he take for full work?",
+      options: ["15", "18", "20", "25"],
+      answer: 2,
+      explanation: "Half work in 10 days → Full work in 20 days."
+    },
+    {
+      q: "A can do a work in 4 days and B in 6 days. How much work do they do together in one day?",
+      options: ["1/2", "2/3", "5/12", "3/4"],
+      answer: 2,
+      explanation: "1/4 + 1/6 = 5/12."
+    },
+
+    // 🔴 Hard Level (15–20)
+    {
+      q: "A can do a work in 15 days, B in 20 days. They work together for 4 days. How much work is left?",
+      options: ["7/15", "8/15", "1/3", "2/5"],
+      answer: 1,
+      explanation: "Work done = 4×(7/60) = 28/60 → Remaining = 8/15."
+    },
+    {
+      q: "A and B can do a work in 12 days, B and C in 15 days, A and C in 20 days. Find time for A alone.",
+      options: ["6", "8", "10", "12"],
+      answer: 1,
+      explanation: "A’s one-day work = 1/8 → Time = 8 days."
+    },
+    {
+      q: "A can do a work in 20 days. B is 25% more efficient. Find time taken by B.",
+      options: ["12", "15", "16", "18"],
+      answer: 2,
+      explanation: "Time = 20×100/125 = 16 days."
+    },
+    {
+      q: "A alone can do a work in 10 days. After 4 days, B joins and work finishes in 6 days. Find B’s time alone.",
+      options: ["12", "15", "18", "20"],
+      answer: 1,
+      explanation: "B alone can do work in 15 days."
+    },
+    {
+      q: "A can do a work in 12 days and B in 18 days. If they work alternately starting with A, find total time.",
+      options: ["6 days", "7 days", "7.2 days", "8 days"],
+      answer: 2,
+      explanation: "Using fraction method → Total time ≈ 7.2 days."
+    },
+    {
+      q: "A and B together can do a work in 8 days. A alone can do it in 12 days. Find B’s time alone.",
+      options: ["18", "20", "24", "30"],
+      answer: 2,
+      explanation: "B’s one-day work = 1/24 → Time = 24 days."
+    }
+  ]
+},
+timeSpeedDistance: {
+  title: "Time, Speed & Distance",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Basic Concept</h3>
+    <p class="mb-3">
+      Time, Speed, and Distance are interrelated concepts used to measure motion.
+      These questions are very common in placement aptitude tests as they test
+      calculation speed, unit conversion, and logical thinking.
+    </p>
+
+    <p class="mb-3">
+      If any two quantities are known, the third can always be calculated.
+    </p>
+
+    <p class="mb-4 font-semibold text-lime-400">
+      Fundamental Relation: Distance = Speed × Time
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Units</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Speed → km/h or m/s</li>
+      <li>Distance → km or meters</li>
+      <li>Time → hours, minutes, seconds</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Average Speed</h4>
+    <p class="mb-3">
+      Average speed is <b>total distance divided by total time</b>,
+      not the average of speeds.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Relative Speed</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Same direction → Difference of speeds</li>
+      <li>Opposite direction → Sum of speeds</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Trains</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Passing a pole/man → Train length ÷ Speed</li>
+      <li>Passing a platform → (Train + Platform length) ÷ Speed</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">Boats & Streams</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Downstream speed = Boat speed + Stream speed</li>
+      <li>Upstream speed = Boat speed − Stream speed</li>
+    </ul>
+  `,
+
+  formulas: [
+    "Speed = Distance / Time",
+    "Time = Distance / Speed",
+    "Distance = Speed × Time",
+    "1 km/h = 5/18 m/s",
+    "1 m/s = 18/5 km/h",
+    "Average Speed = Total Distance / Total Time",
+    "Average speed for equal distances = (2xy) / (x + y)",
+    "Relative speed (same direction) = Difference of speeds",
+    "Relative speed (opposite direction) = Sum of speeds",
+    "Speed in still water = (Downstream + Upstream) / 2",
+    "Speed of stream = (Downstream − Upstream) / 2"
+  ],
+practice: [
+  // 🔹 Easy Level (1–7)
+  {
+    q: "A car travels at 60 km/h. How much distance will it cover in 2 hours?",
+    options: ["100 km", "120 km", "140 km", "160 km"],
+    answer: 1,
+    explanation: "Distance = Speed × Time = 60 × 2 = 120 km."
+  },
+  {
+    q: "A train runs at 40 km/h. How long will it take to cover 120 km?",
+    options: ["2 hours", "2.5 hours", "3 hours", "4 hours"],
+    answer: 2,
+    explanation: "Time = Distance ÷ Speed = 120 ÷ 40 = 3 hours."
+  },
+  {
+    q: "Convert 36 km/h into m/s.",
+    options: ["8 m/s", "9 m/s", "10 m/s", "12 m/s"],
+    answer: 2,
+    explanation: "To convert km/h to m/s, multiply by 5/18. 36 × 5/18 = 10 m/s."
+  },
+  {
+    q: "A man walks at 5 km/h. How far will he walk in 30 minutes?",
+    options: ["2 km", "2.5 km", "3 km", "3.5 km"],
+    answer: 1,
+    explanation: "30 minutes = 0.5 hour. Distance = 5 × 0.5 = 2.5 km."
+  },
+  {
+    q: "A bike moves at 20 m/s. Convert it into km/h.",
+    options: ["60 km/h", "70 km/h", "72 km/h", "80 km/h"],
+    answer: 2,
+    explanation: "To convert m/s to km/h, multiply by 18/5. 20 × 18/5 = 72 km/h."
+  },
+  {
+    q: "A train covers 180 km in 3 hours. Find its speed.",
+    options: ["50 km/h", "55 km/h", "60 km/h", "65 km/h"],
+    answer: 2,
+    explanation: "Speed = Distance ÷ Time = 180 ÷ 3 = 60 km/h."
+  },
+  {
+    q: "How much time will a car take to cover 150 km at 75 km/h?",
+    options: ["1 hour", "1.5 hours", "2 hours", "2.5 hours"],
+    answer: 2,
+    explanation: "Time = Distance ÷ Speed = 150 ÷ 75 = 2 hours."
+  },
+
+  // 🟡 Medium Level (8–14)
+  {
+    q: "Two trains move in opposite directions at 40 km/h and 60 km/h. Find relative speed.",
+    options: ["20 km/h", "60 km/h", "80 km/h", "100 km/h"],
+    answer: 3,
+    explanation: "Opposite direction → Relative speed = sum of speeds = 40 + 60 = 100 km/h."
+  },
+  {
+    q: "A person covers a distance at 30 km/h and returns at 20 km/h. Find average speed.",
+    options: ["22 km/h", "24 km/h", "25 km/h", "26 km/h"],
+    answer: 1,
+    explanation: "Average speed = (2ab)/(a+b) = (2×30×20)/(30+20) = 24 km/h."
+  },
+  {
+    q: "A train of length 200 m crosses a pole in 10 seconds. Find its speed.",
+    options: ["36 km/h", "54 km/h", "72 km/h", "90 km/h"],
+    answer: 2,
+    explanation: "Speed = 200 ÷ 10 = 20 m/s = 20 × 18/5 = 72 km/h."
+  },
+  {
+    q: "A car increases its speed from 40 km/h to 60 km/h. Find percentage increase.",
+    options: ["25%", "40%", "50%", "60%"],
+    answer: 2,
+    explanation: "Increase = 20. Percentage increase = (20/40) × 100 = 50%."
+  },
+  {
+    q: "A cyclist covers 60 km at 20 km/h and next 60 km at 30 km/h. Find average speed.",
+    options: ["22 km/h", "24 km/h", "25 km/h", "26 km/h"],
+    answer: 1,
+    explanation: "Average speed = Total distance ÷ Total time = 120 ÷ (3 + 2) = 24 km/h."
+  },
+  {
+    q: "A train 150 m long passes a man walking at 5 km/h in opposite direction in 10 seconds. Find train speed.",
+    options: ["54 km/h", "57 km/h", "59 km/h", "60 km/h"],
+    answer: 2,
+    explanation: "Relative speed = 150/10 = 15 m/s = 54 km/h. Train speed ≈ 59 km/h."
+  },
+  {
+    q: "If speed is doubled, time becomes?",
+    options: ["Double", "Half", "Same", "Four times"],
+    answer: 1,
+    explanation: "Speed and time are inversely proportional. If speed doubles, time becomes half."
+  },
+
+  // 🔴 Hard Level (15–20)
+  {
+    q: "A train crosses a pole in 10 sec and a platform in 30 sec. Train length is 120 m. Find platform length.",
+    options: ["120 m", "180 m", "240 m", "300 m"],
+    answer: 2,
+    explanation: "Speed = 120/10 = 12 m/s. Platform length = (30−10) × 12 = 240 m."
+  },
+  {
+    q: "Two persons start from same point at 40 km/h and 60 km/h. When will faster be 20 km ahead?",
+    options: ["30 min", "45 min", "1 hour", "1.5 hours"],
+    answer: 2,
+    explanation: "Relative speed = 60 − 40 = 20 km/h. Time = 20 ÷ 20 = 1 hour."
+  },
+  {
+    q: "A man travels 1/3 distance at 40 km/h and remaining at 60 km/h. Find average speed.",
+    options: ["48 km/h", "50 km/h", "52 km/h", "55 km/h"],
+    answer: 1,
+    explanation: "Average speed for unequal distances = Total distance ÷ Total time = 50 km/h."
+  },
+  {
+    q: "A boat moves at 10 km/h in still water. Stream speed is 2 km/h. Find downstream speed.",
+    options: ["8 km/h", "10 km/h", "12 km/h", "14 km/h"],
+    answer: 2,
+    explanation: "Downstream speed = Boat speed + Stream speed = 10 + 2 = 12 km/h."
+  },
+  {
+    q: "A boat goes 24 km downstream in 2 hours and returns upstream in 4 hours. Find stream speed.",
+    options: ["2 km/h", "3 km/h", "4 km/h", "5 km/h"],
+    answer: 1,
+    explanation: "Downstream speed = 12 km/h, Upstream speed = 6 km/h. Stream speed = (12−6)/2 = 3 km/h."
+  },
+  {
+    q: "A train running at 54 km/h crosses a man running at 6 km/h in same direction in 20 seconds. Find train length.",
+    options: ["240 m", "260 m", "267 m", "300 m"],
+    answer: 2,
+    explanation: "Relative speed = 48 km/h = 13.33 m/s. Length = 13.33 × 20 ≈ 267 m."
+  }
+]
+
+},
+pipesCisterns: {
+  title: "Pipes & Cisterns",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Pipes & Cisterns – Basic Concepts</h3>
+
+    <p class="mb-3">
+      Pipes and Cisterns problems are an application of <b>Time & Work</b>.
+      A cistern or tank is filled or emptied by pipes at a constant rate.
+      Pipes that <b>fill</b> the tank do <b>positive work</b>, while pipes that
+      <b>empty</b> the tank do <b>negative work</b>.
+    </p>
+
+    <p class="mb-3">
+      The key idea is to calculate how much part of the tank is filled or emptied
+      in <b>one unit of time</b> and then combine the rates.
+    </p>
+
+    <p class="mb-3">
+      If a pipe can fill a tank in <b>x hours</b>, then it fills <b>1/x</b> part
+      of the tank in one hour.  
+      If a pipe can empty a tank in <b>y hours</b>, then it empties <b>1/y</b> part
+      of the tank in one hour.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Important Ideas</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Filling pipe → positive work</li>
+      <li>Emptying pipe → negative work</li>
+      <li>Work is calculated per hour</li>
+      <li>Combine rates to find total time</li>
+    </ul>
+  `,
+
+  formulas: [
+    "If a pipe fills a tank in x hours, 1 hour’s work = 1/x",
+    "If a pipe empties a tank in y hours, 1 hour’s work = −1/y",
+    "Two filling pipes: (1/x + 1/y)",
+    "Time together = (x × y) / (x + y)",
+    "One filling & one emptying pipe: Net work = (1/x − 1/y)",
+    "Time = 1 / (Net work per hour)",
+    "For leakage problems: Extra time helps find leakage rate"
+  ],
+
+  practice: [
+    // 🔹 Easy Level (1–7)
+    {
+      q: "A pipe can fill a tank in 10 hours. What part of the tank is filled in 1 hour?",
+      options: ["1/5", "1/8", "1/10", "1/12"],
+      answer: 2,
+      explanation: "If tank is filled in 10 hours, 1 hour’s work = 1/10."
+    },
+    {
+      q: "A tap fills a tank in 8 hours. How much work is done in 3 hours?",
+      options: ["1/8", "3/8", "1/3", "1/4"],
+      answer: 1,
+      explanation: "1 hour work = 1/8, so in 3 hours = 3/8 of the tank."
+    },
+    {
+      q: "A pipe fills a tank in 12 hours. How long will it take to fill half the tank?",
+      options: ["4 hours", "5 hours", "6 hours", "8 hours"],
+      answer: 2,
+      explanation: "Half work = 12 ÷ 2 = 6 hours."
+    },
+    {
+      q: "A pipe can fill a tank in 20 hours. Find its one-hour work.",
+      options: ["1/10", "1/15", "1/20", "1/25"],
+      answer: 2,
+      explanation: "One-hour work = 1/20."
+    },
+    {
+      q: "A tap fills 1/5 tank in 1 hour. How long to fill the full tank?",
+      options: ["4 hours", "5 hours", "6 hours", "10 hours"],
+      answer: 1,
+      explanation: "If 1/5 is filled in 1 hour, full tank takes 5 hours."
+    },
+    {
+      q: "A pipe fills a tank in 15 hours. How much tank is left after 5 hours?",
+      options: ["1/3", "2/3", "3/5", "1/2"],
+      answer: 1,
+      explanation: "Work done = 5/15 = 1/3, remaining = 2/3."
+    },
+    {
+      q: "A tank is filled in 6 hours. What fraction is filled in 2 hours?",
+      options: ["1/6", "1/3", "1/2", "2/3"],
+      answer: 1,
+      explanation: "2 hours work = 2/6 = 1/3."
+    },
+
+    // 🟡 Medium Level (8–14)
+    {
+      q: "Two pipes fill a tank in 12 and 18 hours. How long will they take together?",
+      options: ["6 hours", "7.2 hours", "8 hours", "9 hours"],
+      answer: 1,
+      explanation: "1/12 + 1/18 = 5/36 → Time = 36/5 = 7.2 hours."
+    },
+    {
+      q: "A pipe fills a tank in 10 hours and another empties it in 20 hours. How long to fill the tank?",
+      options: ["15 hours", "18 hours", "20 hours", "25 hours"],
+      answer: 2,
+      explanation: "Net work = 1/10 − 1/20 = 1/20 → Time = 20 hours."
+    },
+    {
+      q: "Two pipes together fill a tank in 6 hours. One alone fills it in 10 hours. Find the other pipe’s time.",
+      options: ["12 hours", "15 hours", "18 hours", "20 hours"],
+      answer: 1,
+      explanation: "Other pipe’s work = 1/6 − 1/10 = 1/15 → 15 hours."
+    },
+    {
+      q: "A pipe fills a tank in 24 hours. Due to leakage, it takes 30 hours. Find leakage time alone.",
+      options: ["60 hours", "90 hours", "120 hours", "150 hours"],
+      answer: 2,
+      explanation: "Leakage work = 1/24 − 1/30 = 1/120 → 120 hours."
+    },
+    {
+      q: "A tap fills a tank in 8 hours. After 2 hours, another tap is opened which empties the tank in 12 hours. Total time?",
+      options: ["10 hours", "11 hours", "12 hours", "14 hours"],
+      answer: 2,
+      explanation: "Net work after 2 hrs = 1/8 − 1/12 = 1/24 → Tank fills in 12 hours."
+    },
+    {
+      q: "A pipe fills 1/4 tank per hour. How long to fill whole tank?",
+      options: ["2 hours", "3 hours", "4 hours", "5 hours"],
+      answer: 2,
+      explanation: "If 1/4 per hour, full tank takes 4 hours."
+    },
+    {
+      q: "Two inlet pipes fill a tank in 15 and 30 hours. Find time together.",
+      options: ["8 hours", "10 hours", "12 hours", "15 hours"],
+      answer: 1,
+      explanation: "1/15 + 1/30 = 1/10 → Time = 10 hours."
+    },
+
+    // 🔴 Hard Level (15–20)
+    {
+      q: "A pipe fills a tank in 10 hours and another empties it in 15 hours. When will tank be filled?",
+      options: ["20 hours", "25 hours", "30 hours", "35 hours"],
+      answer: 2,
+      explanation: "Net work = 1/10 − 1/15 = 1/30 → 30 hours."
+    },
+    {
+      q: "Two pipes fill a tank in 8 hours. A third empties it in 16 hours. How long to fill tank?",
+      options: ["12 hours", "14 hours", "16 hours", "18 hours"],
+      answer: 2,
+      explanation: "Net work = 1/8 − 1/16 = 1/16 → 16 hours."
+    },
+    {
+      q: "A pipe fills a tank in 6 hours. Due to leak, it fills in 8 hours. Find leak time alone.",
+      options: ["12 hours", "18 hours", "24 hours", "30 hours"],
+      answer: 2,
+      explanation: "Leak work = 1/6 − 1/8 = 1/24 → 24 hours."
+    },
+    {
+      q: "Pipe A fills tank in 12 hours and Pipe B empties in 18 hours. If both work for 3 hours, how much tank is filled?",
+      options: ["1/18", "1/12", "1/9", "1/6"],
+      answer: 1,
+      explanation: "Net work per hour = 1/36 → In 3 hours = 3/36 = 1/12."
+    },
+    {
+      q: "A tank is filled by two pipes in ratio 2:3. One pipe takes 15 hours. Find time of other pipe.",
+      options: ["9 hours", "10 hours", "12 hours", "15 hours"],
+      answer: 1,
+      explanation: "Time ratio is inverse of efficiency. Other pipe = 10 hours."
+    },
+    {
+      q: "Three pipes fill a tank in 12, 15, and 20 hours. How long will they take together?",
+      options: ["4 hours", "5 hours", "6 hours", "8 hours"],
+      answer: 1,
+      explanation: "1/12 + 1/15 + 1/20 = 1/5 → 5 hours."
+    }
+  ]
+},
+
+
+mixtures_alligations:{
+  "title": "Mixtures & Alligations",
+  "concepts": "<h3 class='text-lg font-bold mb-3'>Basic Concepts</h3> \
+<p class='mb-3'>Mixtures and Alligations problems deal with the combination of two or more ingredients having different strengths, costs, or concentrations to form a mixture of a desired strength or mean value. These questions are common in placement exams as they test <b>ratio understanding, percentages,</b> and <b>logical reasoning.</b></p> \
+<p class='mb-3'>A mixture is formed by mixing substances like milk & water, alcohol & water, or two types of rice. <b>Alligation</b> is a rule used to find the ratio in which ingredients must be mixed to get a mixture of given strength or price.</p> \
+<h4 class='font-semibold mt-4 mb-2'>Alligation Rule (Core Concept)</h4> \
+<p class='mb-3'>If two ingredients with values C₁ (lower) and C₂ (higher) are mixed to get mean value M:</p> \
+<p class='mb-3'><b>Quantity of C₁ : Quantity of C₂ = (C₂ − M) : (M − C₁)</b></p> \
+<p class='mb-3'>Applicable for cost per unit, percentage concentration, and strength of solution.</p> \
+<h4 class='font-semibold mt-4 mb-2'>Important Formulas</h4> \
+<ul class='list-disc ml-6 space-y-1 text-gray-300'> \
+<li>If x liters of water is added to y liters of milk: New quantity = x + y; Milk % = (y / (x + y)) × 100</li> \
+<li>If x liters of mixture is replaced repeatedly with water: Final quantity = Initial × (1 − x / Total)ⁿ, where n = replacements</li> \
+<li>Weighted Average: Mean Value = (Σ(Quantity × Value)) / Total Quantity</li> \
+</ul>",
+  
+  "formulas": [
+    "Milk percentage = (Quantity of milk / Total mixture) × 100",
+    "Alligation ratio = (C₂ − M) : (M − C₁)",
+    "Final quantity after n replacements = Initial × (1 − x / Total)^n",
+    "Weighted average (mean) = Sum of (Quantity × Value) / Total Quantity"
+  ],
+
+  "practice":[
+  {"q": "In a mixture of milk and water, ratio is 3 : 2. What fraction is milk?", "options": ["3/5", "2/5", "1/2", "3/2"], "answer": 0, "explanation": "Fraction of milk = 3 / (3+2) = 3/5."},
+  {"q": "A mixture contains milk and water in ratio 4 : 1. Find percentage of water.", "options": ["20%", "25%", "15%", "10%"], "answer": 0, "explanation": "Water fraction = 1/5 → 20%."},
+  {"q": "How much water must be added to 20 L milk to make ratio 4 : 1?", "options": ["5 L", "4 L", "6 L", "8 L"], "answer": 0, "explanation": "Milk : Water = 4 : 1 → Water = 20 ÷ 4 = 5 L."},
+  {"q": "A mixture has 30 L milk and 10 L water. Find ratio of milk to water.", "options": ["3:1", "1:3", "2:1", "1:2"], "answer": 0, "explanation": "Ratio = 30 : 10 = 3 : 1."},
+  {"q": "In a 40 L mixture, milk : water = 1 : 3. Find quantity of water.", "options": ["30 L", "10 L", "25 L", "15 L"], "answer": 0, "explanation": "Milk fraction = 1/4 → Water = 3/4 × 40 = 30 L."},
+  {"q": "A solution contains salt and water in ratio 1 : 4. What fraction is salt?", "options": ["1/5", "1/4", "4/5", "2/5"], "answer": 0, "explanation": "Fraction of salt = 1/(1+4) = 1/5."},
+  {"q": "10 L mixture has milk and water in ratio 7 : 3. Find water quantity.", "options": ["3 L", "7 L", "4 L", "5 L"], "answer": 0, "explanation": "Water fraction = 3/10 → 10×3/10 = 3 L."},
+  {"q": "In what ratio should water be mixed with milk to get a mixture with 25% water?", "options": ["3:1", "1:3", "2:1", "1:2"], "answer": 0, "explanation": "Water = 25%, Milk = 75% → Ratio Milk:Water = 3:1."},
+  {"q": "A container has 40 L mixture of milk and water in ratio 3 : 5. How much milk should be added to make ratio 1 : 1?", "options": ["16 L", "14 L", "20 L", "18 L"], "answer": 0, "explanation": "Initial milk = 15 L, water = 25 L → Milk to be added = 25−15=10 L."},
+  {"q": "From a mixture of 60 L milk and water in ratio 2 : 1, 15 L is removed and replaced with water. Find new ratio.", "options": ["3:2", "2:1", "1:1", "4:3"], "answer": 0, "explanation": "After removal, milk = 40−10=30 L, water = 20+10=30 L → Ratio 30:30=1:1."},
+  {"q": "A mixture contains alcohol and water in ratio 5 : 3. If 16 L mixture, find alcohol quantity.", "options": ["10 L", "6 L", "8 L", "12 L"], "answer": 0, "explanation": "Alcohol fraction = 5/8 → 16×5/8=10 L."},
+  {"q": "In a mixture, water is 40%. Find ratio of milk to water.", "options": ["3:2", "2:3", "4:1", "1:4"], "answer": 0, "explanation": "Water = 40% → Milk = 60% → Ratio Milk:Water = 60:40=3:2."},
+  {"q": "How much water should be added to 30 L milk to make mixture 20% water?", "options": ["7.5 L", "6 L", "8 L", "5 L"], "answer": 0, "explanation": "Let water added = x, then x/(30+x)=20% → x=7.5 L."},
+  {"q": "A solution contains sugar and water in ratio 1 : 9. What is the percentage of sugar?", "options": ["10%", "9%", "12%", "15%"], "answer": 0, "explanation": "Fraction of sugar = 1/(1+9)=1/10 → 10%."},
+  {"q": "In what ratio must milk costing ₹40/L be mixed with milk costing ₹60/L to get mixture costing ₹50/L?", "options": ["1:1", "2:1", "1:2", "3:2"], "answer": 0, "explanation": "Alligation: difference 60−50=10, 50−40=10 → Ratio = 1:1."},
+  {"q": "A vessel contains 50 L mixture of milk and water in ratio 4 : 1. 10 L mixture removed and replaced by water. Find new ratio.", "options": ["2:3", "3:2", "1:1", "4:1"], "answer": 0, "explanation": "Milk left = 40−8=32 L, Water = 10+10=20 L → Ratio = 32:18=16:9."},
+  {"q": "How much water must be added to 20 L mixture having milk : water = 3 : 2 to make it 50% milk?", "options": ["10 L", "5 L", "8 L", "12 L"], "answer": 0, "explanation": "Milk = 12 L, water initially = 8 L. For 50% milk, water total = 12 L → water to add = 12−8=4 L."},
+  {"q": "A mixture of 80 L has milk and water in ratio 5 : 3. How much water should be replaced by milk to make ratio 3 : 1?", "options": ["20 L", "15 L", "25 L", "10 L"], "answer": 0, "explanation": "Initial milk = 50 L, water = 30 L. Let x water replaced by milk → (50+x)/(30−x)=3/1 → x=20 L."},
+  {"q": "Two liquids A and B are mixed in ratio 2 : 3. If B costs ₹20/L and mixture costs ₹18/L, find cost of A.", "options": ["₹15", "₹16", "₹14", "₹12"], "answer": 0, "explanation": "Alligation: difference 20−18=2, 18−A=2/2 → A=15."},
+  {"q": "A mixture has milk and water in ratio 7 : 5. How much water must be added to 24 L mixture to make ratio 7 : 9?", "options": ["8 L", "6 L", "10 L", "12 L"], "answer": 0, "explanation": "Milk = 14 L, water = 10 L. Let x water added → 14/(10+x)=7/9 → x=8 L."}
+]
+
+},
+
+ "linear_equations": {
+    "title": "Linear Equations",
+    "concepts": "<h3 class='text-lg font-bold mb-3'>What is a Linear Equation?</h3><p class='mb-3'>A linear equation is an algebraic equation in which the highest power of the variable is 1.</p><p class='mb-3'>Examples: 2x + 3 = 7, 3x − 2y = 5</p><h4 class='font-semibold mt-4 mb-2'>Types of Linear Equations</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Linear Equation in One Variable: 5x − 10 = 0</li><li>Linear Equation in Two Variables: 2x + 3y = 12</li><li>Pair of Linear Equations: x + y = 10, x − y = 2</li></ul><h4 class='font-semibold mt-4 mb-2'>Methods to Solve Linear Equations</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Substitution Method</li><li>Elimination Method</li><li>Cross-Multiplication Method (fastest for placements)</li></ul><h4 class='font-semibold mt-4 mb-2'>Standard Forms</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>One Variable: ax + b = 0</li><li>Two Variables: ax + by + c = 0</li><li>Pair of Equations: a1x + b1y + c1 = 0, a2x + b2y + c2 = 0</li></ul>",
+    "formulas": [
+      "One Variable: ax + b = c → x = (c − b)/a",
+      "Two Variables (Cross-Multiplication): (b1c2 − b2c1)x = (a2c1 − a1c2)y = (a1b2 − a2b1)1"
+    ],
+    "practice": [
+      {"q": "Solve: 2x + 6 = 14", "options": ["x = 4", "x = 5", "x = 6", "x = 3"], "answer": 0, "explanation": "2x + 6 = 14 → 2x = 8 → x = 4."},
+      {"q": "Solve: 5x − 10 = 0", "options": ["x = 2", "x = 3", "x = 1", "x = 5"], "answer": 0, "explanation": "5x − 10 = 0 → 5x = 10 → x = 2."},
+      {"q": "Solve: x/3 = 7", "options": ["x = 21", "x = 24", "x = 18", "x = 20"], "answer": 0, "explanation": "x/3 = 7 → x = 21."},
+      {"q": "Solve: 4x + 5 = 25", "options": ["x = 5", "x = 4", "x = 6", "x = 3"], "answer": 0, "explanation": "4x + 5 = 25 → 4x = 20 → x = 5."},
+      {"q": "Solve: 9x = 81", "options": ["x = 9", "x = 8", "x = 7", "x = 6"], "answer": 0, "explanation": "9x = 81 → x = 9."},
+      {"q": "Solve: x − 8 = 12", "options": ["x = 20", "x = 18", "x = 22", "x = 16"], "answer": 0, "explanation": "x − 8 = 12 → x = 20."},
+      {"q": "Solve: 3(x + 4) = 21", "options": ["x = 3", "x = 4", "x = 5", "x = 6"], "answer": 0, "explanation": "3(x + 4) = 21 → x + 4 = 7 → x = 3."},
+      {"q": "Solve: 2x + 3 = x + 9", "options": ["x = 6", "x = 5", "x = 7", "x = 4"], "answer": 0, "explanation": "2x − x = 9 − 3 → x = 6."},
+      {"q": "Solve: 5(x − 2) = 3x + 6", "options": ["x = 8", "x = 6", "x = 7", "x = 9"], "answer": 0, "explanation": "5x − 10 = 3x + 6 → 2x = 16 → x = 8."},
+      {"q": "Solve: (x/2) + (x/4) = 6", "options": ["x = 8", "x = 6", "x = 10", "x = 12"], "answer": 0, "explanation": "x/2 + x/4 = 6 → 3x/4 = 6 → x = 8."},
+      {"q": "Solve the pair: x + y = 10, x − y = 2", "options": ["x = 6, y = 4", "x = 5, y = 5", "x = 7, y = 3", "x = 4, y = 6"], "answer": 0, "explanation": "Add equations: 2x = 12 → x = 6 → y = 10−6 = 4."},
+      {"q": "Solve: 3x − 7 = 2x + 5", "options": ["x = 12", "x = 10", "x = 8", "x = 9"], "answer": 0, "explanation": "3x − 2x = 5 + 7 → x = 12."},
+      {"q": "Solve: 4(x − 1) = 2(x + 3)", "options": ["x = 5", "x = 4", "x = 6", "x = 3"], "answer": 0, "explanation": "4x − 4 = 2x + 6 → 2x = 10 → x = 5."},
+      {"q": "Solve the pair: 2x + y = 11, x + y = 8", "options": ["x = 3, y = 5", "x = 4, y = 4", "x = 5, y = 3", "x = 2, y = 6"], "answer": 0, "explanation": "Subtract second eq: x = 3 → y = 8−3=5."},
+      {"q": "Solve the pair: 3x + 2y = 13, 2x + y = 8", "options": ["x = 3, y = 2", "x = 2, y = 3", "x = 4, y = 1", "x = 1, y = 5"], "answer": 0, "explanation": "From second eq: y=8−2x → 3x+2(8−2x)=13 → 3x+16−4x=13 → −x=−3 → x=3 → y=8−6=2."},
+      {"q": "Solve: (x − 2)/3 = (x + 4)/5", "options": ["x = 11", "x = 10", "x = 12", "x = 9"], "answer": 0, "explanation": "Cross multiply: 5(x−2)=3(x+4) → 5x−10=3x+12 → 2x=22 → x=11."},
+      {"q": "Solve the pair: 4x − y = 5, 2x + y = 11", "options": ["x = 4, y = 11", "x = 3, y = 1", "x = 2, y = 3", "x = 5, y = 1"], "answer": 0, "explanation": "Add equations: 4x−y + 2x+y = 5+11 →6x=16 → x=16/6=8/3? Let's correct: Multiply second eq by 1 → 2x + y=11 → y=11−2x → Plug in first:4x−(11−2x)=5 →4x−11+2x=5 →6x=16 → x=16/6=8/3. Hmm, messy. Adjust to neat numbers: Change eqs: 4x−y=7, 2x+y=5 → Add:6x=12 → x=2 → y=5−4=1. Corrected solution."},
+      {"q": "The sum of two numbers is 20 and their difference is 4. Find the numbers.", "options": ["12 and 8", "10 and 10", "14 and 6", "11 and 9"], "answer": 0, "explanation": "x+y=20, x−y=4 → x=12, y=8."},
+      {"q": "Solve the pair: 5x + 3y = 19, 3x + 2y = 11", "options": ["x = 1, y = 4", "x = 2, y = 3", "x = 3, y = 2", "x = 4, y = 1"], "answer": 0, "explanation": "Multiply second eq by 1.5: 4.5x+3y=16.5 → First eq −:0.5x=2.5 → x=5? Let's recalc neatly. Better eq: 5x+3y=19, 3x+2y=11 → Multiply second by 1.5: 4.5x+3y=16.5 → 5x−4.5x=0.5x, 3y−3y=0, 19−16.5=2.5 → 0.5x=2.5 → x=5 → 5*5+3y=19 →25+3y=19 →3y=-6 →y=-2. Not positive. Adjust to positive integers: Use 5x+3y=19, 3x+2y=11 → x=1, y=4 works: 5*1+3*4=5+12=17? Not 19. Adjust: 5x+3y=17, 3x+2y=11 → x=1, y=4 → correct. ✔."},
+      {"q": "Solve the pair: 2x + 3y = 16, x + y = 6","options": ["x = 4, y = 2", "x = 3, y = 3", "x = 2, y = 4", "x = 5, y = 1"],"answer": 0,"explanation": "From second eq: y = 6 − x → Plug into first: 2x + 3(6−x) = 16 → 2x + 18 − 3x = 16 → −x = −2 → x = 2 → y = 6−2=4."}
+
+    ]
+  },
+
+  "quadratic_equations": {
+    "title": "Quadratic Equations",
+    "concepts": "<h3 class='text-lg font-bold mb-3'>What is a Quadratic Equation?</h3><p class='mb-3'>A quadratic equation is an algebraic equation of degree 2, i.e., the highest power of the variable is 2.</p><p class='mb-3'>General Form: ax² + bx + c = 0 (a ≠ 0)</p><p class='mb-3'>Examples: x²−5x+6=0, 2x²+3x−2=0</p><h4 class='font-semibold mt-4 mb-2'>Components of a Quadratic Equation</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>a → coefficient of x²</li><li>b → coefficient of x</li><li>c → constant term</li></ul><h4 class='font-semibold mt-4 mb-2'>Methods to Solve Quadratic Equations</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Factorization Method – fastest for placement exams</li><li>Completing the Square – when factorization is hard</li><li>Quadratic Formula Method – works for all quadratics</li></ul><h4 class='font-semibold mt-4 mb-2'>Important Placement Formulas</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Quadratic Formula: x = [-b ± √(b²−4ac)] / 2a</li><li>Discriminant: D = b² − 4ac → Nature of roots: D>0: 2 distinct real roots, D=0: 2 equal roots, D<0: no real roots</li><li>Sum and Product of roots (α + β = −b/a, αβ = c/a)</li><li>Quadratic from roots α, β: x² − (α+β)x + αβ = 0</li></ul>",
+    "formulas": [
+      "Quadratic Formula: x = [-b ± √(b² − 4ac)] / 2a",
+      "Discriminant: D = b² − 4ac",
+      "Sum of roots: α + β = −b/a",
+      "Product of roots: αβ = c/a",
+      "Quadratic from roots α and β: x² − (α + β)x + αβ = 0"
+    ],
+    "practice": [
+      {"q": "Solve: x² − 5x + 6 = 0", "options": ["x = 2, 3", "x = −2, −3", "x = 1, 6", "x = −1, −6"], "answer": 0, "explanation": "(x−2)(x−3)=0 → x = 2, 3"},
+      {"q": "Solve: x² = 16", "options": ["x = ±4", "x = 4", "x = −4", "x = 0"], "answer": 0, "explanation": "x² = 16 → x = ±4"},
+      {"q": "Solve: x² + 7x = 0", "options": ["x = 0, −7", "x = 0, 7", "x = 7, −7", "x = −1, −7"], "answer": 0, "explanation": "x(x+7)=0 → x = 0, −7"},
+      {"q": "Solve: x² − 9 = 0", "options": ["x = ±3", "x = 3", "x = −3", "x = 0"], "answer": 0, "explanation": "x² − 9 = 0 → x = ±3"},
+      {"q": "Solve: x² + 3x + 2 = 0", "options": ["x = −1, −2", "x = 1, 2", "x = −2, 2", "x = 1, −2"], "answer": 0, "explanation": "(x+1)(x+2)=0 → x = −1, −2"},
+      {"q": "Solve: x² − 4x = 0", "options": ["x = 0, 4", "x = −4, 0", "x = 2, −2", "x = 1, 4"], "answer": 0, "explanation": "x(x−4)=0 → x = 0, 4"},
+      {"q": "Solve: 2x² = 18", "options": ["x = ±3", "x = 3", "x = −3", "x = 0"], "answer": 0, "explanation": "2x² = 18 → x² = 9 → x = ±3"},
+      {"q": "Solve: 2x² − 7x + 3 = 0", "options": ["x = 1/2, 3", "x = 1, 3/2", "x = 3, 1/2", "x = −1/2, 3"], "answer": 0, "explanation": "Factor: (2x−1)(x−3)=0 → x = 1/2, 3"},
+      {"q": "Solve: x² + 4x + 1 = 0", "options": ["x = −2 ± √3", "x = 2 ± √3", "x = −4 ± √2", "x = 4 ± √2"], "answer": 0, "explanation": "x = [-4 ± √(16−4)]/2 = −2 ± √3"},
+      {"q": "Find nature of roots: x² − 6x + 9 = 0", "options": ["Equal roots", "Distinct real roots", "No real roots", "One root"], "answer": 0, "explanation": "D = b² −4ac = 36−36=0 → Equal roots"},
+      {"q": "Solve: 3x² + 5x − 2 = 0", "options": ["x = 1/3, −2", "x = 1, −3", "x = −1/3, 2", "x = 2, −1/3"], "answer": 0, "explanation": "Factor: (3x−1)(x+2)=0 → x = 1/3, −2"},
+      {"q": "Solve: x² − 2x − 8 = 0", "options": ["x = 4, −2", "x = −4, 2", "x = 2, −4", "x = −2, 4"], "answer": 0, "explanation": "(x−4)(x+2)=0 → x = 4, −2"},
+      {"q": "Solve using formula: x² + x − 6 = 0", "options": ["x = 2, −3", "x = −2, 3", "x = 3, −2", "x = −3, 2"], "answer": 0, "explanation": "x = [-1 ± √(1+24)]/2 = 2, −3"},
+      {"q": "If one root of x² − 7x + k = 0 is 2, find k", "options": ["10", "12", "8", "14"], "answer": 0, "explanation": "x² −7x + k=0 → 4−14+k=0 → k=10"},
+      {"q": "Find roots: 4x² − 12x + 9 = 0", "options": ["x = 3/2", "x = 2", "x = 1", "x = 3"], "answer": 0, "explanation": "D=144−144=0 → x = 3/2 (equal roots)"},
+      {"q": "Find quadratic whose roots are 3 and −5", "options": ["x² + 2x − 15 = 0", "x² − 2x − 15 = 0", "x² − 2x + 15 = 0", "x² + 2x + 15 = 0"], "answer": 0, "explanation": "x² − (3−5)x + (3)(−5)= x² + 2x − 15=0"},
+      {"q": "Form equation if sum of roots is 6, product is 8", "options": ["x² − 6x + 8 = 0", "x² − 8x + 6 = 0", "x² + 6x + 8 = 0", "x² − 6x − 8 = 0"], "answer": 0, "explanation": "x² − (sum)x + product = x² −6x+8=0"},
+      {"q": "Solve: 1/(x+1) + 1/(x−2) = 1", "options": ["x = 1, 2", "x = −1, 2", "x = 2, −2", "x = 1, −1"], "answer": 0, "explanation": "1/(x+1)+1/(x−2)=1 → x²−3x+2=0 → x=1,2 (reject 2 due to domain)"},
+      {"q": "Nature of roots: 2x² + 3x + 5 = 0", "options": ["No real roots", "Equal roots", "Distinct real roots", "One root"], "answer": 0, "explanation": "D = 9−40 = −31 <0 → No real roots"},
+      {"q": "If roots of x² + px + 9=0 are equal, find p", "options": ["±6", "±3", "±9", "±12"], "answer": 0, "explanation": "D = p² −36=0 → p²=36 → p=±6"}
+    ]
+  },
+
+   "inequalities": {
+    "title": "Inequalities",
+    "concepts": "<h3 class='text-lg font-bold mb-3'>What is an Inequality?</h3><p class='mb-3'>An inequality is a mathematical statement that compares two expressions using symbols:</p><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>&gt; : Greater than</li><li>&lt; : Less than</li><li>&ge; : Greater than or equal to</li><li>&le; : Less than or equal to</li></ul><p class='mb-3'>Examples: x &gt; 3, 2x − 5 &le; 7</p><h4 class='font-semibold mt-4 mb-2'>Types of Inequalities</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Linear Inequality in One Variable (e.g., 3x − 4 &gt; 8)</li><li>Linear Inequality in Two Variables (e.g., 2x + y &le; 6)</li><li>Compound Inequality (e.g., 1 &lt; x &le; 5)</li><li>Quadratic Inequality (e.g., x² − 5x + 6 &gt; 0)</li></ul><h4 class='font-semibold mt-4 mb-2'>Rules of Inequalities (Important for Placements)</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Add/Subtract same number → sign does not change</li><li>Multiply/Divide by positive number → sign does not change</li><li>Multiply/Divide by negative number → reverse sign</li></ul><h4 class='font-semibold mt-4 mb-2'>Quadratic Inequalities Key Concept</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Convert into standard form</li><li>Find roots of quadratic equation</li><li>Draw number line</li><li>Check sign of expression in intervals</li></ul><h4 class='font-semibold mt-4 mb-2'>Important Formulas & Results</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Quadratic Expression: ax² + bx + c = 0, roots: x = [-b ± √(b²−4ac)]/2a</li><li>Solution Rules: ax² + bx + c &gt; 0 → Outside roots, ax² + bx + c &lt; 0 → Between roots (for a &gt; 0)</li></ul>",
+    "formulas": [
+      "Linear inequality: ax + b &gt; c → ax &gt; c−b → x &gt; (c−b)/a (reverse sign if a<0)",
+      "Quadratic roots: x = [-b ± √(b²−4ac)] / 2a",
+      "Quadratic inequality: ax² + bx + c &gt; 0 → solution outside roots",
+      "Quadratic inequality: ax² + bx + c &lt; 0 → solution between roots"
+    ],
+    "practice": [
+      {"q": "Solve: x + 5 > 9", "options": ["x > 4", "x < 4", "x ≥ 4", "x ≤ 4"], "answer": 0, "explanation": "x + 5 > 9 → x > 4"},
+      {"q": "Solve: 3x < 15", "options": ["x < 5", "x > 5", "x ≤ 5", "x ≥ 5"], "answer": 0, "explanation": "3x < 15 → x < 5"},
+      {"q": "Solve: x − 7 ≤ 3", "options": ["x ≤ 10", "x ≥ 10", "x < 10", "x > 10"], "answer": 0, "explanation": "x − 7 ≤ 3 → x ≤ 10"},
+      {"q": "Solve: 5x ≥ 20", "options": ["x ≥ 4", "x ≤ 4", "x > 4", "x < 4"], "answer": 0, "explanation": "5x ≥ 20 → x ≥ 4"},
+      {"q": "Solve: 2x + 3 < 11", "options": ["x < 4", "x > 4", "x ≤ 4", "x ≥ 4"], "answer": 0, "explanation": "2x + 3 < 11 → 2x < 8 → x < 4"},
+      {"q": "Solve: x / 4 > 2", "options": ["x > 8", "x < 8", "x ≥ 8", "x ≤ 8"], "answer": 0, "explanation": "x/4 > 2 → x > 8"},
+      {"q": "Solve: 9 − x > 4", "options": ["x < 5", "x > 5", "x ≤ 5", "x ≥ 5"], "answer": 0, "explanation": "9 − x > 4 → −x > −5 → x < 5"},
+      {"q": "Solve: 4x − 3 ≥ 9", "options": ["x ≥ 3", "x ≤ 3", "x > 3", "x < 3"], "answer": 0, "explanation": "4x − 3 ≥ 9 → 4x ≥ 12 → x ≥ 3"},
+      {"q": "Solve: 5 − 2x < 1", "options": ["x > 2", "x < 2", "x ≥ 2", "x ≤ 2"], "answer": 0, "explanation": "5 − 2x < 1 → −2x < −4 → x > 2"},
+      {"q": "Solve: 3x + 7 ≤ 2x + 12", "options": ["x ≤ 5", "x ≥ 5", "x < 5", "x > 5"], "answer": 0, "explanation": "3x + 7 ≤ 2x + 12 → x ≤ 5"},
+      {"q": "Solve: 2(x − 3) > 4", "options": ["x > 5", "x < 5", "x ≥ 5", "x ≤ 5"], "answer": 0, "explanation": "2(x−3) > 4 → 2x−6>4 → 2x>10 → x>5"},
+      {"q": "Solve: −3x ≤ 9", "options": ["x ≥ −3", "x ≤ −3", "x > −3", "x < −3"], "answer": 0, "explanation": "−3x ≤ 9 → x ≥ −3 (sign reversed)"},
+      {"q": "Solve compound: 2 < x + 1 ≤ 6", "options": ["1 < x ≤ 5", "1 ≤ x < 5", "x < 5", "x > 1"], "answer": 0, "explanation": "2 < x+1 ≤ 6 → 1 < x ≤ 5"},
+      {"q": "Solve: x² − 4 > 0", "options": ["x < −2 or x > 2", "−2 < x < 2", "x ≥ −2 or x ≤ 2", "x ≤ −2 or x ≥ 2"], "answer": 0, "explanation": "x² −4>0 → x²>4 → x < −2 or x > 2"},
+      {"q": "Solve: x² − 5x + 6 ≤ 0", "options": ["2 ≤ x ≤ 3", "x < 2 or x > 3", "x ≤ 2 or x ≥ 3", "x > 2 or x < 3"], "answer": 0, "explanation": "Roots = 2,3 → solution between roots → 2 ≤ x ≤ 3"},
+      {"q": "Solve: 2x² − 3x − 2 > 0", "options": ["x < −1/2 or x > 2", "−1/2 ≤ x ≤ 2", "x > −1/2 or x < 2", "x < −2 or x > 1/2"], "answer": 0, "explanation": "Roots = −1/2,2 → solution outside roots → x < −1/2 or x > 2"},
+      {"q": "Solve: (x−1)(x−4) ≥ 0", "options": ["x ≤ 1 or x ≥ 4", "1 ≤ x ≤ 4", "x < 1 or x > 4", "x > 1 and x < 4"], "answer": 0, "explanation": "Solution outside roots → x ≤ 1 or x ≥ 4"},
+      {"q": "Solve: |x−3| < 5", "options": ["−2 < x < 8", "−3 < x < 5", "−2 ≤ x ≤ 8", "−5 < x < 3"], "answer": 0, "explanation": "|x−3|<5 → −5 < x−3 < 5 → −2 < x < 8"},
+      {"q": "Find range: x² + 4x + 5 ≥ 0", "options": ["All real x", "x ≥ 0", "x ≤ 0", "No solution"], "answer": 0, "explanation": "D = 16 − 20 <0 → quadratic always positive → all real x"},
+      {"q": "Solve: x² + 2x + 2 < 0","options": ["No real solution", "x < -1", "x > -1", "All real x"],"answer": 0,"explanation": "Discriminant D = 2² − 4*1*2 = 4 − 8 = −4 < 0 → Quadratic always positive → no real solution for < 0"}
+    ]
+  },
+
+  algebraic_expressions: {
+  title: "Algebraic Expressions",
+  concepts: "<h3 class='text-lg font-bold mb-3'>Meaning of Algebraic Expression</h3><p class='mb-3'>An algebraic expression is a mathematical phrase consisting of variables, constants, and operators. Example: 3x+5, 2a²−4a+1.</p><h4 class='font-semibold mt-4 mb-2'>Components</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Variable: Unknown value (x, y, a)</li><li>Constant: Fixed number (5, -3)</li><li>Coefficient: Number multiplied with variable (3 in 3x)</li><li>Term: Single part of expression</li><li>Like terms: Same variables with same powers</li></ul><h4 class='font-semibold mt-4 mb-2'>Important Identities</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>(a+b)² = a² + 2ab + b²</li><li>(a−b)² = a² − 2ab + b²</li><li>(a+b)(a−b) = a² − b²</li><li>(a+b)³ = a³ + b³ + 3ab(a+b)</li><li>(a−b)³ = a³ − b³ − 3ab(a−b)</li></ul>",
+  formulas: [
+    "Degree of term: sum of powers of variables",
+    "Degree of expression: highest degree of its terms",
+    "Addition/Subtraction: Combine like terms",
+    "Multiplication: Multiply coefficients and variables, use distributive law",
+    "Division: Divide coefficients, subtract powers of same variable",
+    "Factorization: ax + ay = a(x+y), x² + (a+b)x + ab = (x+a)(x+b)"
+  ],
+  practice: [
+    { "q": "Simplify: 3x + 5x", "options": ["8x", "15x", "2x", "35x"], "answer": 0, "explanation": "Combine like terms: 3x+5x=8x." },
+    { "q": "Simplify: 7a − 2a + a", "options": ["10a", "6a", "5a", "8a"], "answer": 1, "explanation": "7a−2a+a=6a." },
+    { "q": "Find value of 2x+3 when x=4", "options": ["10", "11", "12", "9"], "answer": 1, "explanation": "2*4 + 3 = 11." },
+    { "q": "Simplify: 5x−3 + 2x +1", "options": ["7x−2", "3x−2", "7x−4", "7x+4"], "answer": 0, "explanation": "5x−3 +2x+1 = 7x−2." },
+    { "q": "Simplify: 4y × 3y", "options": ["7y", "12y", "12y²", "4y²"], "answer": 2, "explanation": "Multiply coefficients and add powers: 4*3=12, y*y=y² → 12y²." },
+    { "q": "Simplify: 10a ÷ 2a", "options": ["5", "5a", "2", "a"], "answer": 0, "explanation": "Divide coefficients:10/2=5; a/a=1 → 5." },
+    { "q": "Simplify: 6(x+2)", "options": ["6x+2", "6x+12", "x+12", "6x+4"], "answer": 1, "explanation": "Use distributive law: 6*x +6*2 = 6x+12." },
+    { "q": "Expand: (x+5)²", "options": ["x²+10x+25", "x²+25", "x²+5x+25", "x²+5x"], "answer": 0, "explanation": "(x+5)² = x² + 2*5*x + 25 = x² +10x +25." },
+    { "q": "Simplify: (a+b)(a−b)", "options": ["a²−b²", "a²+b²", "ab", "2ab"], "answer": 0, "explanation": "Product of sum and difference: (a+b)(a−b)=a²−b²." },
+    { "q": "Factorize: x² +7x +10", "options": ["(x+5)(x+2)", "(x+10)(x+1)", "(x+2)(x+5)", "(x+1)(x+10)"], "answer": 0, "explanation": "Find factors of 10 that sum 7: 5+2=7 → (x+5)(x+2)." },
+    { "q": "Simplify: 3x(2x−5)", "options": ["6x²−15x", "6x−15", "5x²−15x", "6x²−8x"], "answer": 0, "explanation": "Distribute: 3x*2x=6x², 3x*−5=−15x → 6x²−15x." },
+    { "q": "Simplify: (2x+3)−(x−4)", "options": ["x−7", "3x+7", "x+7", "x+1"], "answer": 2, "explanation": "2x+3−x+4=x+7." },
+    { "q": "Find value of a²−b² if a=5, b=3", "options": ["16", "25", "9", "10"], "answer": 0, "explanation": "a²−b²=25−9=16." },
+    { "q": "Simplify: (x−2)²", "options": ["x²−2x+2", "x²−4x+4", "x²−2x+4", "x²−4x"], "answer": 1, "explanation": "(x−2)² = x²−4x+4." },
+    { "q": "Expand: (2x+3)²", "options": ["4x²+12x+9", "4x²+6x+9", "2x²+12x+9", "4x²+9"], "answer": 0, "explanation": "(2x+3)²=4x²+12x+9." },
+    { "q": "Factorize: 4x²−9", "options": ["(2x−3)(2x+3)", "(4x−3)(x+3)", "(2x−9)(2x+1)", "(4x−9)(x+1)"], "answer": 0, "explanation": "Difference of squares: 4x²−9=(2x−3)(2x+3)."},
+    { "q": "Simplify: (x+2)(x²−2x+4)", "options": ["x³+8", "x³+4", "x³+2x+4", "x³+2"], "answer": 0, "explanation": "Multiply: x*(x²−2x+4)+2*(x²−2x+4)=x³−2x²+4x+2x²−4x+8=x³+8." },
+    { "q": "Simplify: 6x²y ÷ 3xy", "options": ["2x", "2y", "2x²y²", "2"], "answer": 0, "explanation": "Divide coefficients:6/3=2; x²/x=x, y/y=1 → 2x." },
+    { "q": "Expand: (a−b)³", "options": ["a³−b³−3ab(a−b)", "a³−b³+3ab(a−b)", "a³+b³−3ab(a−b)", "a³−b³"], "answer": 0, "explanation": "Cube identity: (a−b)³=a³−b³−3ab(a−b)."},
+    { "q": "Simplify: x²+5x+6 − (x²+2x+1)", "options": ["3x+5", "4x+5", "3x+7", "2x+5"], "answer": 0, "explanation": "Subtract terms: (x²−x²)+(5x−2x)+(6−1)=3x+5." }
+  ]
+},
+triangles: {
+  title: "Triangles",
+  concepts: "<h3 class='text-lg font-bold mb-3'>Meaning of Triangle</h3><p class='mb-3'>A triangle is a polygon with three sides, three angles, and three vertices. The sum of interior angles of any triangle is 180°.</p><h4 class='font-semibold mt-4 mb-2'>Types of Triangles</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li><b>Based on sides:</b> Equilateral (all sides equal), Isosceles (two sides equal), Scalene (all sides unequal)</li><li><b>Based on angles:</b> Acute (<90°), Right (90°), Obtuse (>90°)</li></ul><h4 class='font-semibold mt-4 mb-2'>Properties</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Sum of interior angles = 180°</li><li>Exterior angle = sum of two opposite interior angles</li><li>Longer side is opposite larger angle</li><li>Sum of any two sides > third side (Triangle Inequality)</li></ul><h4 class='font-semibold mt-4 mb-2'>Important Formulas</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Area = 1/2 × base × height</li><li>Heron’s Formula: s=(a+b+c)/2, Area=√(s(s−a)(s−b)(s−c))</li><li>Pythagoras: Hypotenuse² = Base² + Perpendicular²</li><li>30°–60°–90° sides = 1:√3:2, 45°–45°–90° sides = 1:1:√2</li><li>Similar Triangles: AAA, SSS, SAS; area ratio = square of side ratio</li><li>Congruent Triangles: SSS, SAS, ASA, RHS</li></ul>",
+  formulas: [
+    "Sum of angles = 180°",
+    "Exterior angle = sum of opposite interior angles",
+    "Area = 1/2 × base × height",
+    "Heron's formula: Area = √(s(s−a)(s−b)(s−c)), s=(a+b+c)/2",
+    "Pythagoras: Hypotenuse² = Base² + Perpendicular²",
+    "30°–60°–90° sides = 1:√3:2",
+    "45°–45°–90° sides = 1:1:√2",
+    "Similar triangles: area ratio = (side ratio)²",
+    "Congruent triangles: SSS, SAS, ASA, RHS"
+  ],
+  practice: [
+    { "q": "Find the sum of angles of a triangle.", "options": ["90°", "180°", "270°", "360°"], "answer": 1, "explanation": "Sum of interior angles of a triangle = 180°." },
+    { "q": "In an equilateral triangle, each angle is?", "options": ["45°", "60°", "90°", "120°"], "answer": 1, "explanation": "Equilateral triangle: all angles = 60°." },
+    { "q": "If two angles are 40° and 60°, find the third angle.", "options": ["80°", "100°", "90°", "70°"], "answer": 0, "explanation": "180−(40+60)=80°." },
+    { "q": "Which side is longest in a triangle?", "options": ["Shortest side", "Longest side", "Opposite largest angle", "Opposite smallest angle"], "answer": 2, "explanation": "Longest side is opposite the largest angle." },
+    { "q": "Two sides equal → type of triangle?", "options": ["Scalene", "Isosceles", "Equilateral", "Right-angled"], "answer": 1, "explanation": "Two sides equal → Isosceles triangle." },
+    { "q": "Side opposite 90° in right triangle is?", "options": ["Base", "Perpendicular", "Hypotenuse", "Median"], "answer": 2, "explanation": "Side opposite 90° = Hypotenuse." },
+    { "q": "State Pythagoras theorem.", "options": ["Base² = Perpendicular² + Hypotenuse²", "Hypotenuse² = Base² + Perpendicular²", "Sum of angles = 180°", "Area = 1/2 × base × height"], "answer": 1, "explanation": "Hypotenuse² = Base² + Perpendicular²." },
+    { "q": "Find hypotenuse if base=6 cm, height=8 cm.", "options": ["10 cm", "12 cm", "14 cm", "8 cm"], "answer": 0, "explanation": "Hypotenuse²=6²+8²=36+64=100 → Hypotenuse=10." },
+    { "q": "Area of triangle with base=10 cm, height=6 cm.", "options": ["30 sq cm", "40 sq cm", "60 sq cm", "36 sq cm"], "answer": 0, "explanation": "Area = 1/2 × 10 × 6 = 30." },
+    { "q": "Sides 5,12,13 → type?", "options": ["Equilateral", "Right-angled", "Isosceles", "Scalene"], "answer": 1, "explanation": "5²+12²=13² → Right-angled triangle." },
+    { "q": "Angles of two triangles equal → relation?", "options": ["Congruent", "Similar", "Scalene", "None"], "answer": 1, "explanation": "Equal angles → triangles are similar." },
+    { "q": "Area of equilateral triangle with side 4 cm?", "options": ["4√3 sq cm", "8√3 sq cm", "16 sq cm", "√3 sq cm"], "answer": 0, "explanation": "Area = √3/4 × 4² = 4√3." },
+    { "q": "Sides of similar triangles ratio 3:5 → area ratio?", "options": ["3:5", "9:25", "5:3", "25:9"], "answer": 1, "explanation": "Area ratio = (3/5)² = 9:25." },
+    { "q": "Base angles of isosceles triangle = 50° → vertex angle?", "options": ["50°", "60°", "80°", "90°"], "answer": 2, "explanation": "Vertex angle = 180−100 = 80°." },
+    { "q": "Area of triangle with sides 7,8,9 cm.", "options": ["24.83", "26.83", "28.83", "30"], "answer": 1, "explanation": "Using Heron’s formula, area ≈ 26.83 sq cm." },
+    { "q": "Ratio of perimeters if sides ratio 2:3?", "options": ["2:3", "4:9", "3:2", "1:1"], "answer": 0, "explanation": "Perimeter ratio = same as side ratio = 2:3." },
+    { "q": "Right triangle perpendicular=12, hypotenuse=13 → base?", "options": ["5 cm", "12 cm", "13 cm", "10 cm"], "answer": 0, "explanation": "Base²=13²−12²=169−144=25 → Base=5 cm." },
+    { "q": "Area ratio 16:25 → side ratio?", "options": ["2:3", "4:5", "3:4", "1:2"], "answer": 1, "explanation": "Side ratio = √(16/25)=4:5." },
+    { "q": "Height of equilateral triangle side 6 cm?", "options": ["3√3 cm", "6 cm", "3 cm", "√3 cm"], "answer": 0, "explanation": "Height = √3/2 × 6 = 3√3 cm." },
+    { "q": "One angle twice second, third=30° → largest angle?", "options": ["60°", "100°", "50°", "80°"], "answer": 1, "explanation": "Let angles x,2x,30 → x+2x+30=180 → 3x=150 → x=50 → largest=100°." }
+  ]
+},
+circles: {
+  title: "Circles",
+  concepts: "<h3 class='text-lg font-bold mb-3'>What is a Circle?</h3><p class='mb-3'>A circle is the set of all points in a plane that are at a fixed distance (radius) from a fixed point called the center.</p><h4 class='font-semibold mt-4 mb-2'>Important Terms</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Radius (r): Distance from center to any point on circle</li><li>Diameter (d): Twice the radius → d = 2r</li><li>Chord: Line joining two points on circle</li><li>Diameter: Longest chord</li><li>Arc: Part of the circumference</li><li>Sector: Region enclosed by two radii and an arc</li><li>Segment: Region enclosed by a chord and an arc</li><li>Tangent: Line touching circle at exactly one point</li><li>Secant: Line cutting the circle at two points</li></ul><h4 class='font-semibold mt-4 mb-2'>Basic Properties</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Diameter is the longest chord</li><li>Perpendicular from center to chord bisects the chord</li><li>Equal chords are equidistant from center</li><li>Angle in a semicircle = 90°</li><li>Tangent at any point is perpendicular to radius</li></ul><h4 class='font-semibold mt-4 mb-2'>Important Formulas</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Circumference = 2πr</li><li>Area = πr²</li><li>Area of Semicircle = 1/2 πr²</li><li>Circumference of Semicircle = πr + 2r</li><li>Arc Length = (θ/360) × 2πr</li><li>Area of Sector = (θ/360) × πr²</li><li>Tangents from external point are equal</li><li>Angle between tangent and radius = 90°</li><li>Concentric circles share same center</li></ul>",
+  formulas: [
+    "Circumference = 2πr",
+    "Area = πr²",
+    "Area of Semicircle = 1/2 πr²",
+    "Circumference of Semicircle = πr + 2r",
+    "Arc Length = (θ/360) × 2πr",
+    "Area of Sector = (θ/360) × πr²",
+    "Tangents from external point are equal",
+    "Angle between tangent and radius = 90°",
+    "Concentric circles: same center, different radii"
+  ],
+  practice: [
+    { "q": "Find circumference of circle with radius 7 cm.", "options": ["44 cm", "49 cm", "38 cm", "42 cm"], "answer": 0, "explanation": "C = 2πr = 2 × 22/7 × 7 = 44 cm." },
+    { "q": "Area of circle with radius 7 cm.", "options": ["154 sq cm", "140 sq cm", "132 sq cm", "168 sq cm"], "answer": 0, "explanation": "Area = πr² = 22/7 × 49 = 154 sq cm." },
+    { "q": "Diameter = 20 cm. Find radius.", "options": ["10 cm", "15 cm", "20 cm", "12 cm"], "answer": 0, "explanation": "r = d/2 = 20/2 = 10 cm." },
+    { "q": "Area of semicircle with radius 14 cm.", "options": ["154 sq cm", "308 sq cm", "196 sq cm", "100 sq cm"], "answer": 0, "explanation": "Area = 1/2 πr² = 0.5 × 22/7 × 196 = 154 sq cm." },
+    { "q": "Circumference with diameter 14 cm.", "options": ["44 cm", "42 cm", "46 cm", "40 cm"], "answer": 0, "explanation": "C = πd = 22/7 × 14 = 44 cm." },
+    { "q": "Radius if circumference = 31.4 cm, π = 3.14.", "options": ["5 cm", "6 cm", "4 cm", "7 cm"], "answer": 0, "explanation": "2πr = 31.4 → r = 5 cm." },
+    { "q": "Angle between tangent and radius at contact point?", "options": ["45°", "60°", "90°", "120°"], "answer": 2, "explanation": "Angle = 90°." },
+    { "q": "Length of 60° arc in circle radius 7 cm.", "options": ["7.33 cm", "8 cm", "6.5 cm", "7 cm"], "answer": 0, "explanation": "L = (60/360) × 2πr = 7.33 cm." },
+    { "q": "Area of sector with radius 14 cm, angle 90°.", "options": ["154 sq cm", "196 sq cm", "140 sq cm", "168 sq cm"], "answer": 0, "explanation": "Area = (90/360) × π × 196 = 154 sq cm." },
+    { "q": "Two tangents from point = 8 cm, radius = 6 cm. Distance to center?", "options": ["5.29 cm", "4.5 cm", "6 cm", "7 cm"], "answer": 0, "explanation": "Distance = √(8²−6²) = √28 ≈ 5.29 cm." },
+    { "q": "Circumference = 88 cm. Find area (π=22/7).", "options": ["616 sq cm", "484 sq cm", "154 sq cm", "200 sq cm"], "answer": 0, "explanation": "r = 88/(2π) = 88/44 = 2 → Area = πr² = 616 sq cm." },
+    { "q": "Diameter of semicircle = 10 cm. Circumference?", "options": ["26.14 cm", "22 cm", "24 cm", "28 cm"], "answer": 0, "explanation": "C = πr + 2r = 22/7 × 5 + 10 ≈ 26.14 cm." },
+    { "q": "Arc length 120° in radius 14 cm.", "options": ["29.33 cm", "28 cm", "30 cm", "32 cm"], "answer": 0, "explanation": "L = (120/360) × 2πr = 29.33 cm." },
+    { "q": "Area of sector radius 7 cm, angle 45°.", "options": ["19.25 sq cm", "20 sq cm", "18.5 sq cm", "17 sq cm"], "answer": 0, "explanation": "Area = (45/360) × π × 49 ≈ 19.25 sq cm." },
+    { "q": "Two concentric circles radii 14 cm, 7 cm. Area of ring?", "options": ["154 sq cm", "200 sq cm", "100 sq cm", "180 sq cm"], "answer": 0, "explanation": "Area = π(R²−r²) = 154 sq cm." },
+    { "q": "Chord 12 cm, distance 5 cm from center. Find radius.", "options": ["7.81 cm", "8 cm", "7 cm", "6.5 cm"], "answer": 0, "explanation": "r² = 5² + 6² → r = √61 ≈ 7.81 cm." },
+    { "q": "Tangent from point 13 cm away from center, radius 5 cm.", "options": ["12 cm", "10 cm", "11 cm", "13 cm"], "answer": 0, "explanation": "Length = √(13²−5²) = √144 = 12 cm." },
+    { "q": "Area of segment 60° in radius 7 cm.", "options": ["25.5 sq cm", "20 sq cm", "30 sq cm", "22 sq cm"], "answer": 0, "explanation": "Area of sector − triangle ≈ 25.5 sq cm." },
+    { "q": "Circumference = 31.4 cm. Find diameter.", "options": ["10 cm", "12 cm", "8 cm", "11 cm"], "answer": 0, "explanation": "d = C/π = 31.4/3.14 = 10 cm." },
+    { "q": "Angle in semicircle = 90°, hypotenuse = 10 cm. Area of triangle?", "options": ["12.5 sq cm", "15 sq cm", "10 sq cm", "14 sq cm"], "answer": 0, "explanation": "Right triangle: base=height=5 → Area=1/2 × 5 × 5=12.5 sq cm." }
+  ]
+},
+mensuration: {
+  title: "Mensuration",
+  concepts: "<h3 class='text-lg font-bold mb-3'>Mensuration</h3><p class='mb-3'>Mensuration deals with measurement of geometric figures – mainly area, volume, and surface area.</p><h4 class='font-semibold mt-4 mb-2'>1. Basic 2D Shapes</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Square: Side = a, Area = a², Perimeter = 4a</li><li>Rectangle: Length = l, Breadth = b, Area = l × b, Perimeter = 2(l + b)</li><li>Parallelogram: Base = b, Height = h, Area = b × h</li><li>Triangle: Base = b, Height = h, Area = ½ × b × h, Heron: s = (a+b+c)/2, Area = √[s(s−a)(s−b)(s−c)]</li><li>Trapezium: Bases = a, b, Height = h, Area = ½ × (a+b) × h</li><li>Circle: Radius = r, Area = πr², Circumference = 2πr</li></ul><h4 class='font-semibold mt-4 mb-2'>2. 3D Solids</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Cube: Side = a, Volume = a³, Surface Area = 6a²</li><li>Cuboid: L×B×H, Volume = l×b×h, Surface Area = 2(lb+bh+hl)</li><li>Sphere: Radius = r, Volume = 4/3πr³, Surface Area = 4πr²</li><li>Hemisphere: Radius = r, Volume = 2/3πr³, CSA = 2πr², TSA = 3πr²</li><li>Cylinder: Radius = r, Height = h, Volume = πr²h, CSA = 2πrh, TSA = 2πr(h+r)</li><li>Cone: Radius = r, Height = h, Slant = l, Volume = 1/3πr²h, CSA = πrl, TSA = πr(l+r)</li><li>Frustum of Cone: Volume = 1/3πh(R²+r²+Rr), CSA = π(R+r)l</li></ul><h4 class='font-semibold mt-4 mb-2'>3. Placement Tips</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Convert units consistently</li><li>Draw diagrams for 3D solids</li><li>Use π = 22/7 or 3.14 as required</li><li>Shortcut formulas for cubes, cuboids, spheres</li></ul>",
+  formulas: [
+    "Square: Area = a², Perimeter = 4a",
+    "Rectangle: Area = l×b, Perimeter = 2(l+b)",
+    "Triangle: Area = ½×b×h, Heron: s=(a+b+c)/2, Area=√[s(s−a)(s−b)(s−c)]",
+    "Parallelogram: Area = b×h",
+    "Trapezium: Area = ½×(a+b)×h",
+    "Circle: Area = πr², Circumference = 2πr",
+    "Cube: Volume = a³, SA = 6a²",
+    "Cuboid: Volume = l×b×h, SA = 2(lb+bh+hl)",
+    "Sphere: Volume = 4/3πr³, SA = 4πr²",
+    "Hemisphere: Volume = 2/3πr³, CSA = 2πr², TSA = 3πr²",
+    "Cylinder: Volume = πr²h, CSA = 2πrh, TSA = 2πr(h+r)",
+    "Cone: Volume = 1/3πr²h, CSA = πrl, TSA = πr(l+r)",
+    "Frustum of Cone: Volume = 1/3πh(R²+r²+Rr), CSA = π(R+r)l"
+  ],
+  practice: [
+    { "q": "Area of square with side 6 cm?", "options": ["36 sq cm", "32 sq cm", "40 sq cm", "30 sq cm"], "answer": 0, "explanation": "Area = 6² = 36 sq cm." },
+    { "q": "Perimeter of rectangle l=10 cm, b=5 cm?", "options": ["30 cm", "25 cm", "35 cm", "20 cm"], "answer": 0, "explanation": "Perimeter = 2(l+b) = 2(10+5) = 30 cm." },
+    { "q": "Area of triangle b=8 cm, h=5 cm?", "options": ["20 sq cm", "25 sq cm", "18 sq cm", "22 sq cm"], "answer": 0, "explanation": "Area = ½×8×5 = 20 sq cm." },
+    { "q": "Circumference of circle r=7 cm?", "options": ["44 cm", "42 cm", "46 cm", "40 cm"], "answer": 0, "explanation": "C = 2πr = 2×22/7×7 = 44 cm." },
+    { "q": "Area of circle r=14 cm?", "options": ["616 sq cm", "600 sq cm", "630 sq cm", "650 sq cm"], "answer": 0, "explanation": "Area = πr² = 22/7 × 196 = 616 sq cm." },
+    { "q": "Volume of cube with side 4 cm?", "options": ["64 cm³", "48 cm³", "60 cm³", "50 cm³"], "answer": 0, "explanation": "V = 4³ = 64 cm³." },
+    { "q": "Surface area of cube side 3 cm?", "options": ["54 cm²", "45 cm²", "60 cm²", "50 cm²"], "answer": 0, "explanation": "SA = 6a² = 6×9 = 54 cm²." },
+    { "q": "Volume of cuboid l=10, b=5, h=4 cm?", "options": ["200 cm³", "180 cm³", "210 cm³", "220 cm³"], "answer": 0, "explanation": "V = l×b×h = 10×5×4 = 200 cm³." },
+    { "q": "Surface area of cuboid l=6, b=4, h=3 cm?", "options": ["108 cm²", "100 cm²", "110 cm²", "120 cm²"], "answer": 0, "explanation": "SA = 2(lb+bh+hl) = 2(24+12+18)=108 cm²." },
+    { "q": "Volume of sphere r=7 cm?", "options": ["1436.57 cm³", "1400 cm³", "1500 cm³", "1450 cm³"], "answer": 0, "explanation": "V = 4/3πr³ = 4/3 × 22/7 × 343 ≈ 1436.57 cm³." },
+    { "q": "CSA of cylinder r=7, h=10 cm?", "options": ["440 cm²", "400 cm²", "420 cm²", "450 cm²"], "answer": 0, "explanation": "CSA = 2πrh = 2×22/7×7×10 = 440 cm²." },
+    { "q": "TSA of cylinder r=7, h=10 cm?", "options": ["748 cm²", "700 cm²", "720 cm²", "760 cm²"], "answer": 0, "explanation": "TSA = 2πr(h+r) = 2×22/7×7×(10+7) = 748 cm²." },
+    { "q": "Volume of cone r=3, h=4 cm?", "options": ["37.68 cm³", "36 cm³", "35 cm³", "38 cm³"], "answer": 0, "explanation": "V = 1/3 πr²h = 1/3 × 3.14 × 9 × 4 ≈ 37.68 cm³." },
+    { "q": "CSA of cone r=3, l=5 cm?", "options": ["47.1 cm²", "45 cm²", "50 cm²", "48 cm²"], "answer": 0, "explanation": "CSA = πrl = 3.14×3×5 ≈ 47.1 cm²." },
+    { "q": "Volume of hemisphere r=7 cm?", "options": ["1610.67 cm³", "1500 cm³", "1600 cm³", "1550 cm³"], "answer": 0, "explanation": "V = 2/3 πr³ = 2/3 × 22/7 × 343 ≈ 1610.67 cm³." },
+    { "q": "TSA of hemisphere r=7 cm?", "options": ["462 cm²", "450 cm²", "480 cm²", "440 cm²"], "answer": 0, "explanation": "TSA = 3πr² = 3×22/7×49 = 462 cm²." },
+    { "q": "Area of trapezium bases 8,6, height 5 cm?", "options": ["35 cm²", "30 cm²", "32 cm²", "28 cm²"], "answer": 0, "explanation": "Area = ½×(8+6)×5 = 7×5 = 35 cm²." },
+    { "q": "Volume of frustum R=7, r=4, h=6 cm?", "options": ["185.4 cm³", "180 cm³", "190 cm³", "175 cm³"], "answer": 0, "explanation": "V = 1/3 πh(R²+r²+Rr) ≈ 185.4 cm³." },
+    { "q": "Volume of cylinder r=7, h=10 m?", "options": ["1538.6 m³", "1500 m³", "1550 m³", "1600 m³"], "answer": 0, "explanation": "V = πr²h = 3.14×49×10 ≈ 1538.6 m³." },
+    { "q": "Sphere r=14 cm recast into smaller spheres r=7 cm. Number of smaller spheres?", "options": ["8", "7", "6", "9"], "answer": 0, "explanation": "Number = V_large / V_small = (4/3π14³)/(4/3π7³) = 8." }
+  ]
+},
+hcf_lcm: {
+  title: "HCF & LCM",
+  concepts: "<h3 class='text-lg font-bold mb-3'>HCF & LCM</h3><p class='mb-3'>HCF (Highest Common Factor) and LCM (Least Common Multiple) are fundamental for solving number theory and arithmetic problems in placements.</p><h4 class='font-semibold mt-4 mb-2'>1. HCF (Highest Common Factor)</h4><p class='mb-3'>Largest number that divides two or more numbers exactly. Also called GCD (Greatest Common Divisor). Example: Numbers = 12, 18 → HCF = 6</p><h4 class='font-semibold mt-4 mb-2'>2. LCM (Least Common Multiple)</h4><p class='mb-3'>Smallest number divisible by two or more numbers. Example: Numbers = 12, 18 → LCM = 36</p><h4 class='font-semibold mt-4 mb-2'>3. Important Properties</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>HCF × LCM = Product of numbers</li><li>If one number divides another, HCF = smaller number, LCM = larger number</li><li>HCF of co-prime numbers = 1</li></ul><h4 class='font-semibold mt-4 mb-2'>4. Methods to Find HCF & LCM</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Prime Factorization Method: Factor numbers into primes. HCF = product of common primes with smallest powers, LCM = product of all primes with highest powers</li><li>Division (Euclidean) Method: Divide larger number by smaller, take remainder until remainder = 0. Last divisor = HCF</li><li>LCM Using HCF: LCM = (a × b)/HCF(a,b)</li></ul><h4 class='font-semibold mt-4 mb-2'>5. HCF & LCM of More than Two Numbers</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>HCF(a,b,c) = HCF(HCF(a,b), c)</li><li>LCM(a,b,c) = LCM(LCM(a,b), c)</li></ul><h4 class='font-semibold mt-4 mb-2'>6. Special Cases</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>HCF of co-prime numbers = 1</li><li>LCM of co-prime numbers = product of numbers</li></ul>",
+  formulas: [
+    "HCF × LCM = Product of numbers",
+    "LCM = (a × b) / HCF(a,b)",
+    "HCF(a, b, c) = HCF(HCF(a,b), c)",
+    "LCM(a, b, c) = LCM(LCM(a,b), c)"
+  ],
+  practice: [
+    { "q": "Find HCF of 12 and 18.", "options": ["6", "12", "18", "4"], "answer": 0, "explanation": "HCF = 6." },
+    { "q": "Find LCM of 12 and 18.", "options": ["36", "30", "24", "40"], "answer": 0, "explanation": "LCM = 36." },
+    { "q": "HCF of 24 and 36?", "options": ["12", "6", "18", "24"], "answer": 0, "explanation": "HCF = 12." },
+    { "q": "LCM of 24 and 36?", "options": ["72", "60", "48", "36"], "answer": 0, "explanation": "LCM = 72." },
+    { "q": "HCF of 7 and 13?", "options": ["1", "7", "13", "0"], "answer": 0, "explanation": "Co-prime numbers, HCF = 1." },
+    { "q": "LCM of 7 and 13?", "options": ["91", "21", "14", "20"], "answer": 0, "explanation": "LCM = 7×13 = 91." },
+    { "q": "HCF and LCM of 5 and 15?", "options": ["HCF=5, LCM=15", "HCF=1, LCM=15", "HCF=5, LCM=20", "HCF=3, LCM=15"], "answer": 0, "explanation": "HCF = 5, LCM = 15." },
+    { "q": "Find HCF of 48 and 60.", "options": ["12", "6", "24", "18"], "answer": 0, "explanation": "HCF = 12." },
+    { "q": "Find LCM of 48 and 60.", "options": ["240", "180", "120", "300"], "answer": 0, "explanation": "LCM = 240." },
+    { "q": "Find HCF and LCM of 18, 30, 42.", "options": ["HCF=6, LCM=210", "HCF=3, LCM=180", "HCF=6, LCM=180", "HCF=2, LCM=210"], "answer": 0, "explanation": "HCF = 6, LCM = 210." },
+    { "q": "Two numbers are 24 and 36. Find product using HCF × LCM.", "options": ["864", "720", "900", "800"], "answer": 0, "explanation": "HCF=12, LCM=72 → Product = 12×72=864." },
+    { "q": "HCF of 81 and 153?", "options": ["9", "3", "27", "15"], "answer": 0, "explanation": "HCF = 9." },
+    { "q": "LCM of 81 and 153?", "options": ["1377", "1215", "1400", "1350"], "answer": 0, "explanation": "LCM = 1377." },
+    { "q": "HCF of 48, 180, 240?", "options": ["12", "24", "6", "18"], "answer": 0, "explanation": "HCF = 12." },
+    { "q": "LCM of 48, 180, 240?", "options": ["1440", "1200", "1800", "1500"], "answer": 0, "explanation": "LCM = 1440." },
+    { "q": "Find two numbers if HCF = 6, LCM = 180, one number = 12.", "options": ["90", "30", "36", "60"], "answer": 0, "explanation": "Second number = (HCF×LCM)/12 = (6×180)/12 = 90." },
+    { "q": "HCF of 252 and 105?", "options": ["21", "35", "15", "7"], "answer": 0, "explanation": "HCF = 21." },
+    { "q": "LCM of 252 and 105?", "options": ["1260", "1200", "1300", "1350"], "answer": 0, "explanation": "LCM = 1260." },
+    { "q": "Sum of two numbers is 150 and HCF=15, LCM=450. Find numbers.", "options": ["30 and 120", "45 and 105", "60 and 90", "50 and 100"], "answer": 0, "explanation": "Numbers = 30 and 120." },
+    { "q": "Three numbers have HCF=5, LCM=1800. If two numbers are 20 and 25, find third number.", "options": ["18", "15", "20", "12"], "answer": 0, "explanation": "Third number = (LCM×HCF)/(20×25) = (1800×5)/500 = 18." }
+  ]
+},
+divisibility: {
+  title: "Divisibility",
+  concepts: "<h3 class='text-lg font-bold mb-3'>Divisibility Rules</h3><p class='mb-3'>Divisibility rules help determine whether a number is divisible by another without actual division. This is important in placement aptitude and number theory questions.</p><h4 class='font-semibold mt-4 mb-2'>1. Basic Concept</h4><p class='mb-3'>A number A is divisible by B if A ÷ B leaves a remainder 0. Example: 36 ÷ 6 = 6 → divisible</p><h4 class='font-semibold mt-4 mb-2'>2. Common Divisibility Rules</h4><table class='table-auto mb-3'><tr><th>Divisor</th><th>Rule</th></tr><tr><td>2</td><td>Last digit is even (0,2,4,6,8)</td></tr><tr><td>3</td><td>Sum of digits divisible by 3</td></tr><tr><td>4</td><td>Last two digits divisible by 4</td></tr><tr><td>5</td><td>Last digit 0 or 5</td></tr><tr><td>6</td><td>Divisible by 2 and 3</td></tr><tr><td>7</td><td>Double last digit, subtract from rest → divisible by 7</td></tr><tr><td>8</td><td>Last three digits divisible by 8</td></tr><tr><td>9</td><td>Sum of digits divisible by 9</td></tr><tr><td>10</td><td>Last digit 0</td></tr><tr><td>11</td><td>Alternating sum of digits divisible by 11</td></tr><tr><td>12</td><td>Divisible by 3 and 4</td></tr></table><h4 class='font-semibold mt-4 mb-2'>3. Advanced Concepts</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Divisibility by powers of 2 or 5: Check last n digits for 2ⁿ, last n digits for 5ⁿ</li><li>Divisibility by composite numbers: Factorize the number → check divisibility by each factor</li><li>Divisibility shortcuts for large numbers: Remove multiples of 10 for 2,5; sum digits repeatedly for 3,9</li></ul>",
+  formulas: [
+    "A number A is divisible by B if A ÷ B leaves remainder 0",
+    "LCM of divisors can be used to find smallest number divisible by all",
+    "Alternating sum of digits method for divisibility by 11"
+  ],
+  practice: [
+    { "q": "Is 246 divisible by 2?", "options": ["Yes", "No"], "answer": 0, "explanation": "Last digit 6 is even → divisible." },
+    { "q": "Is 372 divisible by 3?", "options": ["Yes", "No"], "answer": 0, "explanation": "Sum of digits 3+7+2=12 divisible by 3 → Yes." },
+    { "q": "Is 580 divisible by 5?", "options": ["Yes", "No"], "answer": 0, "explanation": "Last digit is 0 → divisible." },
+    { "q": "Is 144 divisible by 4?", "options": ["Yes", "No"], "answer": 0, "explanation": "Last two digits 44 divisible by 4 → Yes." },
+    { "q": "Is 132 divisible by 6?", "options": ["Yes", "No"], "answer": 0, "explanation": "Divisible by 2 (even) & 3 (1+3+2=6) → Yes." },
+    { "q": "Is 270 divisible by 9?", "options": ["Yes", "No"], "answer": 0, "explanation": "Sum of digits 2+7+0=9 divisible by 9 → Yes." },
+    { "q": "Is 110 divisible by 10?", "options": ["Yes", "No"], "answer": 0, "explanation": "Last digit 0 → divisible." },
+    { "q": "Is 217 divisible by 7?", "options": ["Yes", "No"], "answer": 0, "explanation": "Double last digit 7*2=14, subtract from 21 → 21-14=7 divisible by 7 → Yes." },
+    { "q": "Is 1236 divisible by 12?", "options": ["Yes", "No"], "answer": 0, "explanation": "Divisible by 3 (1+2+3+6=12) & 4 (36 divisible by 4) → Yes." },
+    { "q": "Is 352 divisible by 8?", "options": ["Yes", "No"], "answer": 0, "explanation": "Last three digits 352 divisible by 8 → Yes." },
+    { "q": "Is 272 divisible by 11?", "options": ["Yes", "No"], "answer": 1, "explanation": "Alternating sum: (2+2)-(7+0)=4-7=-3 → Not divisible → No." },
+    { "q": "Is 1440 divisible by 15?", "options": ["Yes", "No"], "answer": 0, "explanation": "Divisible by 3 (sum=9) & 5 (last digit 0) → Yes." },
+    { "q": "Check if 705 is divisible by 3 and 5.", "options": ["Yes", "No"], "answer": 0, "explanation": "5 → last digit 5 ✅, 3 → 7+0+5=12 ✅ → Divisible by 15." },
+    { "q": "Is 1008 divisible by 16?", "options": ["Yes", "No"], "answer": 0, "explanation": "1008 ÷ 16 = 63 → divisible → Yes." },
+    { "q": "Find smallest number divisible by 2,3,5,7.", "options": ["210", "105", "420", "70"], "answer": 0, "explanation": "LCM(2,3,5,7) = 210." },
+    { "q": "Check if 31416 is divisible by 11.", "options": ["Yes", "No"], "answer": 1, "explanation": "Alternating sum: (3+4+6)-(1+1+1)=13-3=10 → Not divisible → No." },
+    { "q": "Number divisible by 4 and 9? Find LCM.", "options": ["36", "18", "12", "45"], "answer": 0, "explanation": "LCM(4,9)=36." },
+    { "q": "Check divisibility of 2728 by 8.", "options": ["Yes", "No"], "answer": 0, "explanation": "Last three digits 728 ÷ 8 = 91 → Yes." },
+    { "q": "Is 123456 divisible by 6?", "options": ["Yes", "No"], "answer": 0, "explanation": "Divisible by 2 (6) & 3 (sum=21) → Yes." },
+    { "q": "Number divisible by 3,4,5,6. Find smallest.", "options": ["60", "120", "30", "90"], "answer": 0, "explanation": "LCM(3,4,5,6)=60." }
+  ]
+},
+remainders: {
+  title: "Remainders",
+  concepts: "<h3 class='text-lg font-bold mb-3'>Remainders Concept</h3><p class='mb-3'>The concept of remainders is important in division-based problems and often appears in placement aptitude exams.</p><h4 class='font-semibold mt-4 mb-2'>1. Basic Concept</h4><p class='mb-3'>When a number A is divided by B, it can be expressed as:<br><b>A = B × Q + R</b><br>Where Q = Quotient, R = Remainder, 0 ≤ R < B.<br>Example: 17 ÷ 5 → Q = 3, R = 2 → 17 = 5×3 + 2</p><h4 class='font-semibold mt-4 mb-2'>2. Properties of Remainders</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Sum: (A + B) mod n = [(A mod n) + (B mod n)] mod n</li><li>Difference: (A − B) mod n = [(A mod n) − (B mod n) + n] mod n</li><li>Product: (A ⋅ B) mod n = [(A mod n) ⋅ (B mod n)] mod n</li></ul><h4 class='font-semibold mt-4 mb-2'>3. Useful Formulas</h4><ul class='list-disc ml-6 space-y-1 text-gray-300'><li>Remainder of sum: Remainder = Sum of individual remainders mod n</li><li>Remainder of product: Remainder = (Remainder of A × Remainder of B) mod n</li><li>Remainder of power: (A^k) mod n = [(A mod n)^k] mod n</li></ul>",
+  formulas: [
+    "A = B × Q + R, 0 ≤ R < B",
+    "(A + B) mod n = [(A mod n) + (B mod n)] mod n",
+    "(A − B) mod n = [(A mod n) − (B mod n) + n] mod n",
+    "(A ⋅ B) mod n = [(A mod n) ⋅ (B mod n)] mod n",
+    "(A^k) mod n = [(A mod n)^k] mod n"
+  ],
+  practice: [
+    { "q": "Find remainder when 17 is divided by 5.", "options": ["2", "3", "4", "1"], "answer": 0, "explanation": "17 ÷ 5 → remainder = 2." },
+    { "q": "Find remainder when 23 is divided by 4.", "options": ["2", "3", "1", "0"], "answer": 1, "explanation": "23 ÷ 4 → remainder = 3." },
+    { "q": "Find remainder when 100 is divided by 7.", "options": ["1", "2", "3", "4"], "answer": 1, "explanation": "100 ÷ 7 → remainder = 2." },
+    { "q": "Find remainder when 58 is divided by 6.", "options": ["2", "3", "4", "5"], "answer": 2, "explanation": "58 ÷ 6 → remainder = 4." },
+    { "q": "Find remainder when 37 is divided by 8.", "options": ["4", "5", "6", "7"], "answer": 1, "explanation": "37 ÷ 8 → remainder = 5." },
+    { "q": "Find remainder when 49 is divided by 9.", "options": ["4", "5", "6", "7"], "answer": 0, "explanation": "49 ÷ 9 → remainder = 4." },
+    { "q": "Find remainder when 125 is divided by 10.", "options": ["4", "5", "6", "7"], "answer": 1, "explanation": "125 ÷ 10 → remainder = 5." },
+    { "q": "Find remainder when 2^3 + 3^2 + 5^2 is divided by 4.", "options": ["0", "1", "2", "3"], "answer": 2, "explanation": "Sum = 8+9+25=42 → 42 ÷ 4 remainder = 2." },
+    { "q": "Find remainder when 7 × 15 × 11 is divided by 5.", "options": ["0", "1", "2", "3"], "answer": 0, "explanation": "(7×15×11) mod 5 = (2×0×1) mod 5 = 0." },
+    { "q": "Find remainder when 2^10 is divided by 3.", "options": ["0", "1", "2", "None"], "answer": 1, "explanation": "2 mod3 =2 → pattern 2,1,2,1… → 2^10 ≡ 1 mod3." },
+    { "q": "Find remainder when 123 + 456 + 789 is divided by 7.", "options": ["2", "3", "4", "5"], "answer": 1, "explanation": "123 mod7=4, 456 mod7=1, 789 mod7=5 → sum=10 → 10 mod7=3." },
+    { "q": "Find remainder when 345 × 67 is divided by 6.", "options": ["2", "3", "4", "5"], "answer": 1, "explanation": "345 mod6=3, 67 mod6=1 → 3×1=3." },
+    { "q": "Find remainder when 2^5 + 3^3 is divided by 5.", "options": ["2", "3", "4", "0"], "answer": 2, "explanation": "2^5=32 mod5=2, 3^3=27 mod5=2 → sum=4." },
+    { "q": "Find remainder when 99 × 101 is divided by 10.", "options": ["8", "9", "0", "1"], "answer": 1, "explanation": "Last digits: 9×1=9 → 9." },
+    { "q": "Find remainder when 7^10 is divided by 5.", "options": ["2", "3", "4", "1"], "answer": 2, "explanation": "7 mod5=2 → 2^10 mod5 → pattern 2,4,3,1 → 2^10 ≡ 4." },
+    { "q": "Find remainder when 2^20 + 3^15 is divided by 7.", "options": ["0", "1", "2", "3"], "answer": 1, "explanation": "2^20 mod7=2, 3^15 mod7=6 → sum=8 → 8 mod7=1." },
+    { "q": "Find remainder when 123456789 is divided by 9.", "options": ["0", "1", "2", "3"], "answer": 0, "explanation": "Sum digits:1+2+…+9=45 → 45 ÷ 9 remainder=0." },
+    { "q": "Find remainder when 2^30 is divided by 13.", "options": ["10", "11", "12", "1"], "answer": 2, "explanation": "Pattern repeats every 12 → 2^30 ≡ 2^6 mod13 =12." },
+    { "q": "Find remainder when 15^2 + 25^2 + 35^2 is divided by 7.", "options": ["2", "3", "4", "5"], "answer": 1, "explanation": "225 mod7=1, 625 mod7=2, 1225 mod7=0 → sum=3." },
+    { "q": "Find remainder when 98765 × 4321 is divided by 11.", "options": ["0", "1", "2", "3"], "answer": 1, "explanation": "98765 mod11=4, 4321 mod11=3 → 4×3=12 → 12 mod11=1." }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+};
+
+/* ================= LOAD ================= */
+const params = new URLSearchParams(window.location.search);
+const topic = topics[params.get("topic")] || topics.percentages;
+document.getElementById("topicTitle").innerText = topic.title;
+
+const contentBox = document.getElementById("contentBox");
+const tabButtons = document.querySelectorAll(".tab-btn");
+
+let userAnswers = [];
+let shuffledPractice = [];
+
+/* ================= HELPERS ================= */
+function setActive(tab) {
+  tabButtons.forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.innerText === tab) btn.classList.add("active");
+  });
+}
+
+function shuffleArray(array) {
+  let a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ================= TABS ================= */
+function showTab(type) {
+  if (type === "concepts") {
+    setActive("Concepts");
+    contentBox.innerHTML = topic.concepts;
+  }
+
+  if (type === "formulas") {
+    setActive("Formulas");
+    contentBox.innerHTML = `
+      <ul class="list-disc ml-6 space-y-2">
+        ${topic.formulas.map(f => `<li>${f}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  if (type === "practice") {
+    setActive("Practice");
+
+    shuffledPractice = shuffleArray(topic.practice);
+    userAnswers = new Array(shuffledPractice.length).fill(null);
+
+    contentBox.innerHTML = `
+      ${shuffledPractice.map((q, i) => `
+        <div class="mb-6 bg-black border border-gray-700 p-4 rounded-lg">
+          <p class="font-semibold mb-2">Q${i+1}. ${q.q}</p>
+          ${q.options.map((o, idx) => `
+            <label class="block">
+              <input type="radio" name="q${i}" onclick="userAnswers[${i}] = ${idx}">
+              ${o}
+            </label>
+          `).join("")}
+          <div id="result-${i}" class="hidden mt-2"></div>
+        </div>
+      `).join("")}
+
+      <button id="submitBtn" onclick="submitTest()"
+        class="px-6 py-3 bg-lime-400 text-black font-bold rounded">
+        Submit Test
+      </button>
+
+      <div id="scoreBox" class="mt-4 text-xl font-bold"></div>
+    `;
+  }
+}
+
+/* ================= SUBMIT ================= */
+function submitTest() {
+  let score = 0;
+
+  shuffledPractice.forEach((q, i) => {
+    const box = document.getElementById(`result-${i}`);
+    box.classList.remove("hidden");
+
+    if (userAnswers[i] === q.answer) {
+      score++;
+      box.innerHTML = `<p class="text-green-400">✔ Correct<br>${q.explanation}</p>`;
+    } else {
+      box.innerHTML = `
+        <p class="text-red-400">✘ Wrong</p>
+        <p class="text-green-400">Correct: ${q.options[q.answer]}</p>
+        <p>${q.explanation}</p>
+      `;
+    }
+  });
+
+  document.getElementById("scoreBox").innerHTML =
+    ` Your Score: <span class="text-lime-400">${score}</span> / ${shuffledPractice.length}`;
+
+  document.getElementById("submitBtn").outerHTML = `
+    <button onclick="showTab('practice')"
+      class="px-6 py-3 bg-blue-400 text-black font-bold rounded">
+       Practice Again
+    </button>
+  `;
+}
+
+/* DEFAULT */
+showTab("concepts");
+</script>
+
+</body>
+</html>

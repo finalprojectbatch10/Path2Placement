@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Group Discussion | Path2Placement</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script defer src="../js/gd.js"></script>
+</head>
+
+<body class="bg-gray-900 text-white p-10">
+
+<h1 class="text-3xl font-bold mb-6">🗣 Group Discussion</h1>
+
+<!-- ================= TIMER ================= -->
+<div id="timerBox" class="hidden text-center text-xl font-bold mb-6">
+  ⏱ Time Left: <span id="timer">05:00</span>
+</div>
+
+<!-- ================= LOBBY ================= -->
+<div id="lobby">
+  <div class="flex gap-6">
+    <button onclick="createRoom()" class="bg-blue-500 px-4 py-2 rounded">
+  Create Room
+</button>
+
+<button onclick="openJoinModal()"
+  class="bg-green-600 px-6 py-2 rounded-lg">
+  Join Room
+</button>
+  </div>
+
+  <div id="output" class="mt-6 text-yellow-400 text-xl"></div>
+</div>
+
+<!-- ================= ROOM ================= -->
+<div id="room" class="hidden mt-10">
+
+  <h2 class="text-2xl font-bold mb-2">📌 GD Topic</h2>
+  <p id="topic" class="text-lime-400 mb-4"></p>
+
+  <!-- ✅ Currently Speaking -->
+  <div id="currentSpeakerBox"
+       class="text-xl font-semibold text-yellow-400 mb-6 hidden">
+  </div>
+
+  <!-- Members -->
+  <div id="members"
+    class="grid grid-cols-3 gap-6 text-center mb-8"></div>
+
+  <!-- SPEAK CONTROLS -->
+  <div id="controls" class="hidden flex gap-4 justify-center mt-6">
+    <button id="speakBtn"
+        onclick="requestSpeak()"
+        class="bg-green-500 hover:bg-green-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:opacity-70 px-6 py-2 rounded-xl transition-all">
+      🎙 Speak
+    </button>
+
+    <button id="doneBtn"
+      onclick="doneSpeaking()"
+      class="hidden bg-red-500 hover:bg-red-600 px-6 py-2 rounded font-semibold transition-all">
+      ✅ Done
+    </button>
+  </div>
+
+  <!-- START BUTTON (HOST ONLY) -->
+  <button id="startBtn"
+    onclick="startGD()"
+    class="mx-auto block mt-8 bg-lime-400 text-black px-8 py-3 rounded-full font-bold hidden">
+    ⭕ START GD
+  </button>
+</div>
+<!-- ================= JOIN MODAL ================= -->
+<div id="joinModal"
+  class="hidden fixed inset-0 bg-black/70 flex items-center justify-center">
+
+  <div class="bg-gray-800 p-6 rounded-xl w-96">
+    <h2 class="text-xl font-bold mb-4">🔑 Join GD Room</h2>
+
+    <input id="roomCodeInput"
+      placeholder="Enter Room Code"
+      class="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white mb-4" />
+
+    <div class="flex justify-end gap-4">
+      <button onclick="closeJoinModal()"
+        class="px-4 py-2 bg-gray-600 rounded">Cancel</button>
+
+      <button onclick="joinRoom()"
+        class="px-4 py-2 bg-blue-500 text-black font-semibold rounded">
+        Join
+      </button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

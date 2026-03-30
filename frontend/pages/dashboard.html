@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Path2Placement | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 🔒 LOGIN PROTECTION -->
+  <script>
+    const userData = localStorage.getItem("user");
+    if (!userData) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-black text-white min-h-screen">
+
+<!-- 🔷 NAVBAR -->
+<header class="flex justify-between items-center px-10 py-5 border-b border-gray-800">
+
+  <div class="flex items-center gap-3">
+    <img src="../assets/logo.png" class="h-8 w-8" />
+    <span class="font-bold text-lg">Path2Placement</span>
+  </div>
+
+  <div class="relative">
+    <div onclick="toggleProfile()"
+         class="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center cursor-pointer hover:bg-gray-600">
+      <span class="text-sm font-bold">👤</span>
+    </div>
+
+    <div id="profileMenu"
+         class="hidden absolute right-0 mt-3 w-48 bg-gray-900 border border-gray-700 rounded-lg p-4 z-50">
+      <p id="profileName" class="font-semibold text-sm mb-3"></p>
+
+      <button onclick="logout()"
+        class="w-full bg-red-500 hover:bg-red-600 text-white text-sm py-2 rounded-md">
+        Logout
+      </button>
+    </div>
+  </div>
+
+</header>
+
+<!-- 👋 WELCOME -->
+<section class="px-10 py-10">
+  <h1 class="text-3xl font-bold" id="welcomeText">Hello 👋</h1>
+  <p class="text-gray-400 mt-2">
+    Continue building skills that matter.
+  </p>
+</section>
+
+<!-- 📊 READINESS -->
+<section class="px-10 pb-10">
+
+  <div class="grid md:grid-cols-3 gap-10 max-w-6xl">
+
+    <!-- Career Guidance -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center flex flex-col">
+      <h2 class="text-xl font-semibold mb-2">Career Guidance</h2>
+      <p class="text-gray-400 mb-6">
+        Explore career paths, required skills, and learning roadmaps.
+      </p>
+
+      <button onclick="location.href='career.html'"
+        class="mt-auto bg-lime-400 text-black px-6 py-2 rounded-lg font-semibold hover:bg-lime-300">
+        Explore Careers →
+      </button>
+    </div>
+
+    <!-- PRI CARD -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center flex flex-col">
+      <h2 class="text-xl font-semibold mb-2">Placement Readiness</h2>
+
+      <p id="priMessage" class="text-gray-400 mb-6">
+        Loading...
+      </p>
+
+      <!-- ✅ PRI VALUE -->
+      <p id="priValue" class="text-5xl font-bold text-lime-400 mb-6">--%</p>
+
+      
+    </div>
+
+    <!-- Assessment -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center flex flex-col">
+      <h2 class="text-xl font-semibold mb-2">Attempt Assessment</h2>
+
+      <p class="text-gray-400 mb-6">
+        Test your overall placement readiness
+      </p>
+
+      <button onclick="location.href='assessment.html'"
+        class="mt-auto bg-lime-400 text-black px-6 py-2 rounded-lg font-semibold hover:bg-lime-300">
+        Start Assessment →
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- 🧠 MODULES -->
+<section class="px-10 pb-16">
+  <h2 class="text-2xl font-bold mb-6">Your Modules</h2>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+
+    <div onclick="location.href='aptitude.html'"
+         class="cursor-pointer bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-lime-400">
+      <h3 class="font-bold text-lg mb-2">Aptitude</h3>
+      <p class="text-gray-400 text-sm">Ace Aptitude</p>
+    </div>
+
+    <div onclick="location.href='jam.html'"
+         class="cursor-pointer bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-lime-400">
+      <h3 class="font-bold text-lg mb-2">JAM</h3>
+      <p class="text-gray-400 text-sm">Just A Minute</p>
+    </div>
+
+    <div onclick="location.href='gd.html'"
+         class="cursor-pointer bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-lime-400">
+      <h3 class="font-bold text-lg mb-2">Group Discussion</h3>
+      <p class="text-gray-400 text-sm">Group Discussion</p>
+    </div>
+
+    <div onclick="location.href='interviews.html'"
+         class="cursor-pointer bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-lime-400">
+      <h3 class="font-bold text-lg mb-2">Interviews</h3>
+      <p class="text-gray-400 text-sm">HR & Technical</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 🔁 SCRIPT -->
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user && user.name) {
+
+    document.getElementById("welcomeText").innerText =
+      `Hello, ${user.name} 👋`;
+
+    document.getElementById("profileName").innerText = user.name;
+
+    // ✅ FETCH PRI FROM BACKEND
+    fetch(`http://127.0.0.1:5000/get-pri/${user.name}`)
+      .then(res => res.json())
+      .then(data => {
+
+        document.getElementById("priValue").innerText = data.pri + "%";
+
+        // 🔥 Dynamic message
+        let msg = "";
+        if (data.pri >= 75) msg = "Excellent Performance 🚀";
+        else if (data.pri >= 50) msg = "Good Progress 👍";
+        else msg = "Needs Improvement ⚡";
+
+        document.getElementById("priMessage").innerText = msg;
+
+      })
+      .catch(() => {
+        document.getElementById("priValue").innerText = "0%";
+        document.getElementById("priMessage").innerText = "No data available";
+      });
+  }
+
+  function toggleProfile() {
+    document.getElementById("profileMenu").classList.toggle("hidden");
+  }
+
+  function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  }
+
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".relative")) {
+      document.getElementById("profileMenu").classList.add("hidden");
+    }
+  });
+</script>
+
+</body>
+</html>

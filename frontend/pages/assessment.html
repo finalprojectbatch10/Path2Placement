@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Final Assessment</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="../js/assessment.js" defer></script>
+
+</head>
+
+<body onload="startExamTimer()" class="bg-gray-900 text-white">
+
+<header class="bg-black px-6 py-4 flex justify-between items-center border-b border-gray-700">
+
+<h1 class="text-lg font-semibold">
+Final Placement Assessment
+</h1>
+
+<div>
+⏱ Time Left: 
+<span id="mainTimer" class="font-bold text-yellow-400">45:00</span>
+</div>
+
+</header>
+
+<div class="flex">
+
+<!-- Sidebar Modules -->
+<div class="w-1/4 bg-gray-800 min-h-screen p-6">
+
+<h2 class="text-lg mb-4 font-semibold">Modules</h2>
+<button id="aptitudeBtn"
+onclick="loadAptitude()"
+class="block w-full bg-blue-500 py-2 rounded mb-3">
+Aptitude
+</button>
+
+<button id="technicalBtn"
+onclick="loadTechnical()"
+disabled
+class="block w-full bg-gray-500 py-2 rounded mb-3">
+Technical
+</button>
+
+<button id="hrBtn"
+onclick="loadHR()"
+disabled
+class="block w-full bg-gray-500 py-2 rounded mb-3">
+HR Interview
+</button>
+
+<button id="jamBtn"
+onclick="loadJAM()"
+disabled
+class="block w-full bg-gray-500 py-2 rounded">
+JAM
+</button>
+</div>
+
+
+<!-- Content Area -->
+<div class="w-3/4 p-10">
+
+<div id="contentArea">
+
+<h2 class="text-xl">Select a module to start</h2>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- End Assessment Button -->
+
+<button onclick="submitAssessment()"
+class="fixed bottom-6 right-6 bg-red-500 px-6 py-3 rounded font-semibold">
+
+End Assessment
+
+</button>
+
+</body>
+</html>

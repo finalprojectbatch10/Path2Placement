@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verbal Topic | Path2Placement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Login Protection -->
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .tab-btn.active {
+      background-color: #a3e635;
+      color: black;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white min-h-screen px-10 py-10">
+
+<!-- BACK -->
+<a href="verbal.html" class="text-gray-400 hover:text-lime-400">
+  ← Back to Verbal Ability
+</a>
+
+<!-- TITLE -->
+<h1 id="topicTitle" class="text-3xl font-bold mt-6 mb-4"></h1>
+
+<!-- TABS -->
+<div class="flex gap-4 mb-6">
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('concepts')">Concepts</button>
+  <button class="tab-btn px-4 py-2 rounded-lg bg-gray-800" onclick="showTab('practice')">Practice</button>
+</div>
+
+<!-- CONTENT -->
+<div id="contentBox" class="bg-gray-900 border border-gray-800 rounded-xl p-6"></div>
+
+<script>
+/* ================= VERBAL TOPIC DATA ================= */
+const topics = {
+
+ readingComprehension: {
+  title: "Reading Comprehension (RC)",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Reading Comprehension – Core Concepts</h3>
+    <p class="mb-3">
+      Reading Comprehension (RC) checks your ability to
+      <b>understand, analyze, and interpret</b> a given passage.
+      It tests reading speed, logical thinking, and language skills.
+    </p>
+    <h4 class="font-semibold mt-4 mb-2">Types of RC Questions</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Factual Questions:</b> Answers are directly stated in the passage</li>
+      <li><b>Inferential Questions:</b> Answers must be inferred logically</li>
+      <li><b>Vocabulary-in-Context:</b> Meaning based on usage</li>
+      <li><b>Tone of the Passage:</b> Author’s attitude</li>
+      <li><b>Theme / Main Idea:</b> Central idea of the passage</li>
+    </ul>
+    <p class="mt-3 text-lime-400">
+      Tip: Do not use outside knowledge. Answers must come from the passage.
+    </p>
+  `,
+
+  practice: [
+    {
+      passage: `
+        <h3 class="text-lg font-bold mb-3">Passage:</h3>
+        <p class="mb-3">
+          Technology has transformed the way people work, communicate, and learn.
+          With the rise of digital tools, tasks that once required hours can now be
+          completed in minutes. Remote working, online education, and digital
+          collaboration platforms have increased efficiency and accessibility.
+        </p>
+        <p class="mb-3">
+          However, this rapid advancement has also created challenges.
+          Overdependence on technology has reduced face-to-face interaction and
+          increased concerns about data privacy and mental health.
+        </p>
+        <p>
+          While technology continues to evolve, it is essential to strike a balance
+          between digital convenience and human connection.
+        </p>
+      `
+    },
+    {
+      q: "What has technology transformed according to the passage?",
+      options: ["Only communication","Work, communication, and learning","Education systems only","Human relationships only"],
+      answer: 1,
+      explanation: "The passage clearly states that technology has transformed work, communication, and learning."
+    },
+    {
+      q: "What has increased efficiency and accessibility?",
+      options: ["Manual work","Traditional classrooms","Remote work and online education","Face-to-face meetings"],
+      answer: 2,
+      explanation: "Remote working, online education, and digital platforms are mentioned."
+    },
+    { q: "What kind of tasks can now be completed faster?", options: ["Simple tasks only","Creative tasks only","Tasks that earlier required hours","Tasks done manually"], answer: 2, explanation: "Technology enables tasks that previously took hours to be completed faster." },
+{ q: "Mention one challenge caused by technological advancement.", options: ["Increased face-to-face interaction","Reduced face-to-face interaction","Easier access to information","Better learning opportunities"], answer: 1, explanation: "The passage notes that technology reduces face-to-face interaction." },
+{ q: "What concern related to security is mentioned?", options: ["Physical safety","Data privacy","Speed of internet","System updates"], answer: 1, explanation: "Data privacy is a concern highlighted due to technology." },
+{ q: "What aspect of health is affected due to overdependence on technology?", options: ["Physical health","Mental health","Social health","Emotional intelligence"], answer: 1, explanation: "Overdependence on technology affects mental health." },
+{ q: "Why does the author mention mental health concerns?", options: ["To discourage technology use","To highlight negative effects of excessive technology use","To explain physical health risks","To promote online learning"], answer: 1, explanation: "Mental health is mentioned to show the drawbacks of excessive technology use." },
+{ q: "What can be inferred about face-to-face interaction?", options: ["It has increased due to technology","It has decreased due to technology","It remains unchanged","It is irrelevant"], answer: 1, explanation: "Technology reduces the need for in-person interaction." },
+{ q: "Does the author fully oppose technology?", options: ["Yes","No","Partially","Not mentioned"], answer: 1, explanation: "The author supports balanced usage of technology." },
+{ q: "What does “strike a balance” imply?", options: ["Avoid using technology entirely","Use technology without neglecting human connection","Use technology for work only","Prioritize social life over technology"], answer: 1, explanation: "Balance means using technology while maintaining human relationships." },
+{ q: "What is the author’s view on technological growth?", options: ["Harmful and unnecessary","Beneficial but must be managed wisely","Neutral","Dangerous"], answer: 1, explanation: "The author acknowledges benefits but emphasizes careful management." },
+{ q: "What might happen if balance is not maintained?", options: ["Improved learning outcomes","Increased social and psychological problems","Better work efficiency","No effect"], answer: 1, explanation: "Ignoring balance can lead to social and mental health issues." },
+{ q: "Meaning of “transformed” in the passage:", options: ["Changed completely","Slightly improved","Replaced","Ignored"], answer: 0, explanation: "“Transformed” means completely changed." },
+{ q: "Meaning of “overdependence”:", options: ["Moderate reliance","Excessive reliance","Independence","Refusal to use"], answer: 1, explanation: "“Overdependence” means too much reliance on technology." },
+{ q: "Meaning of “evolve” as used in the passage:", options: ["Remain static","Develop gradually","Disappear","Accelerate suddenly"], answer: 1, explanation: "“Evolve” refers to gradual development." },
+{ q: "Meaning of “accessibility”:", options: ["Ease of availability","Complexity","Costliness","Difficulty"], answer: 0, explanation: "“Accessibility” means being easy to reach or use." },
+{ q: "The tone of the passage is:", options: ["Neutral","Balanced and analytical","Critical and harsh","Emotional"], answer: 1, explanation: "The passage discusses both advantages and drawbacks objectively." },
+{ q: "The theme of the passage is:", options: ["Human evolution","Impact of technology on human life","Traditional education","Digital marketing"], answer: 1, explanation: "The passage focuses on technology’s effect on daily life." },
+{ q: "The author’s attitude towards technology can best be described as:", options: ["Fully supportive","Cautiously optimistic","Fully negative","Indifferent"], answer: 1, explanation: "The author is positive but emphasizes careful use." },
+{ q: "What is the primary purpose of the passage?", options: ["To criticize technology","To discuss benefits and challenges of technology","To promote online platforms","To explain traditional methods"], answer: 1, explanation: "The passage highlights both the advantages and drawbacks of technology." }
+
+  ]
+ },
+ vocabulary: {
+  title: "Vocabulary (Placement Preparation)",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Vocabulary – Core Concepts</h3>
+    <p class="mb-3">
+      Vocabulary skills are essential for <b>reading comprehension, sentence correction, and objective placement tests</b>.
+    </p>
+    <h4 class="font-semibold mt-4 mb-2">Key Areas</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Synonyms:</b> Words with similar meanings</li>
+      <li><b>Antonyms:</b> Words with opposite meanings</li>
+      <li><b>One-Word Substitution:</b> Replace phrases with a single word</li>
+      <li><b>Idioms & Phrases:</b> Expressions with figurative meanings</li>
+      <li><b>Word Usage / Contextual Meaning:</b> Correct usage in sentences</li>
+    </ul>
+    <p class="mt-3 text-lime-400">
+      Tip: Practice regularly to improve speed and accuracy in placement tests.
+    </p>
+  `,
+
+  practice: [
+    // 🔹 Synonyms (1–5)
+    { q: "Synonym of Rapid", options: ["Fast","Slow","Weak","Lazy"], answer: 0, explanation: "Rapid means fast." },
+    { q: "Synonym of Brief", options: ["Short","Long","Detailed","Extensive"], answer: 0, explanation: "Brief means short in duration or extent." },
+    { q: "Synonym of Accurate", options: ["Precise","Approximate","Wrong","Loose"], answer: 0, explanation: "Accurate means precise." },
+    { q: "Synonym of Hostile", options: ["Unfriendly","Friendly","Kind","Warm"], answer: 0, explanation: "Hostile means unfriendly or antagonistic." },
+    { q: "Synonym of Essential", options: ["Necessary","Optional","Extra","Unimportant"], answer: 0, explanation: "Essential means necessary or very important." },
+
+    // 🔹 Antonyms (6–10)
+    { q: "Antonym of Expand", options: ["Contract","Enlarge","Stretch","Extend"], answer: 0, explanation: "Expand means to increase in size; its antonym is contract." },
+    { q: "Antonym of Transparent", options: ["Opaque","Clear","See-through","Translucent"], answer: 0, explanation: "Transparent means clear; opposite is opaque." },
+    { q: "Antonym of Ancient", options: ["Modern","Old","Antique","Historic"], answer: 0, explanation: "Ancient means very old; opposite is modern." },
+    { q: "Antonym of Optimistic", options: ["Pessimistic","Hopeful","Positive","Confident"], answer: 0, explanation: "Optimistic means hopeful; opposite is pessimistic." },
+    { q: "Antonym of Accept", options: ["Reject","Approve","Agree","Allow"], answer: 0, explanation: "Accept means to agree; opposite is reject." },
+
+    // 🔹 One-Word Substitution (11–14)
+    { q: "A person who speaks two languages", options: ["Bilingual","Monolingual","Trilingual","Polyglot"], answer: 0, explanation: "Bilingual means someone who speaks two languages." },
+    { q: "One who cannot read or write", options: ["Illiterate","Literate","Educated","Scholarly"], answer: 0, explanation: "Illiterate means unable to read or write." },
+    { q: "A place where books are kept", options: ["Library","School","Bookstore","Archive"], answer: 0, explanation: "Library is a place where books are kept." },
+    { q: "A person who hates mankind", options: ["Misanthrope","Philanthropist","Humanist","Altruist"], answer: 0, explanation: "Misanthrope means someone who hates mankind." },
+
+    // 🔹 Idioms & Phrases (15–17)
+    { q: "Once in a blue moon", options: ["Very rarely","Frequently","Daily","Always"], answer: 0, explanation: "Once in a blue moon means very rarely." },
+    { q: "At the eleventh hour", options: ["At the last moment","Early","On time","Soon"], answer: 0, explanation: "At the eleventh hour means at the last moment." },
+    { q: "Burn the midnight oil", options: ["Work late at night","Sleep early","Relax","Study in the morning"], answer: 0, explanation: "Burn the midnight oil means to work late at night." },
+
+    // 🔹 Word Usage / Contextual Meaning (18–20)
+    { q: "The manager addressed the issue immediately.", options: ["Dealt with","Ignored","Delayed","Complained"], answer: 0, explanation: "Addressed here means dealt with the issue." },
+    { q: "She showed great resolve during the crisis.", options: ["Determination","Fear","Hesitation","Confusion"], answer: 0, explanation: "Resolve here means determination." },
+    { q: "The plan was viable for long-term success.", options: ["Feasible","Impossible","Risky","Useless"], answer: 0, explanation: "Viable means feasible or workable." }
+  ]
+},
+errorDetection: {
+  title: "Error Detection (Grammar)",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Error Detection – Core Concepts</h3>
+    <p class="mb-3">
+      Error Detection questions test your ability to identify grammatical mistakes in a sentence.
+      Usually, one part of the sentence contains an error.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">1️ Subject–Verb Agreement</h4>
+    <p>The verb must agree with the subject in number and person.</p>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Singular subject → singular verb</li>
+      <li>Plural subject → plural verb</li>
+      <li>Each, everyone, everybody → singular verb</li>
+      <li>Subjects joined by 'along with', 'as well as' → verb agrees with first subject</li>
+    </ul>
+    <p><b>Example:</b>  Each of the students are present. ✔ Each of the students is present.</p>
+
+    <h4 class="font-semibold mt-4 mb-2">2️ Tenses – Complete Explanation</h4>
+    <p>Tenses tell us when an action happens — in the present, past, or future.</p>
+
+    <h5 class="font-semibold mt-2 mb-1">Present Tense</h5>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Present Simple:</b> Regular or habitual actions. <br>Structure: Subject + V¹ / V¹+s/es <br>Example: She works in a bank. Keywords: always, usually, often</li>
+      <li><b>Present Continuous:</b> Action happening now. <br>Structure: Subject + is/am/are + V¹+ing <br>Example: She is reading a book. Keywords: now, currently</li>
+      <li><b>Present Perfect:</b> Action completed recently or result important. <br>Structure: Subject + has/have + V³ <br>Example: I have finished my work. Keywords: just, already, yet</li>
+      <li><b>Present Perfect Continuous:</b> Action started in past and still continuing. <br>Structure: Subject + has/have been + V¹+ing <br>Example: I have been studying for 2 hours. Keywords: since, for</li>
+    </ul>
+
+    <h5 class="font-semibold mt-2 mb-1">Past Tense</h5>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Past Simple:</b> Completed action in past. <br>Structure: Subject + V² <br>Example: He went to school. Keywords: yesterday, last week</li>
+      <li><b>Past Continuous:</b> Action happening at specific past time. <br>Structure: Subject + was/were + V¹+ing <br>Example: She was watching TV.</li>
+      <li><b>Past Perfect:</b> Action completed before another past action. <br>Structure: Subject + had + V³ <br>Example: The train had left before I reached.</li>
+      <li><b>Past Perfect Continuous:</b> Action continuing up to a point in past. <br>Structure: Subject + had been + V¹+ing <br>Example: He had been working for 5 hours.</li>
+    </ul>
+
+    <h5 class="font-semibold mt-2 mb-1">Future Tense</h5>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Future Simple:</b> Action that will happen. <br>Structure: Subject + will + V¹ <br>Example: I will attend the meeting.</li>
+      <li><b>Future Continuous:</b> Action in progress at future time. <br>Structure: Subject + will be + V¹+ing <br>Example: I will be traveling tomorrow.</li>
+      <li><b>Future Perfect:</b> Action completed before a future time. <br>Structure: Subject + will have + V³ <br>Example: I will have finished the work by 5 PM.</li>
+      <li><b>Future Perfect Continuous:</b> Action continuing until a future point. <br>Structure: Subject + will have been + V¹+ing <br>Example: He will have been studying for 3 hours.</li>
+    </ul>
+
+    <h4 class="font-semibold mt-4 mb-2">3️ Articles (a, an, the)</h4>
+    <p>Articles are used based on sound, specificity, and uniqueness.</p>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>a → consonant sound</li>
+      <li>an → vowel sound</li>
+      <li>the → specific or unique object</li>
+    </ul>
+    <p><b>Example:</b>  He is a honest man. ✔ He is an honest man (correct – vowel sound)</p>
+
+    <h4 class="font-semibold mt-4 mb-2">4️ Prepositions</h4>
+    <p>Prepositions show the relation between noun/pronoun and other words.</p>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Good at</li>
+      <li>Interested in</li>
+      <li>Senior to</li>
+      <li>Depend on</li>
+    </ul>
+    <p><b>Example:</b>  She is good in maths. ✔ She is good at maths.</p>
+
+    <h4 class="font-semibold mt-4 mb-2">5️ Pronouns</h4>
+    <p>Pronouns must clearly refer to the correct noun and agree in number and gender.</p>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li>Pronoun must agree with antecedent</li>
+      <li>Avoid ambiguous reference</li>
+    </ul>
+    <p><b>Example:</b>  Everyone forgot their ID. ✔ Everyone forgot his/her ID.</p>
+  `,
+
+  practice: [
+    // 🟢 Subject–Verb Agreement (1–5)
+    { q: "Each of the players were given a prize.", options: ["were → was","were → are","were → be","No error"], answer: 0, explanation: "Singular 'Each' takes singular verb → 'was'." },
+    { q: "The teacher along with students are present.", options: ["are → is","are → are","are → was","No error"], answer: 0, explanation: "Verb agrees with first subject → 'is'." },
+    { q: "Everyone know the answer.", options: ["know → knows","know → know","know → known","No error"], answer: 0, explanation: "Singular subject 'Everyone' → 'knows'." },
+    { q: "Neither of the options are correct.", options: ["are → is","are → are","are → were","No error"], answer: 0, explanation: "'Neither' is singular → 'is'." },
+    { q: "Mathematics are an interesting subject.", options: ["are → is","are → are","are → were","No error"], answer: 0, explanation: "Mathematics is singular → 'is'." },
+
+    // 🟡 Tenses (6–9)
+    { q: "She has completed the work yesterday.", options: ["has completed → completed","has completed → has complete","has completed → complete","No error"], answer: 0, explanation: "Simple past 'completed' with 'yesterday'." },
+    { q: "I am living here since 2015.", options: ["am living → have been living","am living → am living","am living → living","No error"], answer: 0, explanation: "Present perfect continuous needed → 'have been living'." },
+    { q: "He did not went to college.", options: ["went → go","went → goes","went → gone","No error"], answer: 0, explanation: "After 'did not', use base form → 'go'." },
+    { q: "When I reached the station, the train leaves.", options: ["leaves → had left","leaves → leave","leaves → will leave","No error"], answer: 0, explanation: "Past perfect needed → 'had left'." },
+
+    // 🟢 Articles (10–13)
+    { q: "He is a honest officer.", options: ["a → an","a → a","a → the","No error"], answer: 0, explanation: "Vowel sound → 'an honest officer'." },
+    { q: "She bought an umbrella.", options: ["Correct","an → a","an → the","No error"], answer: 0, explanation: "Sentence is correct." },
+    { q: "The Ganga is a sacred river.", options: ["a → the","a → a","a → an","No error"], answer: 0, explanation: "Specific river → 'the sacred river'." },
+    { q: "He wants to be a engineer.", options: ["a → an","a → a","a → the","No error"], answer: 0, explanation: "Vowel sound → 'an engineer'." },
+
+    // 🟡 Prepositions (14–17)
+    { q: "She is married with a doctor.", options: ["with → to","with → with","with → by","No error"], answer: 0, explanation: "Correct preposition → 'to'." },
+    { q: "He insisted for going alone.", options: ["for → on","for → for","for → in","No error"], answer: 0, explanation: "Correct phrase → 'insisted on'." },
+    { q: "This book is different than that one.", options: ["than → from","than → than","than → to","No error"], answer: 0, explanation: "Correct → 'different from'." },
+    { q: "She is afraid from dogs.", options: ["from → of","from → from","from → to","No error"], answer: 0, explanation: "Correct → 'afraid of'." },
+
+    // 🔴 Pronouns (18–20)
+    { q: "Everyone forgot their ticket.", options: ["their → his/her","their → their","their → its","No error"], answer: 0, explanation: "Singular 'Everyone' → 'his/her'." },
+    { q: "The teacher told the students that he must submit homework.", options: ["he → they","he → he","he → she","No error"], answer: 0, explanation: "Plural 'students' → 'they'." },
+    { q: "Each of the girls brought their bag.", options: ["their → her","their → their","their → his","No error"], answer: 0, explanation: "Singular 'Each' → 'her'." }
+  ]
+},
+sentenceImprovement: {
+  title: "Sentence Improvement / Correction (Placement Preparation)",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Sentence Improvement – Core Concepts</h3>
+    <p class="mb-3">
+      Sentence Improvement tests your ability to identify and correct grammatical errors 
+      and improve sentence clarity without changing the meaning.
+    </p>
+    <h4 class="font-semibold mt-4 mb-2">Key Areas</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Choosing the Correct Sentence:</b> Select the grammatically correct option with proper tense, subject–verb agreement, articles, prepositions, and pronouns.</li>
+      <li><b>Replacing the Incorrect Part:</b> Identify the wrong word or phrase (tense, verb form, preposition, comparison) and replace it correctly.</li>
+      <li><b>Improving Clarity & Structure:</b> Remove ambiguity, use parallel structure, avoid redundancy, and maintain logical flow.</li>
+      <li><b>Common Error Areas:</b> Subject–verb agreement, tense, articles, prepositions, comparison, voice.</li>
+    </ul>
+    <p class="mt-3 text-lime-400">
+      Tip: Focus on the subtle grammatical errors and practice replacing only the incorrect parts.
+    </p>
+  `,
+
+  practice: [
+    // 🔹 Choose the Correct Sentence (1–10)
+    { q: "She did not knew the answer.", options: ["She did not knew the answer.","She did not know the answer."], answer: 1, explanation: "Correct is 'She did not know the answer.'; 'knew' is past tense and incorrect after 'did not'." },
+    { q: "Each of the players were rewarded.", options: ["Each of the players were rewarded.","Each of the players was rewarded."], answer: 1, explanation: "Correct is 'was rewarded' because 'Each' is singular." },
+    { q: "He is senior than me.", options: ["He is senior than me.","He is senior to me."], answer: 1, explanation: "Correct preposition is 'to' in comparisons." },
+    { q: "I have completed the work yesterday.", options: ["I have completed the work yesterday.","I completed the work yesterday."], answer: 1, explanation: "'Yesterday' requires simple past, not present perfect." },
+    { q: "The teacher along with students were present.", options: ["The teacher along with students were present.","The teacher along with students was present."], answer: 1, explanation: "Main subject 'teacher' is singular, so use 'was'." },
+    { q: "She is more smarter than her sister.", options: ["She is more smarter than her sister.","She is smarter than her sister."], answer: 1, explanation: "Correct form is 'smarter'; 'more smarter' is redundant." },
+    { q: "He insisted for going alone.", options: ["He insisted for going alone.","He insisted on going alone."], answer: 1, explanation: "'Insist' takes the preposition 'on'." },
+    { q: "No sooner he reached than it rained.", options: ["No sooner he reached than it rained.","No sooner had he reached than it rained."], answer: 1, explanation: "Correct inversion: 'No sooner had he reached'." },
+    { q: "He is one of the best player in the team.", options: ["He is one of the best player in the team.","He is one of the best players in the team."], answer: 1, explanation: "Plural 'players' is correct here." },
+    { q: "The news are very shocking.", options: ["The news are very shocking.","The news is very shocking."], answer: 1, explanation: "'News' is singular, so 'is' is correct." },
+
+    // 🔹 Replace the Incorrect Part (11–20)
+    { q: "She did not knew about the meeting.", options: ["did not knew","did not know"], answer: 1, explanation: "'Did not know' is correct; 'knew' is past tense and redundant after 'did'." },
+    { q: "He is good in mathematics.", options: ["in","at"], answer: 1, explanation: "'Good at mathematics' is the correct phrase." },
+    { q: "The train leaves before we reached the station.", options: ["leaves","had left"], answer: 1, explanation: "Sequence of events requires past perfect: 'had left'." },
+    { q: "Neither of the answers are correct.", options: ["are","is"], answer: 1, explanation: "'Neither' is singular, so 'is' is correct." },
+    { q: "He is more better than his friend.", options: ["more better","better"], answer: 1, explanation: "'Better' alone is correct; 'more better' is redundant." },
+    { q: "She has been working here since five years.", options: ["since five years","for five years"], answer: 1, explanation: "'For five years' is correct with present perfect continuous." },
+    { q: "The manager as well as his assistants are attending the meeting.", options: ["are","is"], answer: 1, explanation: "Main subject 'manager' is singular, so 'is' is correct." },
+    { q: "Hardly he had entered the room when the lights went off.", options: ["Hardly he had entered","Had he entered"], answer: 1, explanation: "Correct inversion: 'Hardly had he entered'." },
+    { q: "This is the most unique design.", options: ["most unique","unique"], answer: 1, explanation: "'Unique' is absolute; 'most unique' is redundant." },
+    { q: "Everyone must submit their assignment.", options: ["their","his/her"], answer: 1, explanation: "Singular 'Everyone' requires 'his/her'." }
+  ]
+},
+fillInTheBlanks: {
+  title: "Fill in the Blanks (Placement Preparation)",
+
+  concepts: `
+    <h3 class="text-lg font-bold mb-3">Fill in the Blanks – Core Concepts</h3>
+    <p class="mb-3">
+      Fill in the Blanks questions test your grammar accuracy, vocabulary strength,
+      and understanding of sentence context. All questions are MCQ-based.
+    </p>
+
+    <h4 class="font-semibold mt-4 mb-2">Question Types</h4>
+    <ul class="list-disc ml-6 space-y-1 text-gray-300">
+      <li><b>Grammar-Based:</b> Tenses, articles, prepositions, subject–verb agreement.</li>
+      <li><b>Vocabulary-Based:</b> Choosing the correct word based on meaning.</li>
+      <li><b>Multiple Blanks:</b> Selecting correct word combinations for sentence flow.</li>
+    </ul>
+
+    <p class="mt-3 text-lime-400">
+      Tip: Read the entire sentence carefully before choosing the option.
+    </p>
+  `,
+
+  practice: [
+    // 🔹 Grammar-Based (1–10)
+    { q: "She ___ to office early yesterday.", options: ["go","goes","went","gone"], answer: 2, explanation: "'Yesterday' indicates past tense, so 'went' is correct." },
+    { q: "He has been living here ___ 2018.", options: ["from","since","for","by"], answer: 1, explanation: "'Since' is used with a specific point of time." },
+    { q: "This is ___ honest man.", options: ["a","an","the","no article"], answer: 1, explanation: "'Honest' starts with a vowel sound, so 'an' is correct." },
+    { q: "The train arrived ___ time.", options: ["in","on","at","by"], answer: 1, explanation: "The correct phrase is 'on time'." },
+    { q: "Neither of the boys ___ present today.", options: ["are","were","is","have"], answer: 2, explanation: "'Neither' is singular, so 'is' is correct." },
+    { q: "I will call you when he ___ home.", options: ["will reach","reached","reaches","has reached"], answer: 2, explanation: "In future time clauses, present tense is used." },
+    { q: "She is good ___ mathematics.", options: ["in","on","at","with"], answer: 2, explanation: "Correct preposition is 'good at'." },
+    { q: "We have completed ___ assignment given by the teacher.", options: ["a","an","the","no article"], answer: 2, explanation: "'The assignment' refers to a specific one." },
+    { q: "He is afraid ___ dogs.", options: ["from","with","of","about"], answer: 2, explanation: "'Afraid of' is the correct phrase." },
+    { q: "She ___ already finished her work.", options: ["have","has","had","is"], answer: 1, explanation: "Present perfect tense requires 'has'." },
+
+    // 🔹 Vocabulary-Based (11–15)
+    { q: "The manager ___ the employee for his honesty.", options: ["criticized","appreciated","ignored","warned"], answer: 1, explanation: "'Appreciated' fits the positive context." },
+    { q: "He was ___ to hear about the accident.", options: ["excited","shocked","pleased","relaxed"], answer: 1, explanation: "An accident causes shock, not excitement." },
+    { q: "The instructions were very ___ and easy to follow.", options: ["confusing","clear","lengthy","strict"], answer: 1, explanation: "'Clear' matches 'easy to follow'." },
+    { q: "She ___ her anger and remained calm.", options: ["released","controlled","expressed","lost"], answer: 1, explanation: "'Controlled' fits the meaning of staying calm." },
+    { q: "The doctor advised him to ___ smoking.", options: ["stop","quit","leave","avoid"], answer: 1, explanation: "'Quit smoking' is the correct phrase." },
+
+    // 🔹 Multiple Blanks (16–20)
+    { q: "She ___ the exam ___ flying colors.", options: ["passed, with","pass, in","passed, in","passes, with"], answer: 0, explanation: "Correct phrase is 'passed the exam with flying colors'." },
+    { q: "He is senior ___ me ___ experience.", options: ["than, in","to, in","than, with","to, of"], answer: 1, explanation: "'Senior to' and 'in experience' are correct." },
+    { q: "The meeting was postponed ___ the manager was ___ well.", options: ["because, not","since, no","as, never","because, no"], answer: 0, explanation: "Correct structure is 'because the manager was not well'." },
+    { q: "Hardly ___ he entered the room ___ the lights went off.", options: ["had, when","has, then","did, than","was, when"], answer: 0, explanation: "Correct inversion: 'Hardly had he entered... when...'." },
+    { q: "She has been preparing ___ the exam ___ three months.", options: ["for, since","since, for","for, for","since, since"], answer: 0, explanation: "'For' is used for duration and 'since' for point of time." }
+  ]
+}
+
+
+};
+/* ================= LOAD ================= */
+const params = new URLSearchParams(window.location.search);
+const topic = topics[params.get("topic")] || topics.readingComprehension;
+
+document.getElementById("topicTitle").innerText = topic.title;
+
+const contentBox = document.getElementById("contentBox");
+const tabButtons = document.querySelectorAll(".tab-btn");
+
+let userAnswers = [];
+let shuffledPractice = [];
+
+/* ================= HELPERS ================= */
+function setActive(tab) {
+  tabButtons.forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.innerText === tab) btn.classList.add("active");
+  });
+}
+
+function shuffleArray(array) {
+  let a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ================= TABS ================= */
+function showTab(type) {
+  if (type === "concepts") {
+    setActive("Concepts");
+    contentBox.innerHTML = topic.concepts;
+  }
+
+  if (type === "practice") {
+    setActive("Practice");
+
+    // show passage only if it exists
+    const passageObj = topic.practice.find(p => p.passage);
+    const passage = passageObj ? passageObj.passage : '';
+
+    // filter only objects with q
+    shuffledPractice = shuffleArray(topic.practice.filter(p => p.q));
+    userAnswers = new Array(shuffledPractice.length).fill(null);
+
+    contentBox.innerHTML = `
+      ${passage ? `<div class="mb-6 bg-black border border-gray-700 p-4 rounded-lg">${passage}</div>` : ''}
+
+      ${shuffledPractice.map((q, i) => `
+  <div class="mb-6 bg-black border border-gray-700 p-4 rounded-lg">
+    <p class="font-semibold mb-2">Q${i + 1}. ${q.q}</p>
+
+    ${q.options ? `
+      ${q.options.map((o, idx) => `
+        <label class="block">
+          <input type="radio" name="q${i}" onclick="userAnswers[${i}] = ${idx}">
+          ${o}
+        </label>
+      `).join("")}
+    ` : `
+      <input
+        type="text"
+        class="mt-2 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded"
+        placeholder="Type your answer here"
+        oninput="userAnswers[${i}] = this.value.trim().toLowerCase()"
+      />
+    `}
+
+    <div id="result-${i}" class="hidden mt-2"></div>
+  </div>
+`).join("")}
+
+          
+
+      <button id="submitBtn" onclick="submitTest()"
+        class="px-6 py-3 bg-lime-400 text-black font-bold rounded">
+        Submit Test
+      </button>
+
+      <div id="scoreBox" class="mt-4 text-xl font-bold"></div>
+    `;
+  }
+}
+
+/* ================= SUBMIT ================= */
+function submitTest() {
+  let score = 0;
+
+  shuffledPractice.forEach((q, i) => {
+    const box = document.getElementById(`result-${i}`);
+    box.classList.remove("hidden");
+
+    if (userAnswers[i] === q.answer) {
+      score++;
+      box.innerHTML = `<p class="text-green-400">✔ Correct<br>${q.explanation}</p>`;
+    } else {
+      box.innerHTML = `
+        <p class="text-red-400">✘ Wrong</p>
+        <p class="text-green-400">Correct: ${q.options[q.answer]}</p>
+        <p>${q.explanation}</p>
+      `;
+    }
+  });
+
+  document.getElementById("scoreBox").innerHTML =
+    ` Your Score: <span class="text-lime-400">${score}</span> / ${shuffledPractice.length}`;
+
+  document.getElementById("submitBtn").outerHTML = `
+    <button onclick="showTab('practice')"
+      class="px-6 py-3 bg-blue-400 text-black font-bold rounded">
+       Practice Again
+    </button>
+  `;
+}
+
+/* DEFAULT */
+showTab("concepts");
+</script>
+
+</body>
+</html>
