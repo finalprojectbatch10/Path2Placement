@@ -4,24 +4,29 @@ Path2Placement is an AI-driven placement preparation platform designed to help s
 
 Features
 
-🔐 User Authentication
+🔐 User Authentication-
 Secure registration and login system
-📊 Dashboard
-Personalized dashboard with performance insights
+
+📊 Dashboard-
+Personalized dashboard with performance insights,
 PRI (Performance Readiness Index) calculation
-🧠 Practice Modules
-Aptitude Tests
-JAM (Just A Minute)
-Group Discussion (GD)
+
+🧠 Practice Modules-
+Aptitude Tests,
+JAM (Just A Minute),
+Group Discussion (GD),
 Interview Preparation
+
 📝 Final Assessment
-Comprehensive test covering all modules
+Comprehensive test covering all modules,
 Performance evaluation
+
 📈 Results & Analytics
-View scores and progress
+View scores and progress,
 PRI display for readiness tracking
+
 🎯 Career Guidance
-Role-based recommendations
+Role-based recommendations,
 Skill development suggestions
 
 
